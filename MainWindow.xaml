@@ -24,7 +24,7 @@
 
         <NavigationView.MenuItems>
             <NavigationViewItemHeader Content="Categories"/>
-            <NavigationViewItem Content="General" Name="NavGeneral" ToolTipService.Placement="Right">
+            <NavigationViewItem Content="General" Name="NavGeneral" ToolTipService.Placement="Right" IsSelected="True">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="Home" Foreground="Bisque"/>
                 </NavigationViewItem.Icon>
