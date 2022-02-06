@@ -1,0 +1,86 @@
+﻿<Window
+    x:Class="ITATKWinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ITATKWinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <NavigationView 
+            Name="MainNav"
+            IsSettingsVisible="True"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="False"
+            SelectionChanged="MainNav_SelectionChanged"
+            Header="IT Admin Toolkit"
+            AlwaysShowHeader="True"
+            PaneTitle="IT Admin Toolkit"
+            PaneDisplayMode="Left" 
+            SelectionFollowsFocus="Disabled"
+            IsTabStop="False"
+            Background="#202020"
+            >
+
+        <NavigationView.MenuItems>
+            <NavigationViewItemHeader Content="Categories"/>
+            <NavigationViewItem Content="General" Name="NavGeneral" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Home" Foreground="Bisque"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="User" Name="NavUser" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Contact" Foreground="LightPink"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Manage" Name="NavManage" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="OpenWith" Foreground="DarkGreen"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Logs and Stats" Name="NavLogsStats" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="TwoBars" Foreground="SkyBlue"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Troubleshoot" Name="NavTroubleshoot" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Library" Foreground="SandyBrown"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Remediate" Name="NavRemediate" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Repair" Foreground="PaleVioletRed"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Security" Name="NavSecurity" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Admin" Foreground="LightGoldenrodYellow"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Inventory" Name="NavInventory" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Page2" Foreground="Honeydew"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Elevate" Name="NavElevate" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Admin" Foreground="IndianRed"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Virtual Machine" Name="NavVirtualMachine" ToolTipService.Placement="Right">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="SwitchApps" Foreground="CornflowerBlue"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <NavigationView.AutoSuggestBox>
+            <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search"/>
+        </NavigationView.AutoSuggestBox>
+
+        <Frame x:Name="contentFrame"/>
+
+    </NavigationView>
+</Window>

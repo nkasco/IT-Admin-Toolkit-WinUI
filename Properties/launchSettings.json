@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ITATKWinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ITATKWinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
