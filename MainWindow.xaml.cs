@@ -30,6 +30,64 @@ namespace ITATKWinUI
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
+            Type _page = null;
+
+            if(args.SelectedItemContainer.Content.ToString() == "User")
+            {
+                _page = typeof(User);
+            }
+            else if(args.SelectedItemContainer.Content.ToString() == "Manage")
+            {
+                _page = typeof(Manage);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Logs and Stats")
+            {
+                _page = typeof(LogsandStats);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Troubleshoot")
+            {
+                _page = typeof(Troubleshoot);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Remediate")
+            {
+                _page = typeof(Remediate);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Security")
+            {
+                _page = typeof(Security);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Inventory")
+            {
+                _page = typeof(Inventory);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Elevate")
+            {
+                _page = typeof(Elevate);
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Virtual Machine")
+            {
+                _page = typeof(VirtualMachine);
+            } else if (args.SelectedItemContainer.Content.ToString() == "Settings")
+            {
+                _page = typeof(Settings);
+            }
+            else
+            {
+                _page = typeof(General);
+            }
+
+            MainNav.Header = args.SelectedItemContainer.Content.ToString();
+            contentFrame.Navigate(_page);
+        }
+
+        /*private void MainNav_Navigate(string navItemTag, Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo)
+        {
+
+        }*/
+
+        private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     } 
 }
