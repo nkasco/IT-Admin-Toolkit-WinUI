@@ -13,6 +13,10 @@
 	<WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\IT Admin Toolkit 2022-02-06 21-03-47.mp4" />
+    <Content Remove="Assets\ITATKWinUI.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Elevate.xaml" />
     <None Remove="General.xaml" />
     <None Remove="Inventory.xaml" />
