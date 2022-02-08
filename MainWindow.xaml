@@ -80,7 +80,23 @@
             <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search"/>
         </NavigationView.AutoSuggestBox>
 
-        <Frame x:Name="contentFrame"/>
+        <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="200" DisplayMode="Inline" PanePlacement="Right">
+            <SplitView.Pane>
+                <StackPanel Name="AdditionalInfoPanel" Padding="40">
+                    <TextBlock Name="MachineName" Text="Machine: "/>
+                    <TextBlock Name="MachineModel" Text="Model: " />
+                </StackPanel>
+            </SplitView.Pane>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ProgressRing Name="MachineProgressRing" IsActive="false" Width="15" Height="15" />
+                    <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox"/>
+                    <ToggleButton Name="MachineDetailsToggleButton"  Content="Pull Info" Click="MachineDetailsToggleButton_Click" Margin="0,5,5,5"/>
+                </StackPanel>
+                <Frame x:Name="contentFrame" />
+            </StackPanel>
+        </SplitView>
 
     </NavigationView>
 </Window>

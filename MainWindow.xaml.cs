@@ -89,5 +89,18 @@ namespace ITATKWinUI
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
+
+        private void MachineDetailsToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MachineProgressRing.IsActive)
+            {
+                MachineProgressRing.IsActive = false;
+                ContentSplitView.IsPaneOpen = false;
+            } else
+            {
+                MachineProgressRing.IsActive = true;
+                ContentSplitView.IsPaneOpen= true;
+            }
+        }
     } 
 }
