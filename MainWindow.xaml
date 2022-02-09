@@ -14,7 +14,7 @@
             IsBackEnabled="False"
             SelectionChanged="MainNav_SelectionChanged"
             Header="IT Admin Toolkit"
-            AlwaysShowHeader="True"
+            AlwaysShowHeader="False"
             PaneTitle="IT Admin Toolkit"
             PaneDisplayMode="Left" 
             SelectionFollowsFocus="Disabled"
@@ -82,7 +82,8 @@
 
         <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="200" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
-                <StackPanel Name="AdditionalInfoPanel" Padding="40">
+                <StackPanel Name="AdditionalInfoPanel" Padding="20">
+                    <ProgressRing Name="MachineProgressRing" IsActive="false" Width="25" Height="25" />
                     <TextBlock Name="MachineName" Text="Machine: "/>
                     <TextBlock Name="MachineModel" Text="Model: " />
                 </StackPanel>
@@ -90,9 +91,16 @@
 
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <ProgressRing Name="MachineProgressRing" IsActive="false" Width="15" Height="15" />
-                    <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox"/>
-                    <ToggleButton Name="MachineDetailsToggleButton"  Content="Pull Info" Click="MachineDetailsToggleButton_Click" Margin="0,5,5,5"/>
+                    <SymbolIcon Name="PingSymbol" Visibility="Collapsed" Symbol="Target" />
+                    <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />
+                    <TeachingTip x:Name="MachineTeachingTip" Target="{x:Bind MachineComboBox}" Title="First time?" Subtitle="Enter a target machine name to execute a tool against.">
+                        <TeachingTip.IconSource>
+                            <SymbolIconSource Symbol="World" />
+                        </TeachingTip.IconSource>
+                    </TeachingTip>
+                    <ToggleButton Name="MachineDetailsToggleButton" Click="MachineDetailsToggleButton_Click" ToolTipService.ToolTip="Toggle Information Pane" Margin="0,5,5,5">
+                        <SymbolIcon Symbol="OpenPane" />
+                    </ToggleButton>
                 </StackPanel>
                 <Frame x:Name="contentFrame" />
             </StackPanel>

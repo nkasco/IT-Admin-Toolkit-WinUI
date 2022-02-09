@@ -6,9 +6,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#202020">
 
-    <StackPanel>
-        <Button>General</Button>
+    <StackPanel Width="auto">
+        <Button Name="ToolQueryBIOS" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                <TextBlock>Query WMI</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Name="ToolQueryBIOS2" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                <TextBlock>Query WMI</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Name="ToolQueryBIOS3" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                <TextBlock>Query WMI</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Name="ToolQueryBIOS4" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                <TextBlock>Query WMI</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Name="ToolQueryBIOS5" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                <TextBlock>Query WMI</TextBlock>
+            </StackPanel>
+        </Button>
     </StackPanel>
 </Page>
