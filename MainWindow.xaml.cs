@@ -93,7 +93,7 @@ namespace ITATKWinUI
 
         private void MachineDetailsToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MachineProgressRing.IsActive)
+            if (ContentSplitView.IsPaneOpen == true)
             {
                 MachineProgressRing.IsActive = false;
                 ContentSplitView.IsPaneOpen = false;
@@ -122,6 +122,76 @@ namespace ITATKWinUI
             {
                 PingSymbol.Visibility= Visibility.Collapsed;
                 MachineTeachingTip.IsOpen = true;
+            }
+        }
+
+        private void MachineMultipleToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(MachineComboBox.Visibility == Visibility.Visible)
+            {
+                MachineComboBox.Visibility = Visibility.Collapsed;
+                MultipleMachineInput.Visibility = Visibility.Visible;
+                MachineMultipleClearButton.Visibility = Visibility.Visible;
+
+                //Ensure the information pane is hidden
+                ContentSplitView.IsPaneOpen = false;
+                MachineDetailsToggleButton.IsChecked = false;
+                MachineDetailsToggleButton.Visibility = Visibility.Collapsed;
+            } else
+            {
+                MachineComboBox.Visibility = Visibility.Visible;
+                MultipleMachineInput.Visibility = Visibility.Collapsed;
+                MachineMultipleClearButton.Visibility = Visibility.Collapsed;
+
+                //Show the information pane button
+                ContentSplitView.Visibility = Visibility.Visible;
+                MachineDetailsToggleButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void MachineMultipleClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            MultipleMachineInput.Text = null;
+        }
+
+        private void HideScriptTerminal_Click(object sender, RoutedEventArgs e)
+        {
+            //This probably needs to be cleaned up a bit
+            if (HideScriptTerminal.IsChecked == false && TerminalRowConfig.Height != GridLength.Auto)
+            {
+                ContentFrameRowConfig.Height = new GridLength(1, GridUnitType.Star);
+                TerminalRowConfig.Height = GridLength.Auto;
+                ContentFrameScrollViewer.Visibility = Visibility.Visible;
+            }
+
+            if(TerminalRow.Visibility == Visibility.Visible)
+            {
+                ContentFrameRowConfig.Height = new GridLength(1, GridUnitType.Star);
+                TerminalRow.Visibility = Visibility.Collapsed;
+            } else if (ContentFrameScrollViewer.Visibility == Visibility.Collapsed) {
+                ContentFrameRowConfig.Height = GridLength.Auto;
+                TerminalRowConfig.Height = new GridLength(1, GridUnitType.Star);
+                TerminalRow.Visibility = Visibility.Visible;
+            } 
+            else
+            {
+                ContentFrameRowConfig.Height = new GridLength(1, GridUnitType.Star);
+                TerminalRow.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void FullScreenTerminal_Click(object sender, RoutedEventArgs e)
+        {
+            if(ContentFrameScrollViewer.Visibility == Visibility.Visible)
+            {
+                ContentFrameScrollViewer.Visibility = Visibility.Collapsed;
+                ContentFrameRowConfig.Height = GridLength.Auto;
+                TerminalRowConfig.Height = new GridLength(1, GridUnitType.Star);
+            } else
+            {
+                ContentFrameRowConfig.Height = new GridLength(1, GridUnitType.Star);
+                ContentFrameScrollViewer.Visibility = Visibility.Visible;
+                TerminalRowConfig.Height = GridLength.Auto;
             }
         }
     } 

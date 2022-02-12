@@ -39,5 +39,22 @@
                 <TextBlock>Query WMI</TextBlock>
             </StackPanel>
         </Button>
+        <Expander Name="TestExpander" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="ExpanderLogonRun" Content="Run" Margin="0,0,5,0"/>
+                        <Button Name="ExpanderLogonRuna" Content="Run" />
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
     </StackPanel>
 </Page>

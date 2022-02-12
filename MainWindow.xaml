@@ -89,21 +89,59 @@
                 </StackPanel>
             </SplitView.Pane>
 
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" x:Name="MachineInputRowConfig" />
+                    <RowDefinition Height="*" x:Name="ContentFrameRowConfig" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"/>
+                    <RowDefinition Height="auto" x:Name="TerminalRowConfig" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"/>
+                    <RowDefinition Height="auto" x:Name="StatusRowConfig" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
                     <SymbolIcon Name="PingSymbol" Visibility="Collapsed" Symbol="Target" />
                     <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />
+                    <TextBox Name="MultipleMachineInput" Width="200" Height="175" HorizontalAlignment="Right" Margin="5" Visibility="Collapsed" PlaceholderText="Machines (1 per line)" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"  />
                     <TeachingTip x:Name="MachineTeachingTip" Target="{x:Bind MachineComboBox}" Title="First time?" Subtitle="Enter a target machine name to execute a tool against.">
                         <TeachingTip.IconSource>
                             <SymbolIconSource Symbol="World" />
                         </TeachingTip.IconSource>
                     </TeachingTip>
-                    <ToggleButton Name="MachineDetailsToggleButton" Click="MachineDetailsToggleButton_Click" ToolTipService.ToolTip="Toggle Information Pane" Margin="0,5,5,5">
-                        <SymbolIcon Symbol="OpenPane" />
-                    </ToggleButton>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <StackPanel>
+                            <ToggleButton Name="MachineMultipleToggleButton" Click="MachineMultipleToggleButton_Click" ToolTipService.ToolTip="Toggle Multiple" Margin="0,5,5,5">
+                                <SymbolIcon Symbol="Orientation" />
+                            </ToggleButton>
+                            <Button Name="MachineMultipleClearButton" Click="MachineMultipleClearButton_Click" ToolTipService.ToolTip="Clear Input" Margin="0,0,5,5" Visibility="Collapsed">
+                                <SymbolIcon Symbol="Clear" />
+                            </Button>
+                        </StackPanel>
+                        <ToggleButton Name="MachineDetailsToggleButton" Click="MachineDetailsToggleButton_Click" ToolTipService.ToolTip="Toggle Information Pane" Margin="0,5,5,5">
+                            <SymbolIcon Symbol="OpenPane" />
+                        </ToggleButton>
+                        
+                    </StackPanel>
                 </StackPanel>
-                <Frame x:Name="contentFrame" />
-            </StackPanel>
+                <ScrollViewer Grid.Row="1" x:Name="ContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" >
+                    <Frame x:Name="contentFrame" />
+                </ScrollViewer>
+                <StackPanel Grid.Row="2" x:Name="TerminalRow" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="FullScreenTerminal" Click="FullScreenTerminal_Click" ToolTipService.ToolTip="Full Screen" Width="25" Height="25" Padding="0" Margin="5">
+                            <SymbolIcon Symbol="FullScreen" />
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Height="150" Name="ScriptTerminal" Visibility="Visible" Text="test" Padding="10,0,10,10" HorizontalAlignment="Left" />
+                </StackPanel>
+                <Grid x:Name="StatusRow" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton Name="HideScriptTerminal" Click="HideScriptTerminal_Click" ToolTipService.ToolTip="Toggle Terminal" Width="25" Height="25" Padding="0" Grid.Column="0" IsChecked="false" Margin="1">
+                        <SymbolIcon Symbol="GoToStart"/>
+                    </ToggleButton>
+                    <ProgressBar Width="100" x:Name="StatusProgressBar" IsIndeterminate="True" Grid.Column="1" HorizontalAlignment="Right"/>
+                </Grid>
+            </Grid>
         </SplitView>
 
     </NavigationView>
