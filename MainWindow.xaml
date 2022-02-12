@@ -125,11 +125,17 @@
                 </ScrollViewer>
                 <StackPanel Grid.Row="2" x:Name="TerminalRow" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Name="FullScreenTerminal" Click="FullScreenTerminal_Click" ToolTipService.ToolTip="Full Screen" Width="25" Height="25" Padding="0" Margin="5">
-                            <SymbolIcon Symbol="FullScreen" />
+                        <Button Name="CopyTerminal" Click="CopyTerminal_Click" ToolTipService.ToolTip="Copy Output" Width="20" Height="20" Padding="0" Margin="5,0,0,0">
+                            <TextBlock FontSize="16" Text="&#xE16F;" FontFamily="Segoe MDL2 Assets" />
+                        </Button>
+                        <Button Name="ClearTerminal" Click="ClearTerminal_Click" ToolTipService.ToolTip="Clear Terminal" Width="20" Height="20" Padding="0" Margin="5,0,0,0">
+                            <TextBlock FontSize="16" Text="&#xE107;" FontFamily="Segoe MDL2 Assets" />
+                        </Button>
+                        <Button Name="FullScreenTerminal" Click="FullScreenTerminal_Click" ToolTipService.ToolTip="Full Screen" Width="20" Height="20" Padding="0" Margin="5">
+                            <TextBlock FontSize="16" Text="&#xE1D9;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
                     </StackPanel>
-                    <TextBlock Height="150" Name="ScriptTerminal" Visibility="Visible" Text="test" Padding="10,0,10,10" HorizontalAlignment="Left" />
+                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="Script output will appear here" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" />
                 </StackPanel>
                 <Grid x:Name="StatusRow" Grid.Row="3">
                     <Grid.ColumnDefinitions>

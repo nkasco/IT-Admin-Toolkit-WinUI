@@ -184,15 +184,30 @@ namespace ITATKWinUI
         {
             if(ContentFrameScrollViewer.Visibility == Visibility.Visible)
             {
+                //Full Screen
                 ContentFrameScrollViewer.Visibility = Visibility.Collapsed;
                 ContentFrameRowConfig.Height = GridLength.Auto;
+                ScriptTerminal.Height = 540; //This needs to be more dynamic to fill the space
                 TerminalRowConfig.Height = new GridLength(1, GridUnitType.Star);
             } else
             {
+                //Docked
                 ContentFrameRowConfig.Height = new GridLength(1, GridUnitType.Star);
                 ContentFrameScrollViewer.Visibility = Visibility.Visible;
+                ScriptTerminal.Height = 150;
                 TerminalRowConfig.Height = GridLength.Auto;
             }
+        }
+
+        private void ClearTerminal_Click(object sender, RoutedEventArgs e)
+        {
+            ScriptTerminal.Text = "";
+        }
+
+        private void CopyTerminal_Click(object sender, RoutedEventArgs e)
+        {
+            ScriptTerminal.SelectAll();
+            ScriptTerminal.CopySelectionToClipboard();
         }
     } 
 }
