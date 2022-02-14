@@ -6,40 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="#202020">
+    >
 
     <StackPanel Width="auto">
-        <Button Name="ToolQueryBIOS" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
-                <TextBlock>Query WMI</TextBlock>
-            </StackPanel>
-        </Button>
-        <Button Name="ToolQueryBIOS2" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
-                <TextBlock>Query WMI</TextBlock>
-            </StackPanel>
-        </Button>
-        <Button Name="ToolQueryBIOS3" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
-                <TextBlock>Query WMI</TextBlock>
-            </StackPanel>
-        </Button>
-        <Button Name="ToolQueryBIOS4" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
-                <TextBlock>Query WMI</TextBlock>
-            </StackPanel>
-        </Button>
-        <Button Name="ToolQueryBIOS5" Padding="20" Margin="5, 5, 5, 0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
-                <TextBlock>Query WMI</TextBlock>
-            </StackPanel>
-        </Button>
-        <Expander Name="TestExpander" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20">
+        <Expander Name="TestExpander1" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
             <Expander.Header>
                 <StackPanel Orientation="Horizontal" Padding="20">
                     <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
@@ -50,11 +20,157 @@
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Name="ExpanderLogonRun" Content="Run" Margin="0,0,5,0"/>
-                        <Button Name="ExpanderLogonRuna" Content="Run" />
+                        <Button Name="Expander1LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander1LogonRun" Click="Expander1LogonRun_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </StackPanel>
             </Expander.Content>
         </Expander>
+        <Expander Name="TestExpander2" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="Expander2LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander2LogonRun">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <Expander Name="TestExpander3" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="Expander3LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander3LogonRun">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <Expander Name="TestExpander4" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="Expander4LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander4LogonRun">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <Expander Name="TestExpander5" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="Expander5LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander5LogonRun">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <Expander Name="TestExpander6" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal" Padding="20">
+                    <SymbolIcon Symbol="OtherUser" Margin="0,0,10,0" />
+                    <TextBlock>Query WMI</TextBlock>
+                </StackPanel>
+            </Expander.Header>
+            <Expander.Content>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Left" Margin="5">Description: Check a remote machine for the currently logged on user.</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="Expander6LogonExplore" Margin="0,0,5,0">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Globe" Margin="0,0,5,0" />
+                                <TextBlock Text="Explore"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="Expander6LogonRun">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
+                                <TextBlock Text="Run"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Content>
+        </Expander>
+        <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="Script output will appear here" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" />
     </StackPanel>
 </Page>

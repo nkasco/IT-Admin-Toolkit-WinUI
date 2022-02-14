@@ -80,7 +80,7 @@
             <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search"/>
         </NavigationView.AutoSuggestBox>
 
-        <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="200" DisplayMode="Inline" PanePlacement="Right">
+        <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
                 <StackPanel Name="AdditionalInfoPanel" Padding="20">
                     <ProgressRing Name="MachineProgressRing" IsActive="false" Width="25" Height="25" />
@@ -120,8 +120,8 @@
                         
                     </StackPanel>
                 </StackPanel>
-                <ScrollViewer Grid.Row="1" x:Name="ContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" >
-                    <Frame x:Name="contentFrame" />
+                <ScrollViewer Grid.Row="1" x:Name="ContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ZoomMode="Enabled" >
+                    <Frame x:Name="contentFrame" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" Grid.Row="1"/>
                 </ScrollViewer>
                 <StackPanel Grid.Row="2" x:Name="TerminalRow" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
