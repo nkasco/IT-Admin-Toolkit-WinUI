@@ -48,7 +48,10 @@ namespace ITATKWinUI
             var ps = PowerShell.Create();
             ps.Runspace = runspace;
             ps.AddScript(File.ReadAllText(script)); //Must use ReadAllText to allow paths with spaces, AddScript() doesn't seem to support it natively
+            ps.Streams.Information.DataAdded += MainWindow.myProgressEventHandler;
+            ps.Invoke();
 
+            /*
             try
             {
                 Collection<PSObject> results = ps.Invoke();
@@ -70,7 +73,7 @@ namespace ITATKWinUI
                         runtimeException.ErrorRecord.InvocationInfo.InvocationName,
                         runtimeException.Message,
                         runtimeException.ErrorRecord.InvocationInfo.PositionMessage);
-            }
+            }*/
 
             runspace.Close();
         }
