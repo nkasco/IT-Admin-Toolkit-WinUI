@@ -135,14 +135,14 @@
                             <TextBlock FontSize="16" Text="&#xE1D9;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
                     </StackPanel>
-                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="{x:Bind Path=local:MainWindow.MyText, Mode=OneWay}" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" x:FieldModifier="Public" />
+                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Collapsed" Text="{x:Bind Path=local:MainWindow.MyText, Mode=OneWay}" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" x:FieldModifier="Public" />
                 </StackPanel>
                 <Grid x:Name="StatusRow" Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="27" />
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ToggleButton Name="HideScriptTerminal" Click="HideScriptTerminal_Click" ToolTipService.ToolTip="Toggle Terminal" Width="25" Height="25" Padding="0" Grid.Column="0" IsChecked="false" Margin="1">
+                    <ToggleButton Name="HideScriptTerminal" Click="HideScriptTerminal_Click" ToolTipService.ToolTip="Toggle Terminal" Width="25" Height="25" Padding="0" Grid.Column="0" IsChecked="false" Margin="1" Visibility="Collapsed">
                         <SymbolIcon Symbol="GoToStart"/>
                     </ToggleButton>
                     <ProgressBar Width="100" x:Name="StatusProgressBar" IsIndeterminate="True" Grid.Column="1" HorizontalAlignment="Right"/>

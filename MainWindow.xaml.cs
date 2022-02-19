@@ -16,6 +16,7 @@ using Microsoft.UI;
 using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -49,18 +50,79 @@ namespace ITATKWinUI
 
     public partial class MainWindow : Window
     {
-        private static string myText;
-        public static string MyText
+        public static void LaunchScript(string scriptPath, string args, string type)
         {
-            get { return myText; }
-            set {
-                myText = value;
+            string EXEPath;
+
+            switch (type)
+            {
+                case "PS5":
+                    EXEPath = @"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe";
+                    break;
+
+                case "PS7":
+                    //TODO: Add PS7 path
+                    EXEPath = @"pwsh.exe";
+                    break;
+
+                default:
+                    EXEPath = "";
+                    break;
             }
+
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
+                {
+                    CreateNoWindow = false
+                }
+            };
+            //process.StartInfo.RedirectStandardOutput = true;
+            //process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            //{
+            //    // Prepend line numbers to each line of the output.
+            //    if (!String.IsNullOrEmpty(e.Data))
+            //    {
+            //        lineCount++;
+            //        output.Append("\n[" + lineCount + "]: " + e.Data);
+            //    }
+            //});
+            process.Start();
+            //process.BeginOutputReadLine();
+            //process.WaitForExit();
+            //Debug.WriteLine(output);
+            //res = output.ToString();
+            //process.WaitForExit();
+
+            //process.Close();
+        }
+
+        public static void LaunchScript(string scriptPath, string type)
+        {
+            //Overload condition if there are no args
+            LaunchScript(scriptPath, "", type);
+        }
+
+        public static void ProcessScriptXML(string title, string description, string icon, string scriptPath, string args)
+        {
+            //Dynamically build the UI elements and click events on the fly
+            //TODO:
         }
 
         public MainWindow()
         {
             this.InitializeComponent();
+        }
+
+        //TODO: Terminal output WIP
+        private static string myText;
+        public static string MyText
+        {
+            get { return myText; }
+            set
+            {
+                myText = value;
+            }
         }
 
         private void UpdateMainWindowBindings()
@@ -72,6 +134,7 @@ namespace ITATKWinUI
         {
             UpdateMainWindowBindings();
         }
+        //End WIP
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
@@ -80,13 +143,13 @@ namespace ITATKWinUI
             if(args.SelectedItemContainer.Content.ToString() == "User")
             {
                 _page = typeof(User);
-                MainWindow.MyText = "TestUser";
-                Bindings.Update();
+                //MainWindow.MyText = "TestUser";
+                //Bindings.Update();
             }
             else if(args.SelectedItemContainer.Content.ToString() == "Manage")
             {
                 _page = typeof(Manage);
-                Bindings.Update();
+                //Bindings.Update();
             }
             else if (args.SelectedItemContainer.Content.ToString() == "Logs and Stats")
             {

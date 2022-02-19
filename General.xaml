@@ -53,7 +53,7 @@
                                 <TextBlock Text="Explore"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="Expander2LogonRun">
+                        <Button Name="Expander2LogonRun" Click="Expander2LogonRun_Click">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
                                 <TextBlock Text="Run"/>
@@ -80,7 +80,7 @@
                                 <TextBlock Text="Explore"/>
                             </StackPanel>
                         </Button>
-                        <Button Name="Expander3LogonRun">
+                        <Button Name="Expander3LogonRun" Click="Expander3LogonRun_Click">
                             <StackPanel Orientation="Horizontal">
                                 <SymbolIcon Symbol="Play" Margin="0,0,5,0" />
                                 <TextBlock Text="Run"/>

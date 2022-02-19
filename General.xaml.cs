@@ -36,46 +36,10 @@ namespace ITATKWinUI
             this.InitializeComponent();
         }
 
-        private static int lineCount = 0;
-        private static StringBuilder output = new StringBuilder();
-
-        public void ThreadJob()
-        {
-            var script = "C:\\scripts space\\MultiLineTestScript.ps1";
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", "-ExecutionPolicy Bypass -NoProfile -File \"" + script + "\"")
-                {
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                }
-            };
-            process.StartInfo.RedirectStandardOutput = true;
-            process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-            {
-                // Prepend line numbers to each line of the output.
-                if (!String.IsNullOrEmpty(e.Data))
-                {
-                    lineCount++;
-                    output.Append("\n[" + lineCount + "]: " + e.Data);
-                }
-            });
-            process.Start();
-            process.BeginOutputReadLine();
-            process.WaitForExit();
-            Debug.WriteLine(output);
-            res = output.ToString();
-            process.WaitForExit();
-            process.Close();
-        }
-
-        public string res;
-
         private void Expander1LogonRun_Click(object sender, RoutedEventArgs e)
         {
 
             //Sample code for running PowerShell 7 via the Microsoft.PowerShell.SDK Library
-
             var script = "C:\\scripts space\\MultiLineTestScript.ps1";
             InitialSessionState initial = InitialSessionState.CreateDefault();
             initial.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
@@ -109,26 +73,16 @@ namespace ITATKWinUI
             }
 
             runspace.Close();
+        }
 
-            ////Potential
-            //var process = new Process
-            //{
-            //    StartInfo = new ProcessStartInfo(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", "-ExecutionPolicy Bypass -NoProfile -File \"" + script + "\"")
-            //    {
-            //        RedirectStandardOutput = true,
-            //        CreateNoWindow = true
-            //    }
-            //};
-            //process.StartInfo.RedirectStandardOutput = true;
-            //process.EnableRaisingEvents = true;
+        private void Expander2LogonRun_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.LaunchScript("C:\\scripts space\\MultiLineTestScript.ps1", "", "PS5");
+        }
 
-            /*
-                await Task.Run(() => ThreadJob());
-            ScriptTerminal.Text = res;
-            */
-
-            //This causes the main thread to hang, probably need to run this on another thread
-            //TODO: Capture this output and feed it into the UI to create a terminal like output experience
+        private void Expander3LogonRun_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.LaunchScript("C:\\scripts space\\MultiLineTestScript.ps1", "", "PS7");
         }
     }
 }
