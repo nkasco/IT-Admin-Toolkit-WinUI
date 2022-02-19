@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Management.Automation;
+using System.Xml.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -98,15 +99,18 @@ namespace ITATKWinUI
             //process.Close();
         }
 
+        //string title, string description, string icon, string scriptPath, string args
+        public static void ProcessScriptXML()
+        {
+            //TODO: Dynamically build the UI elements and click events on the fly
+            XDocument guiConfig = XDocument.Load(@"XML\Gui.xml");
+
+        }
+
         public static void LaunchScript(string scriptPath, string type)
         {
             //Overload condition if there are no args
             LaunchScript(scriptPath, "", type);
-        }
-
-        public static void ProcessScriptXML(string title, string description, string icon, string scriptPath, string args)
-        {
-            //TODO: Dynamically build the UI elements and click events on the fly
         }
 
         public MainWindow()

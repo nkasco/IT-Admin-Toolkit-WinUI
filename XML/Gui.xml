@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Gui>
+	<Item type="Button" name="LogonStatus" description="this is a test description" path="C:\scripts space\MultiLineTestScript.ps1" />
+</Gui>
