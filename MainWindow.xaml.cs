@@ -17,6 +17,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
+using System.Management.Automation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -105,8 +106,7 @@ namespace ITATKWinUI
 
         public static void ProcessScriptXML(string title, string description, string icon, string scriptPath, string args)
         {
-            //Dynamically build the UI elements and click events on the fly
-            //TODO:
+            //TODO: Dynamically build the UI elements and click events on the fly
         }
 
         public MainWindow()
@@ -115,6 +115,12 @@ namespace ITATKWinUI
         }
 
         //TODO: Terminal output WIP
+        public static void myProgressEventHandler(object sender, DataAddedEventArgs e)
+        {
+            InformationRecord newRecord = ((PSDataCollection<InformationRecord>)sender)[e.Index];
+            MyText = MyText + newRecord.ToString();
+        }
+
         private static string myText;
         public static string MyText
         {
@@ -149,7 +155,7 @@ namespace ITATKWinUI
             else if(args.SelectedItemContainer.Content.ToString() == "Manage")
             {
                 _page = typeof(Manage);
-                //Bindings.Update();
+                Bindings.Update();
             }
             else if (args.SelectedItemContainer.Content.ToString() == "Logs and Stats")
             {
