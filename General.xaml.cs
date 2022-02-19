@@ -13,9 +13,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using System.Management.Automation;
-using System.Collections.ObjectModel;
 using System.Management.Automation.Runspaces;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Text;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,6 +28,7 @@ namespace ITATKWinUI
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
     public sealed partial class General : Page
     {
         public General()
@@ -32,21 +36,11 @@ namespace ITATKWinUI
             this.InitializeComponent();
         }
 
-        private void Expander1LogonRun_Click(object sender, RoutedEventArgs e)
-        {
-            //Sample code for running PowerShell 7 via the Microsoft.PowerShell.SDK Library
-            //This might work with Install-Package Microsoft.PowerShell.5.ReferenceAssemblies -Version 1.1.0
-            /*
-            InitialSessionState initial = InitialSessionState.CreateDefault();
-            //initial.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            Runspace runspace = RunspaceFactory.CreateRunspace(initial);
-            runspace.Open();
-            var ps = PowerShell.Create();
-            ps.Runspace = runspace;
-            ps.AddScript("C:\\scripts\\MultiLineTestScript.ps1").Invoke();
-            */
+        private static int lineCount = 0;
+        private static StringBuilder output = new StringBuilder();
 
-            //Potential
+        public void ThreadJob()
+        {
             var script = "C:\\scripts space\\MultiLineTestScript.ps1";
             var process = new Process
             {
@@ -56,43 +50,85 @@ namespace ITATKWinUI
                     CreateNoWindow = true
                 }
             };
+            process.StartInfo.RedirectStandardOutput = true;
+            process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+            {
+                // Prepend line numbers to each line of the output.
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    lineCount++;
+                    output.Append("\n[" + lineCount + "]: " + e.Data);
+                }
+            });
             process.Start();
+            process.BeginOutputReadLine();
+            process.WaitForExit();
+            Debug.WriteLine(output);
+            res = output.ToString();
+            process.WaitForExit();
+            process.Close();
+        }
+
+        public string res;
+
+        private void Expander1LogonRun_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Sample code for running PowerShell 7 via the Microsoft.PowerShell.SDK Library
+
+            var script = "C:\\scripts space\\MultiLineTestScript.ps1";
+            InitialSessionState initial = InitialSessionState.CreateDefault();
+            initial.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            Runspace runspace = RunspaceFactory.CreateRunspace(initial);
+            runspace.Open();
+            var ps = PowerShell.Create();
+            ps.Runspace = runspace;
+            ps.AddScript(File.ReadAllText(script)); //Must use ReadAllText to allow paths with spaces, AddScript() doesn't seem to support it natively
+
+            try
+            {
+                Collection<PSObject> results = ps.Invoke();
+
+                StringBuilder sb = new StringBuilder();
+                foreach (PSObject result in results)
+                {
+                    Debug.WriteLine("Results:");
+                    Debug.WriteLine(result.ToString());
+                    sb.Append(result.ToString());
+                }
+
+                MainWindow.MyText = sb.ToString();
+            }
+            catch (RuntimeException runtimeException)
+            {
+                Debug.WriteLine(
+                        "Runtime exception: {0}: {1}\n{2}",
+                        runtimeException.ErrorRecord.InvocationInfo.InvocationName,
+                        runtimeException.Message,
+                        runtimeException.ErrorRecord.InvocationInfo.PositionMessage);
+            }
+
+            runspace.Close();
+
+            ////Potential
+            //var process = new Process
+            //{
+            //    StartInfo = new ProcessStartInfo(@"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", "-ExecutionPolicy Bypass -NoProfile -File \"" + script + "\"")
+            //    {
+            //        RedirectStandardOutput = true,
+            //        CreateNoWindow = true
+            //    }
+            //};
+            //process.StartInfo.RedirectStandardOutput = true;
+            //process.EnableRaisingEvents = true;
+
+            /*
+                await Task.Run(() => ThreadJob());
+            ScriptTerminal.Text = res;
+            */
 
             //This causes the main thread to hang, probably need to run this on another thread
-            //TODO:
-            /*
-            string s = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            using (StreamWriter outfile = new StreamWriter("StandardOutput.txt", true))
-            {
-                outfile.Write(s);
-            }*/
-
             //TODO: Capture this output and feed it into the UI to create a terminal like output experience
-
-            //This works but runs on the same runsapce so the UI freezes
-            /*
-            //File.GetAttributes("C:\\scripts space\\MultiLineTestScript.ps1");
-            string strCmdText = "C:\\scripts space\\MultiLineTestScript.ps1";
-            var process = new Process();
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
-            process.StartInfo.Arguments = "\"&'" + strCmdText + "'\"";
-            process.StartInfo.WorkingDirectory = "C:\\scripts space";
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.LoadUserProfile = false;
-            process.StartInfo.UseShellExecute = false; //True for elevated?
-            //process.StartInfo.Verb = RunAs; //Elevate Window
-
-            process.Start();
-            string s = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            using (StreamWriter outfile = new StreamWriter("StandardOutput.txt", true))
-            {
-                outfile.Write(s);
-            }*/
         }
     }
 }

@@ -13,6 +13,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.UI;
+using System.Text;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,11 +25,52 @@ namespace ITATKWinUI
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    /// 
+
+    //public class MyTextClass : INotifyPropertyChanged
+    //{
+    //    public event PropertyChangedEventHandler PropertyChanged;
+    //    private string myText;
+    //    public string MyText
+    //    {
+    //        get { return myText; }
+    //        set
+    //        {
+    //            myText = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+
+    //    protected void OnPropertyChanged([CallerMemberName] string name = null)
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    //    }
+    //}
+
+    public partial class MainWindow : Window
     {
+        private static string myText;
+        public static string MyText
+        {
+            get { return myText; }
+            set {
+                myText = value;
+            }
+        }
+
         public MainWindow()
         {
             this.InitializeComponent();
+        }
+
+        private void UpdateMainWindowBindings()
+        {
+            Bindings.Update();
+        }
+
+        public void updateMainWindowBindings()
+        {
+            UpdateMainWindowBindings();
         }
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -36,10 +80,13 @@ namespace ITATKWinUI
             if(args.SelectedItemContainer.Content.ToString() == "User")
             {
                 _page = typeof(User);
+                MainWindow.MyText = "TestUser";
+                Bindings.Update();
             }
             else if(args.SelectedItemContainer.Content.ToString() == "Manage")
             {
                 _page = typeof(Manage);
+                Bindings.Update();
             }
             else if (args.SelectedItemContainer.Content.ToString() == "Logs and Stats")
             {
@@ -201,7 +248,9 @@ namespace ITATKWinUI
 
         private void ClearTerminal_Click(object sender, RoutedEventArgs e)
         {
-            ScriptTerminal.Text = "";
+            //ScriptTerminal.Text = "";
+            MyText = "";
+            Bindings.Update();
         }
 
         private void CopyTerminal_Click(object sender, RoutedEventArgs e)

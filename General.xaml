@@ -171,6 +171,7 @@
                 </StackPanel>
             </Expander.Content>
         </Expander>
-        <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="Script output will appear here" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" />
+        <!--<TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" />-->
+
     </StackPanel>
 </Page>

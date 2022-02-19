@@ -135,7 +135,7 @@
                             <TextBlock FontSize="16" Text="&#xE1D9;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
                     </StackPanel>
-                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="Script output will appear here" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" />
+                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Visible" Text="{x:Bind Path=local:MainWindow.MyText, Mode=OneWay}" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" x:FieldModifier="Public" />
                 </StackPanel>
                 <Grid x:Name="StatusRow" Grid.Row="3">
                     <Grid.ColumnDefinitions>
