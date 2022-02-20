@@ -19,6 +19,7 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Management.Automation;
 using System.Xml.Linq;
+using Microsoft.UI.Xaml.Media.Animation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -56,6 +57,7 @@ namespace ITATKWinUI
         {
             string EXEPath;
 
+            //TODO: Add error handling for when someone inevitably tries to feed in something other than what is supported
             switch (type)
             {
                 case "PS5":
@@ -129,7 +131,6 @@ namespace ITATKWinUI
             LaunchExplorer(null, null, path);
         }
 
-        //TODO: Generate Category pages from XML to be dynamic
         public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
@@ -138,10 +139,25 @@ namespace ITATKWinUI
             stackPanel.Width = double.NaN;
             stackPanel.Name = name;
 
-            return page;
+            TextBlock txtBlock = new TextBlock();
+            txtBlock.Text = name;
+            stackPanel.Children.Add(txtBlock);
+
+            page.Content = stackPanel;
+
+            foreach (XElement item in from y in MainWindow.guiConfig.Descendants("Item") select y)
+            {
+                if(item.Attribute("category").Value == name)
+                {
+                    stackPanel.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value, item.Attribute("psVersion").Value, item.Attribute("icon").Value, item.Attribute("category").Value));
+                }
+            }
+
+                return page;
         }
 
         //TODO: Generate Navigation View Items from the XML Categories
+        //TODO: Fix the navigation search
         public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon, string foreground)
         {
             NavigationViewItem navigationViewItem = new NavigationViewItem();
@@ -260,12 +276,15 @@ namespace ITATKWinUI
             return tmp;
         }
 
+        public static XDocument guiConfig;
+
         public MainWindow()
         {
             this.InitializeComponent();
             //Load categories into the UI
-            XDocument guiConfig = XDocument.Load(@"XML\Categories.xml");
-            foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+            XDocument categoryConfig = XDocument.Load(@"XML\Categories.xml");
+            guiConfig = XDocument.Load(@"XML\Scripts.xml");
+            foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
             {
                 MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value));
             }
@@ -301,64 +320,10 @@ namespace ITATKWinUI
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            Type _page = null;
-
-            //TODO: Make this navigate to whatever was selected
-            if(args.SelectedItemContainer.Content.ToString() == "User")
-            {
-                _page = typeof(User);
-                //MainWindow.MyText = "TestUser";
-                //Bindings.Update();
-            }
-            else if(args.SelectedItemContainer.Content.ToString() == "Manage")
-            {
-                _page = typeof(Manage);
-                Bindings.Update();
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Logs and Stats")
-            {
-                _page = typeof(LogsandStats);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Troubleshoot")
-            {
-                _page = typeof(Troubleshoot);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Remediate")
-            {
-                _page = typeof(Remediate);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Security")
-            {
-                _page = typeof(Security);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Inventory")
-            {
-                _page = typeof(Inventory);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Elevate")
-            {
-                _page = typeof(Elevate);
-            }
-            else if (args.SelectedItemContainer.Content.ToString() == "Virtual Machine")
-            {
-                _page = typeof(VirtualMachine);
-            } else if (args.SelectedItemContainer.Content.ToString() == "Settings")
-            {
-                _page = typeof(Settings);
-            }
-            else
-            {
-                _page = typeof(General);
-            }
-
+            Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
             //MainNav.Header = args.SelectedItemContainer.Content.ToString();
-            contentFrame.Navigate(_page);
+            contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
         }
-
-        /*private void MainNav_Navigate(string navItemTag, Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo)
-        {
-
-        }*/
 
         private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
