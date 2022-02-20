@@ -86,6 +86,17 @@
                     <ProgressRing Name="MachineProgressRing" IsActive="false" Width="25" Height="25" />
                     <TextBlock Name="MachineName" Text="Machine: "/>
                     <TextBlock Name="MachineModel" Text="Model: " />
+                    <TextBlock Name="MachineBIOS" Text="BIOS: " />
+                    <TextBlock Name="MachineCPU" Text="CPU: " />
+                    <TextBlock Name="MachineMemory" Text="RAM: " />
+                    <TextBlock Name="MachineDiskSize" Text="Disk Size: " />
+                    <TextBlock Name="MachineDiskFree" Text="Disk Free: " />
+                    <TextBlock Name="MachineWinEdition" Text="Windows Edition: " />
+                    <TextBlock Name="MachineWinVer" Text="Windows Version: " />
+                    <TextBlock Name="MachineOSBuild" Text="OS Build: " />
+                    <TextBlock Name="MachineDomain" Text="Domain: " />
+                    <TextBlock Name="MachineOU" Text="Active Directory OU: " />
+                    <TextBlock Name="MachineAADJoinStatus" Text="AAD Join Status: " />
                 </StackPanel>
             </SplitView.Pane>
 
