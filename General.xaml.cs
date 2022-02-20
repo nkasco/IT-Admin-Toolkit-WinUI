@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
+using System.Xml.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,6 +35,13 @@ namespace ITATKWinUI
         public General()
         {
             this.InitializeComponent();
+
+            //TODO: Dynamically build the UI elements and click events on the fly
+            XDocument guiConfig = XDocument.Load(@"XML\Gui.xml");
+            foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+            {
+                TestStack.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value));
+            }
         }
 
         private void Expander1LogonRun_Click(object sender, RoutedEventArgs e)

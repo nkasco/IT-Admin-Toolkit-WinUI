@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     >
 
-    <StackPanel Width="auto">
+    <StackPanel Width="auto" Name="TestStack">
         <Expander Name="TestExpander1" IsExpanded="False" ExpandDirection="Down" HorizontalAlignment="Stretch" Padding="20" Margin="10,10,10,0">
             <Expander.Header>
                 <StackPanel Orientation="Horizontal" Padding="20">
