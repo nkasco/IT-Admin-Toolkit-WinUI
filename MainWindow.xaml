@@ -26,8 +26,14 @@
             <NavigationViewItemHeader Content="Categories"/>
         </NavigationView.MenuItems>
 
+        <!-- TODO: Add in extra reporting and scheduling functionality -->
+        <!--<NavigationView.FooterMenuItems>
+            <NavigationViewItem Content="Reporting" />
+            <NavigationViewItem Content="Scheduler" />
+        </NavigationView.FooterMenuItems>-->
+
         <NavigationView.AutoSuggestBox>
-            <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search"/>
+            <AutoSuggestBox QueryIcon="Find" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
         </NavigationView.AutoSuggestBox>
 
         <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">

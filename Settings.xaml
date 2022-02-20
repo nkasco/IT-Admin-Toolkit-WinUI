@@ -8,7 +8,46 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Button>Settings</Button>
-    </Grid>
+    <NavigationView
+            Name="SettingsNav"
+            IsSettingsVisible="false"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="False"
+            SelectionChanged="SettingsNav_SelectionChanged"
+            Header="IT Admin Toolkit"
+            AlwaysShowHeader="False"
+            PaneTitle="USER SETTINGS"
+            PaneDisplayMode="Left" 
+            SelectionFollowsFocus="Disabled"
+            IsTabStop="False"
+            IsPaneToggleButtonVisible="False">
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="General"/>
+            <NavigationViewItem Content="Appearance"/>
+            <NavigationViewItem Content="Branding"/>
+            <NavigationViewItem Content="Keybinds"/>
+            <NavigationViewItem Content="Help"/>
+        </NavigationView.MenuItems>
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem Content="Change Log"/>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="WebsiteButton" Padding="0" Width="15" Height="15">
+                        <TextBlock FontSize="13" Text="&#xE16F;" FontFamily="Segoe MDL2 Assets" />
+                    </Button>
+                    <Button Name="GitHubButton" Padding="0" Width="15" Height="15">
+                        <TextBlock FontSize="13" Text="&#xE16F;" FontFamily="Segoe MDL2 Assets" />
+                    </Button>
+                    <Button Name="LinkedInButton" Padding="0" Width="15" Height="15">
+                        <TextBlock FontSize="13" Text="&#xE16F;" FontFamily="Segoe MDL2 Assets" />
+                    </Button>
+                </StackPanel>
+            </NavigationViewItem>
+            <NavigationViewItemHeader Content="host OS - Arch (build#)" />
+
+        </NavigationView.FooterMenuItems>
+    </NavigationView>
 </Page>

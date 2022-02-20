@@ -27,5 +27,10 @@ namespace ITATKWinUI
         {
             this.InitializeComponent();
         }
+
+        private void SettingsNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+
+        }
     }
 }

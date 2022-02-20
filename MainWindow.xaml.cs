@@ -162,6 +162,38 @@ namespace ITATKWinUI
         }
 
         //TODO: Fix the navigation search
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // Only get results when it was a user typing,
+            // otherwise assume the value got filled in by TextMemberPath
+            // or the handler for SuggestionChosen.
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                //Set the ItemsSource to be your filtered dataset
+                //sender.ItemsSource = ;
+            }
+        }
+
+
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // Set sender.Text. You can use args.SelectedItem to build your text string.
+        }
+
+
+        private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                // User selected an item from the suggestion list, take an action on it here.
+            }
+            else
+            {
+                // Use args.QueryText to determine what to do.
+            }
+        }
+
+
         public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon, string foreground)
         {
             NavigationViewItem navigationViewItem = new NavigationViewItem();
@@ -292,6 +324,9 @@ namespace ITATKWinUI
             {
                 MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value));
             }
+
+            //Select the first navigation item
+            MainNav.SelectedItem = MainNav.MenuItems[1]; //Index 1 because 0 is the "Categories" text header
         }
 
         //TODO: Terminal output WIP
@@ -324,9 +359,18 @@ namespace ITATKWinUI
 
         private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
-            //MainNav.Header = args.SelectedItemContainer.Content.ToString();
-            contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
+            if (args.SelectedItemContainer.Content.ToString() == "Settings")
+            {
+                Type _page = null;
+                _page = typeof(Settings);
+                contentFrame.Navigate(_page);
+            }
+            else
+            {
+                Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+                //MainNav.Header = args.SelectedItemContainer.Content.ToString();
+                contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
+            }
         }
 
         private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
