@@ -130,19 +130,35 @@ namespace ITATKWinUI
         }
 
         //TODO: Generate Category pages from XML to be dynamic
-        public static Page GenerateCategoryPageFromXML()
+        public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
+            
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Width = double.NaN;
+            stackPanel.Name = name;
 
             return page;
         }
 
         //TODO: Generate Navigation View Items from the XML Categories
-        public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML()
+        public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon, string foreground)
         {
             NavigationViewItem navigationViewItem = new NavigationViewItem();
+            navigationViewItem.Content = category;
+            navigationViewItem.Name = "Nav" + category;
+
+            //TODO: Add foreground color functionality
+            SymbolIcon symbolIcon = new SymbolIcon();
+            symbolIcon.Symbol = (Symbol)System.Enum.Parse(typeof(Symbol), icon);
+            navigationViewItem.Icon = symbolIcon;
 
             return navigationViewItem;
+        }
+
+        public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon)
+        {
+            return GenerateCategoryNavigationViewItemFromXML(category, icon, null);
         }
 
         public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
@@ -247,6 +263,12 @@ namespace ITATKWinUI
         public MainWindow()
         {
             this.InitializeComponent();
+            //Load categories into the UI
+            XDocument guiConfig = XDocument.Load(@"XML\Categories.xml");
+            foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+            {
+                MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value));
+            }
         }
 
         //TODO: Terminal output WIP
@@ -281,6 +303,7 @@ namespace ITATKWinUI
         {
             Type _page = null;
 
+            //TODO: Make this navigate to whatever was selected
             if(args.SelectedItemContainer.Content.ToString() == "User")
             {
                 _page = typeof(User);
