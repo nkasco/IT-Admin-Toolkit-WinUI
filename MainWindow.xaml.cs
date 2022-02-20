@@ -20,6 +20,9 @@ using System.Diagnostics;
 using System.Management.Automation;
 using System.Xml.Linq;
 using Microsoft.UI.Xaml.Media.Animation;
+using Windows.UI;
+using System.Reflection;
+using Microsoft.UI.Xaml.Markup;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -53,11 +56,13 @@ namespace ITATKWinUI
 
     public partial class MainWindow : Window
     {
+        //TODO: Pass the machine(s) from the UI as arguments, and also designate a parameter for scripts that don't need a machine input
         public static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type)
         {
             string EXEPath;
 
             //TODO: Add error handling for when someone inevitably tries to feed in something other than what is supported
+            //TODO: Add VBS, WSF, BAT, CMD, and PY support
             switch (type)
             {
                 case "PS5":
@@ -163,9 +168,11 @@ namespace ITATKWinUI
             navigationViewItem.Content = category;
             navigationViewItem.Name = "Nav" + category;
 
-            //TODO: Add foreground color functionality
             SymbolIcon symbolIcon = new SymbolIcon();
-            symbolIcon.Symbol = (Symbol)System.Enum.Parse(typeof(Symbol), icon);
+            symbolIcon.Symbol = (Symbol)Enum.Parse(typeof(Symbol), icon);
+            var color = (Color)XamlBindingHelper.ConvertValue(typeof(Color), foreground);
+            var brush = new SolidColorBrush(color);
+            symbolIcon.Foreground = brush;
             navigationViewItem.Icon = symbolIcon;
 
             return navigationViewItem;
@@ -174,6 +181,25 @@ namespace ITATKWinUI
         public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon)
         {
             return GenerateCategoryNavigationViewItemFromXML(category, icon, null);
+        }
+        public static Button GenerateExpanderButton(string text, string name, Orientation orientation, Symbol icon, Thickness iconMargin, Thickness btnMargin)
+        {
+            Button btn = new Button();
+
+            btn.Name = name + text;
+            btn.Margin = btnMargin;
+            StackPanel ButtonStackPanel = new StackPanel();
+            ButtonStackPanel.Orientation = orientation;
+            SymbolIcon ButtonSymbolIcon = new SymbolIcon();
+            ButtonSymbolIcon.Symbol = icon;
+            ButtonSymbolIcon.Margin = iconMargin;
+            TextBlock ButtonTextBlock = new TextBlock();
+            ButtonTextBlock.Text = text;
+            ButtonStackPanel.Children.Add(ButtonSymbolIcon);
+            ButtonStackPanel.Children.Add(ButtonTextBlock);
+            btn.Content = ButtonStackPanel;
+
+            return btn;
         }
 
         public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
@@ -222,38 +248,17 @@ namespace ITATKWinUI
             headerContentStackPanelStackPanel.HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Right;
             
             //Explore Button
-            Button headerContentExploreButton = new Button();
-            headerContentExploreButton.Name = name + "Explore";
-            headerContentExploreButton.Margin = new Microsoft.UI.Xaml.Thickness(0,0,5,0);
-            StackPanel headerContentExploreButtonStackPanel = new StackPanel();
-            headerContentExploreButtonStackPanel.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
-            SymbolIcon headerContentExploreButtonSymbolIcon = new SymbolIcon();
-            headerContentExploreButtonSymbolIcon.Symbol = Symbol.Globe;
-            headerContentExploreButtonSymbolIcon.Margin = new Microsoft.UI.Xaml.Thickness(0,0,5,0);
-            TextBlock headerContentExploreButtonTextBlock = new TextBlock();
-            headerContentExploreButtonTextBlock.Text = "Explore";
-            headerContentExploreButtonStackPanel.Children.Add(headerContentExploreButtonSymbolIcon);
-            headerContentExploreButtonStackPanel.Children.Add(headerContentExploreButtonTextBlock);
-            headerContentExploreButton.Content = headerContentExploreButtonStackPanel;
-            
+            Button headerContentExploreButton = GenerateExpanderButton("Explore", name, Microsoft.UI.Xaml.Controls.Orientation.Horizontal, Symbol.Globe, new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0), new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0));
+
             //Run Button
-            Button headerContentRunButton = new Button();
-            headerContentRunButton.Name = name + "Run";
-            StackPanel headerContentRunButtonStackPanel = new StackPanel();
-            headerContentRunButtonStackPanel.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
-            SymbolIcon headerContentRunButtonSymbolIcon = new SymbolIcon();
-            headerContentRunButtonSymbolIcon.Symbol = Symbol.Play;
-            headerContentRunButtonSymbolIcon.Margin = new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0);
-            TextBlock headerContentRunButtonTextBlock = new TextBlock();
-            headerContentRunButtonTextBlock.Text = "Run";
-            headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonSymbolIcon);
-            headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonTextBlock);
-            headerContentRunButton.Content = headerContentRunButtonStackPanel;
+            Button headerContentRunButton = GenerateExpanderButton("Run", name, Microsoft.UI.Xaml.Controls.Orientation.Horizontal, Symbol.Play, new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0), new Microsoft.UI.Xaml.Thickness(0));
 
             //PS Version
             //TODO: Instead of a TextBlock this should be an icon
             TextBlock headerContentpsVersion = new TextBlock();
             headerContentpsVersion.Text = psVersion;
+
+            //TODO: Show required inputs (Machine, Machines, or standalone)
 
             //Add Buttons to Buttons Stack Panel
             headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
@@ -285,7 +290,7 @@ namespace ITATKWinUI
             guiConfig = XDocument.Load(@"XML\Scripts.xml");
             foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
             {
-                MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value));
+                MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value));
             }
         }
 

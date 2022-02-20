@@ -24,56 +24,6 @@
 
         <NavigationView.MenuItems>
             <NavigationViewItemHeader Content="Categories"/>
-            <NavigationViewItem Content="General" Name="NavGeneral" ToolTipService.Placement="Right" IsSelected="True">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Home" Foreground="Bisque"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="User" Name="NavUser" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Contact" Foreground="LightPink"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Manage" Name="NavManage" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="OpenWith" Foreground="DarkGreen"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Logs and Stats" Name="NavLogsStats" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="TwoBars" Foreground="SkyBlue"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Troubleshoot" Name="NavTroubleshoot" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Library" Foreground="SandyBrown"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Remediate" Name="NavRemediate" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Repair" Foreground="PaleVioletRed"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Security" Name="NavSecurity" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Admin" Foreground="LightGoldenrodYellow"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Inventory" Name="NavInventory" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Page2" Foreground="Honeydew"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Elevate" Name="NavElevate" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Admin" Foreground="IndianRed"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="Virtual Machine" Name="NavVirtualMachine" ToolTipService.Placement="Right">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="SwitchApps" Foreground="CornflowerBlue"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
         </NavigationView.MenuItems>
 
         <NavigationView.AutoSuggestBox>
