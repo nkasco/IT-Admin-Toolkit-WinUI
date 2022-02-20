@@ -36,7 +36,6 @@ namespace ITATKWinUI
         {
             this.InitializeComponent();
 
-            //TODO: Dynamically build the UI elements and click events on the fly
             XDocument guiConfig = XDocument.Load(@"XML\Scripts.xml");
             foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
             {

@@ -156,7 +156,6 @@ namespace ITATKWinUI
                 return page;
         }
 
-        //TODO: Generate Navigation View Items from the XML Categories
         //TODO: Fix the navigation search
         public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML(string category, string icon, string foreground)
         {
