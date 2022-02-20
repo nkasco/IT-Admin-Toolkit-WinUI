@@ -22,18 +22,9 @@
     <Content Remove="Assets\ITATKWinUI.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Elevate.xaml" />
     <None Remove="General.xaml" />
-    <None Remove="Inventory.xaml" />
     <None Remove="Loading.xaml" />
-    <None Remove="LogsandStats.xaml" />
-    <None Remove="Manage.xaml" />
-    <None Remove="Remediate.xaml" />
-    <None Remove="Security.xaml" />
     <None Remove="Settings.xaml" />
-    <None Remove="Troubleshoot.xaml" />
-    <None Remove="User.xaml" />
-    <None Remove="VirtualMachine.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,51 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="VirtualMachine.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Elevate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Inventory.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Security.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Remediate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Troubleshoot.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="LogsandStats.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Manage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="User.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
