@@ -99,9 +99,15 @@ namespace ITATKWinUI
             //process.Close();
         }
 
-        //string title, string description, string icon, string scriptPath, string args
-        public static Expander GenerateExpanderFromXML(string name, string description, string path)
+        public static void LaunchScript(string scriptPath, string type)
         {
+            //Overload condition if there are no args
+            LaunchScript(scriptPath, "", type);
+        }
+
+        public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
+        {
+            //Build the base Expander
             Expander tmp = new Microsoft.UI.Xaml.Controls.Expander();
             tmp.Name = name;
             tmp.IsExpanded = false;
@@ -110,18 +116,23 @@ namespace ITATKWinUI
             tmp.Padding = new Microsoft.UI.Xaml.Thickness(20);
             tmp.Margin = new Microsoft.UI.Xaml.Thickness(10, 10, 10, 0);
 
+            //Header Stack Panel
             StackPanel headerStack = new StackPanel();
             headerStack.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
             headerStack.Padding = new Microsoft.UI.Xaml.Thickness(20);
 
+            //Header Icon
             SymbolIcon headerIcon = new SymbolIcon();
-            headerIcon.Symbol = Symbol.OtherUser;
+            headerIcon.Symbol = (Symbol)System.Enum.Parse(typeof(Symbol), icon);
             headerIcon.Margin = new Microsoft.UI.Xaml.Thickness(0, 0, 10, 0);
             headerStack.Children.Add(headerIcon);
+
+            //Header Title
             TextBlock headerTextBlock = new TextBlock();
             headerTextBlock.Text = name;
             headerStack.Children.Add(headerTextBlock);
 
+            //Add Header Stack Panel to the Expander
             tmp.Header = headerStack;
 
             //Content Stack Panel
@@ -175,15 +186,18 @@ namespace ITATKWinUI
             //Add Buttons Stack Panel to Parent Content Stack Panel
             headerContentStackPanel.Children.Add(headerContentStackPanelStackPanel);
 
+            //Finalize the Expander UI content
             tmp.Content = headerContentStackPanel;
+
+            //Add Run and Explore click events
+            //headerContentRunButton.Click += Microsoft.UI.Xaml.RoutedEventHandler(test_Click);
 
             return tmp;
         }
 
-        public static void LaunchScript(string scriptPath, string type)
+        public void test_Click()
         {
-            //Overload condition if there are no args
-            LaunchScript(scriptPath, "", type);
+            
         }
 
         public MainWindow()

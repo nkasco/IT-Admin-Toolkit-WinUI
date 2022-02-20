@@ -40,7 +40,7 @@ namespace ITATKWinUI
             XDocument guiConfig = XDocument.Load(@"XML\Gui.xml");
             foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
             {
-                TestStack.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value));
+                TestStack.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value, item.Attribute("psVersion").Value, item.Attribute("icon").Value , item.Attribute("category").Value));
             }
         }
 
