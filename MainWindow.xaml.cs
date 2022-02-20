@@ -100,11 +100,84 @@ namespace ITATKWinUI
         }
 
         //string title, string description, string icon, string scriptPath, string args
-        public static void ProcessScriptXML()
+        public static Expander GenerateExpanderFromXML(string name, string description, string path)
         {
-            //TODO: Dynamically build the UI elements and click events on the fly
-            XDocument guiConfig = XDocument.Load(@"XML\Gui.xml");
+            Expander tmp = new Microsoft.UI.Xaml.Controls.Expander();
+            tmp.Name = name;
+            tmp.IsExpanded = false;
+            tmp.ExpandDirection = Microsoft.UI.Xaml.Controls.ExpandDirection.Down;
+            tmp.HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch;
+            tmp.Padding = new Microsoft.UI.Xaml.Thickness(20);
+            tmp.Margin = new Microsoft.UI.Xaml.Thickness(10, 10, 10, 0);
 
+            StackPanel headerStack = new StackPanel();
+            headerStack.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
+            headerStack.Padding = new Microsoft.UI.Xaml.Thickness(20);
+
+            SymbolIcon headerIcon = new SymbolIcon();
+            headerIcon.Symbol = Symbol.OtherUser;
+            headerIcon.Margin = new Microsoft.UI.Xaml.Thickness(0, 0, 10, 0);
+            headerStack.Children.Add(headerIcon);
+            TextBlock headerTextBlock = new TextBlock();
+            headerTextBlock.Text = name;
+            headerStack.Children.Add(headerTextBlock);
+
+            tmp.Header = headerStack;
+
+            //Content Stack Panel
+            StackPanel headerContentStackPanel = new StackPanel();
+
+            //Description
+            TextBlock headerContentTextBlock = new TextBlock();
+            headerContentTextBlock.Text = "Description: " + description;
+            headerContentTextBlock.HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Left;
+            headerContentTextBlock.Margin = new Microsoft.UI.Xaml.Thickness(5);
+            headerContentStackPanel.Children.Add(headerContentTextBlock);
+
+            //Explore and Run Button Stack Panel
+            StackPanel headerContentStackPanelStackPanel = new StackPanel();
+            headerContentStackPanelStackPanel.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
+            headerContentStackPanelStackPanel.HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Right;
+            
+            //Explore Button
+            Button headerContentExploreButton = new Button();
+            headerContentExploreButton.Name = name + "Explore";
+            headerContentExploreButton.Margin = new Microsoft.UI.Xaml.Thickness(0,0,5,0);
+            StackPanel headerContentExploreButtonStackPanel = new StackPanel();
+            headerContentExploreButtonStackPanel.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
+            SymbolIcon headerContentExploreButtonSymbolIcon = new SymbolIcon();
+            headerContentExploreButtonSymbolIcon.Symbol = Symbol.Globe;
+            headerContentExploreButtonSymbolIcon.Margin = new Microsoft.UI.Xaml.Thickness(0,0,5,0);
+            TextBlock headerContentExploreButtonTextBlock = new TextBlock();
+            headerContentExploreButtonTextBlock.Text = "Explore";
+            headerContentExploreButtonStackPanel.Children.Add(headerContentExploreButtonSymbolIcon);
+            headerContentExploreButtonStackPanel.Children.Add(headerContentExploreButtonTextBlock);
+            headerContentExploreButton.Content = headerContentExploreButtonStackPanel;
+            
+            //Run Button
+            Button headerContentRunButton = new Button();
+            headerContentRunButton.Name = name + "Run";
+            StackPanel headerContentRunButtonStackPanel = new StackPanel();
+            headerContentRunButtonStackPanel.Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal;
+            SymbolIcon headerContentRunButtonSymbolIcon = new SymbolIcon();
+            headerContentRunButtonSymbolIcon.Symbol = Symbol.Play;
+            headerContentRunButtonSymbolIcon.Margin = new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0);
+            TextBlock headerContentRunButtonTextBlock = new TextBlock();
+            headerContentRunButtonTextBlock.Text = "Play";
+            headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonSymbolIcon);
+            headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonTextBlock);
+            headerContentRunButton.Content = headerContentRunButtonStackPanel;
+
+            //Add Buttons to Buttons Stack Panel
+            headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
+            headerContentStackPanelStackPanel.Children.Add(headerContentRunButton);
+
+            //Add Buttons Stack Panel to Parent Content Stack Panel
+            headerContentStackPanel.Children.Add(headerContentStackPanelStackPanel);
+
+            tmp.Content = headerContentStackPanel;
+
+            return tmp;
         }
 
         public static void LaunchScript(string scriptPath, string type)
