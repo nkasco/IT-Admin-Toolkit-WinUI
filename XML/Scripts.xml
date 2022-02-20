@@ -3,4 +3,8 @@
 	<!--<Item name="<Title>" description="<Description>" path="<Exact file path>" psVersion="<PS5 or PS7>" icon="<Must be a valid Segoe MDL2 Assets glyph>" category="<category must exist on navigation>" />-->
 	<Item name="Logon Status" description="Check a remote machine for the currently logged on user" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS5" icon="OtherUser" category="General" />
 	<Item name="Map To" description="Open Windows Explorer with the C$ share of a remote machine" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS7" icon="Globe" category="General" />
+	<Item name="Repair SCCM" description="Open Windows Explorer with the C$ share of a remote machine" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS7" icon="Globe" category="Remediate" />
+	<Item name="Reboot Machine" description="Open Windows Explorer with the C$ share of a remote machine" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS7" icon="Globe" category="General" />
+	<Item name="Logoff User" description="Open Windows Explorer with the C$ share of a remote machine" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS7" icon="Globe" category="General" />
+	<Item name="Ping" description="Open Windows Explorer with the C$ share of a remote machine" path="C:\scripts space\MultiLineTestScript.ps1" psVersion="PS7" icon="Globe" category="General" />
 </Gui>
