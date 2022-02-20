@@ -52,7 +52,7 @@ namespace ITATKWinUI
 
     public partial class MainWindow : Window
     {
-        public static void LaunchScript(string scriptPath, string args, string type)
+        public static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type)
         {
             string EXEPath;
 
@@ -99,10 +99,34 @@ namespace ITATKWinUI
             //process.Close();
         }
 
+        public static void LaunchScript(string scriptPath, string args, string type)
+        {
+            //Overload condition for what we expect to use
+            LaunchScript(null, null, scriptPath, args, type);
+        }
+
         public static void LaunchScript(string scriptPath, string type)
         {
             //Overload condition if there are no args
-            LaunchScript(scriptPath, "", type);
+            LaunchScript(null,null,scriptPath, "", type);
+        }
+
+        public static void LaunchExplorer(Object sender, EventArgs e, string path)
+        {
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo("\"explorer.exe\"", "\"" + path + "\"") //Should this open the folder or just launch the file? (effectively "exploring" the script in Notepad)
+                {
+                    CreateNoWindow = false
+                }
+            };
+
+            process.Start();
+        }
+
+        public static void LaunchExplorer(string path)
+        {
+            LaunchExplorer(null, null, path);
         }
 
         public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
@@ -174,10 +198,15 @@ namespace ITATKWinUI
             headerContentRunButtonSymbolIcon.Symbol = Symbol.Play;
             headerContentRunButtonSymbolIcon.Margin = new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0);
             TextBlock headerContentRunButtonTextBlock = new TextBlock();
-            headerContentRunButtonTextBlock.Text = "Play";
+            headerContentRunButtonTextBlock.Text = "Run";
             headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonSymbolIcon);
             headerContentRunButtonStackPanel.Children.Add(headerContentRunButtonTextBlock);
             headerContentRunButton.Content = headerContentRunButtonStackPanel;
+
+            //PS Version
+            //TODO: Instead of a TextBlock this should be an icon
+            TextBlock headerContentpsVersion = new TextBlock();
+            headerContentpsVersion.Text = psVersion;
 
             //Add Buttons to Buttons Stack Panel
             headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
@@ -186,18 +215,17 @@ namespace ITATKWinUI
             //Add Buttons Stack Panel to Parent Content Stack Panel
             headerContentStackPanel.Children.Add(headerContentStackPanelStackPanel);
 
+            //Add PS Version to Parent Content Stack Panel
+            headerContentStackPanel.Children.Add(headerContentpsVersion);
+
             //Finalize the Expander UI content
             tmp.Content = headerContentStackPanel;
 
             //Add Run and Explore click events
-            //headerContentRunButton.Click += Microsoft.UI.Xaml.RoutedEventHandler(test_Click);
+            headerContentRunButton.Click += (sender, e) => LaunchScript(path,psVersion);
+            headerContentExploreButton.Click += (sender, e) => LaunchExplorer(path);
 
             return tmp;
-        }
-
-        public void test_Click()
-        {
-            
         }
 
         public MainWindow()
