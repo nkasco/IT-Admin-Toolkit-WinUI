@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Gui>
+	<!--<Item category="<category name>" icon="<Must be a valid Segoe MDL2 Assets glyph>" />-->
+	<Item category="Test Category" icon="Admin" />
+	<Item category="Something" icon="Play" />
+</Gui>
