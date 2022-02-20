@@ -129,6 +129,22 @@ namespace ITATKWinUI
             LaunchExplorer(null, null, path);
         }
 
+        //TODO: Generate Category pages from XML to be dynamic
+        public static Page GenerateCategoryPageFromXML()
+        {
+            Page page = new Page();
+
+            return page;
+        }
+
+        //TODO: Generate Navigation View Items from the XML Categories
+        public static NavigationViewItem GenerateCategoryNavigationViewItemFromXML()
+        {
+            NavigationViewItem navigationViewItem = new NavigationViewItem();
+
+            return navigationViewItem;
+        }
+
         public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
         {
             //Build the base Expander
