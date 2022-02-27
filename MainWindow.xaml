@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+
     <NavigationView 
             Name="MainNav"
             IsSettingsVisible="True"
@@ -19,8 +20,24 @@
             PaneDisplayMode="Left" 
             SelectionFollowsFocus="Disabled"
             IsTabStop="False"
-            Background="#202020"
             >
+
+        <NavigationView.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Dark">
+                        <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
+                                <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
+                                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
+                    </ResourceDictionary>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
+                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
+                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
+                        </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+            </ResourceDictionary>
+        </NavigationView.Resources>
 
         <NavigationView.MenuItems>
             <NavigationViewItemHeader Content="Categories"/>

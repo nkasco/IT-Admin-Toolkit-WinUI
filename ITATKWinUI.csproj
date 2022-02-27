@@ -24,6 +24,7 @@
   <ItemGroup>
     <None Remove="General.xaml" />
     <None Remove="Loading.xaml" />
+    <None Remove="ResourceDictionary.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
 
@@ -52,6 +53,9 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="XML\Categories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

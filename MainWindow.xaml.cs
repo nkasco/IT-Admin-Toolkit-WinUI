@@ -139,6 +139,12 @@ namespace ITATKWinUI
         public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
+
+            //ResourceDictionary resources = new ResourceDictionary();
+            //Uri uri = new Uri("ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
+            //resources.Source = uri;
+            //page.Resources.MergedDictionaries[0] = resources;
+
             
             StackPanel stackPanel = new StackPanel();
             stackPanel.Width = double.NaN;
@@ -199,6 +205,7 @@ namespace ITATKWinUI
             NavigationViewItem navigationViewItem = new NavigationViewItem();
             navigationViewItem.Content = category;
             navigationViewItem.Name = "Nav" + category;
+            //navigationViewItem.Margin = new Thickness(10,0,10,0); //TODO: This looks great in expanded mode but we need to adjust it in collapsed mode
 
             SymbolIcon symbolIcon = new SymbolIcon();
             symbolIcon.Symbol = (Symbol)Enum.Parse(typeof(Symbol), icon);
@@ -348,7 +355,7 @@ namespace ITATKWinUI
 
         private void UpdateMainWindowBindings()
         {
-            Bindings.Update();
+            //Bindings.Update();
         }
 
         public void updateMainWindowBindings()
@@ -490,7 +497,7 @@ namespace ITATKWinUI
         {
             //ScriptTerminal.Text = "";
             MyText = "";
-            Bindings.Update();
+            //Bindings.Update();
         }
 
         private void CopyTerminal_Click(object sender, RoutedEventArgs e)
