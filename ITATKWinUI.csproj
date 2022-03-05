@@ -56,6 +56,9 @@
     <Page Update="ResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Update="Scripts\MultiLineTestScript.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="XML\Categories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

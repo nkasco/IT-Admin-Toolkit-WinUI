@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ITATKWinUI">
     <Application.Resources>
-        <ResourceDictionary Source="ResourceDictionary.xaml">
+        <!--<ResourceDictionary Source="ResourceDictionary.xaml">-->
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!-- Other merged dictionaries here -->

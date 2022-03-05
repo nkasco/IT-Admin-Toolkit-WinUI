@@ -79,6 +79,11 @@ namespace ITATKWinUI
                     break;
             }
 
+            if (!File.Exists(scriptPath))
+            {
+                scriptPath = Environment.CurrentDirectory + "\\" + scriptPath;
+            }
+
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
@@ -120,6 +125,11 @@ namespace ITATKWinUI
 
         public static void LaunchExplorer(Object sender, EventArgs e, string path)
         {
+            if (!File.Exists(path))
+            {
+                path = Environment.CurrentDirectory + "\\" + path;
+            }
+
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo("\"explorer.exe\"", "\"" + path + "\"") //Should this open the folder or just launch the file? (effectively "exploring" the script in Notepad)
@@ -139,19 +149,17 @@ namespace ITATKWinUI
         public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
+            //ResourceDictionary myResourceDictionary = new ResourceDictionary();
+            //myResourceDictionary.Source = new Uri("ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
+            ////page.Resources.MergedDictionaries.Add(myResourceDictionary);
 
-            //ResourceDictionary resources = new ResourceDictionary();
-            //Uri uri = new Uri("ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
-            //resources.Source = uri;
-            //page.Resources.MergedDictionaries[0] = resources;
-
-            
             StackPanel stackPanel = new StackPanel();
             stackPanel.Width = double.NaN;
             stackPanel.Name = name;
 
             TextBlock txtBlock = new TextBlock();
             txtBlock.Text = name;
+            txtBlock.Padding = new Thickness(5);
             stackPanel.Children.Add(txtBlock);
 
             page.Content = stackPanel;

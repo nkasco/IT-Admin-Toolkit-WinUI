@@ -2,14 +2,14 @@
 <Gui>
 	<!--<Item category="<category name>" icon="<Must be a valid Segoe MDL2 Assets glyph>" foreground="<color>" />-->
 	<Item category="General" icon="Home" foreground="Bisque" />
-	<Item category="User" icon="Contact" foreground="LightPink" />
-	<Item category="Manage" icon="OpenWith" foreground="DarkGreen" />
-	<Item category="Logs and Stats" icon="TwoBars" foreground="SkyBlue" />
+	<Item category="User Management" icon="Contact" foreground="LightPink" />
+	<Item category="Software" icon="OpenWith" foreground="DarkGreen" />
+	<Item category="Log Files" icon="TwoBars" foreground="SkyBlue" />
 	<Item category="Troubleshoot" icon="Library" foreground="SandyBrown" />
 	<Item category="Remediate" icon="Repair" foreground="PaleVioletRed" />
-	<Item category="Network" icon="Globe" foreground="White" />
 	<Item category="Security" icon="Admin" foreground="LightGoldenrodYellow" />
-	<Item category="Inventory" icon="Page2" foreground="Honeydew" />
-	<Item category="Elevate" icon="Admin" foreground="IndianRed" />
-	<Item category="Virtual Machine" icon="SwitchApps" foreground="CornflowerBlue" />
+	<Item category="Database" icon="Page2" foreground="Honeydew" />
+	<Item category="Virtualization" icon="SwitchApps" foreground="CornflowerBlue" />
+	<Item category="Azure" icon="Globe" foreground="White" />
+	<Item category="Active Directory" icon="Admin" foreground="IndianRed" />
 </Gui>

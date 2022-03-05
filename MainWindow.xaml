@@ -23,20 +23,20 @@
             >
 
         <NavigationView.Resources>
-            <ResourceDictionary>
+            <!--<ResourceDictionary>
                 <ResourceDictionary.ThemeDictionaries>
                     <ResourceDictionary x:Key="Dark">
                         <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
-                                <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
-                                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
+                        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
+                        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
                     </ResourceDictionary>
-                        <ResourceDictionary x:Key="Light">
-                            <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
-                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
-                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
-                        </ResourceDictionary>
+                    <ResourceDictionary x:Key="Light">
+                        <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
+                        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
+                        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
+                    </ResourceDictionary>
                 </ResourceDictionary.ThemeDictionaries>
-            </ResourceDictionary>
+            </ResourceDictionary>-->
         </NavigationView.Resources>
 
         <NavigationView.MenuItems>
@@ -105,7 +105,7 @@
                     </StackPanel>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" x:Name="ContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ZoomMode="Enabled" >
-                    <Frame x:Name="contentFrame" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" Grid.Row="1"/>
+                    <Frame x:Name="contentFrame" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" Grid.Row="1" />
                 </ScrollViewer>
                 <StackPanel Grid.Row="2" x:Name="TerminalRow" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -119,7 +119,7 @@
                             <TextBlock FontSize="16" Text="&#xE1D9;" FontFamily="Segoe MDL2 Assets" />
                         </Button>
                     </StackPanel>
-                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Collapsed" Text="{x:Bind Path=local:MainWindow.MyText, Mode=OneWay}" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" x:FieldModifier="Public" />
+                    <TextBox Height="150" x:Name="ScriptTerminal" Visibility="Collapsed" Text="{x:Bind Path=local:MainWindow.MyText}" Padding="10,0,10,10" HorizontalAlignment="Stretch" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextWrapping="Wrap" x:FieldModifier="Public" />
                 </StackPanel>
                 <Grid x:Name="StatusRow" Grid.Row="3">
                     <Grid.ColumnDefinitions>
