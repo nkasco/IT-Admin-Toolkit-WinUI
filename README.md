@@ -5,7 +5,8 @@
 **Current Functionality:**
 - Core App, various placeholders/staged UI elements (machine info, terminal, etc.)
 - Configurable XML to add categories or scripts as needed
-	-View examples within XML folder
+    - View examples within XML folder
+- Basic Launcher functionality for PowerShell 5 or PowerShell 7 scripts
 
 **Features/Goals:**
 - Open source, free, forever - Allow community contributions and provide credit to authors.
