@@ -1,6 +1,6 @@
 ﻿# IT Admin Toolkit
 ## A customizable and expandable destination for centralizing day-to-day job functions.
-![Sample Pic](Assets/ITATKWinUIPromo.png)
+![Sample Pic](Assets/ITATKWinUIPromo.jpg)
 
 **Current Functionality:**
 - Core App, various placeholders/staged UI elements (machine info, terminal, etc.)
