@@ -2,7 +2,7 @@
 ## A customizable and expandable destination for centralizing day-to-day job functions.
 ![Sample Pic](Assets/ITATKWinUIPromo.jpg)
 
-**Current Functionality:**
+**Current Functionality (Alpha):**
 - Core App, various placeholders/staged UI elements (machine info, terminal, etc.)
 - Configurable XML to add categories or scripts as needed
     - View examples within XML folder
