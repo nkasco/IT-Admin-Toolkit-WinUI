@@ -19,6 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\ITATKWinUI.png" />
+    <Content Remove="Assets\ITATKWinUIPromo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="General.xaml" />
