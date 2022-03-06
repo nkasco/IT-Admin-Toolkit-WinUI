@@ -22,9 +22,9 @@
     <Content Remove="Assets\ITATKWinUIPromo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="General.xaml" />
+    <None Remove=".DS_Store" />
     <None Remove="Loading.xaml" />
-    <None Remove="ResourceDictionary.xaml" />
+    <None Remove="ResourceDictionary -  Test.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
 
@@ -53,7 +53,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="ResourceDictionary.xaml">
+    <Page Update="ResourceDictionary -  Test.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <None Update="Scripts\MultiLineTestScript.ps1">
@@ -73,11 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="General.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
