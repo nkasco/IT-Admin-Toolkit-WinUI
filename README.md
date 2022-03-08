@@ -14,6 +14,7 @@
 - Accessibility - The core application seamlessly works with both Light and Dark modes and is Per-Monitor v2 DPI-aware.
 - Task Scheduler - Create scheduled tasks, local or remote, quickly and easily from your script library.
 - Reporting - Built-in logging and reporting statistics based on usage.
+- Role Management - Manage groups of users (likely via AD Group Enrollment) to control script visibility.
 - Remote Machine Info Panel - Quickly gain at a glance key information for inputted machines as needed.
 - Built-In PowerShell Console - Choose whether you want your scripts to run in an integrated console or as a standalone process.
 - Automatic update support - Choose whether you want to control update cycles or take them automatically.
