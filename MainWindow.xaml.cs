@@ -23,6 +23,7 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Windows.UI;
 using System.Reflection;
 using Microsoft.UI.Xaml.Markup;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -339,12 +340,54 @@ namespace ITATKWinUI
             //Run Button
             Button headerContentRunButton = GenerateExpanderButton("Run", name, Microsoft.UI.Xaml.Controls.Orientation.Horizontal, Symbol.Play, new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0), new Microsoft.UI.Xaml.Thickness(0));
 
-            //PS Version
-            //TODO: Instead of a TextBlock this should be identifiable icons
-            TextBlock headerContentpsVersion = new TextBlock();
-            headerContentpsVersion.Text = psVersion + " / " + inputType;
+            //PS Version and Input Type
+            StackPanel MetadataIcons = new StackPanel {Orientation = Microsoft.UI.Xaml.Controls.Orientation.Horizontal};
+            Image PSImage = new Image();
+            PSImage.Margin = new Thickness(5,0,5,0);
+            if(psVersion == "PS5")
+            {
+                void Image_Loaded(object sender, RoutedEventArgs e)
+                {
+                    Image img = sender as Image;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    img.Width = bitmapImage.DecodePixelWidth = 20;
+                    bitmapImage.UriSource = new Uri(img.BaseUri, "Assets/Powershell5.png");
+                    img.Source = bitmapImage;
+                }
+                PSImage.Loaded += Image_Loaded;
+                ToolTip toolTip = new ToolTip();
+                toolTip.Content = "Runs with Windows PowerShell 5";
+                ToolTipService.SetToolTip(PSImage, toolTip);
+                MetadataIcons.Children.Add(PSImage);
+            }
+            else if(psVersion == "PS7")
+            {
+                void Image_Loaded(object sender, RoutedEventArgs e)
+                {
+                    Image img = sender as Image;
+                    BitmapImage bitmapImage = new BitmapImage();
+                    img.Width = bitmapImage.DecodePixelWidth = 20;
+                    bitmapImage.UriSource = new Uri(img.BaseUri, "Assets/Powershell7.ico");
+                    img.Source = bitmapImage;
+                }
+                PSImage.Loaded += Image_Loaded;
+                ToolTip toolTip = new ToolTip();
+                toolTip.Content = "Runs with PowerShell 7";
+                ToolTipService.SetToolTip(PSImage, toolTip);
+                MetadataIcons.Children.Add(PSImage);
+            }
 
-            //TODO: Show required inputs (Machine, Machines, or standalone)
+            if (inputType == "Machine")
+            {
+                SymbolIcon InputTypeIcon = new SymbolIcon();
+                InputTypeIcon.Symbol = Symbol.GoToStart;
+                InputTypeIcon.Width = 20;
+                InputTypeIcon.Height = 20;
+                ToolTip toolTip = new ToolTip();
+                toolTip.Content = "Requires machine input to run";
+                ToolTipService.SetToolTip(InputTypeIcon, toolTip);
+                MetadataIcons.Children.Add(InputTypeIcon);
+            }
 
             //Add Buttons to Buttons Stack Panel
             headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
@@ -354,7 +397,7 @@ namespace ITATKWinUI
             headerContentStackPanel.Children.Add(headerContentStackPanelStackPanel);
 
             //Add PS Version to Parent Content Stack Panel
-            headerContentStackPanel.Children.Add(headerContentpsVersion);
+            headerContentStackPanel.Children.Add(MetadataIcons);
 
             //Finalize the Expander UI content
             tmp.Content = headerContentStackPanel;
