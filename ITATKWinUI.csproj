@@ -23,6 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
+    <None Remove="Assets\Powershell5.png" />
+    <None Remove="Assets\Powershell7.ico" />
     <None Remove="Loading.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
@@ -52,6 +54,12 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\Powershell5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Powershell7.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Update="Scripts\MultiLineTestScript.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
