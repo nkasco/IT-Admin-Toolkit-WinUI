@@ -29,11 +29,6 @@ using Microsoft.UI.Xaml.Markup;
 
 namespace ITATKWinUI
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    /// 
-
     //public class MyTextClass : INotifyPropertyChanged
     //{
     //    public event PropertyChangedEventHandler PropertyChanged;
@@ -56,21 +51,62 @@ namespace ITATKWinUI
 
     public partial class MainWindow : Window
     {
-        //TODO: Pass the machine(s) from the UI as arguments, and also designate a parameter for scripts that don't need a machine input
-        public static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type)
+        //TODO: Need a way to reset these as well as resetting the UI
+        public static string CurrentInput;
+
+        public static string CurrentMultipleInput;
+
+        private static string SingleOrMulti = "Single";
+
+        private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType)
         {
             string EXEPath;
 
-            //TODO: Add error handling for when someone inevitably tries to feed in something other than what is supported
+            if(inputType == "Machine")
+            {
+                //TODO: This may need to be something like "-Machine CurrentInput" but for now this is fine
+                if (SingleOrMulti == "Single")
+                {
+                    if (CurrentInput == "")
+                    {
+                        //TODO: Handle when there is no input but the config defines it as required
+                    }
+
+                    if (args != "")
+                    {
+                        args = args + " " + CurrentInput;
+                    }
+                    else
+                    {
+                        args = CurrentInput;
+                    }
+                }
+                else
+                {
+                    if (CurrentMultipleInput == "")
+                    {
+                        //TODO: Handle when there is no input but the config defines it as required
+                    }
+
+                    if (args != "")
+                    {
+                        args = args + " " + CurrentMultipleInput;
+                    }
+                    else
+                    {
+                        args = CurrentMultipleInput;
+                    }
+                }
+            }
+
             //TODO: Add VBS, WSF, BAT, CMD, and PY support
             switch (type)
             {
                 case "PS5":
-                    EXEPath = @"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe";
+                    EXEPath = @"powershell.exe";
                     break;
 
                 case "PS7":
-                    //TODO: Add PS7 path
                     EXEPath = @"pwsh.exe";
                     break;
 
@@ -79,48 +115,51 @@ namespace ITATKWinUI
                     break;
             }
 
-            if (!File.Exists(scriptPath))
+            if (EXEPath != "")
             {
-                scriptPath = Environment.CurrentDirectory + "\\" + scriptPath;
-            }
-
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
+                if (!File.Exists(scriptPath))
                 {
-                    CreateNoWindow = false
+                    scriptPath = Environment.CurrentDirectory + "\\" + scriptPath;
                 }
-            };
-            //process.StartInfo.RedirectStandardOutput = true;
-            //process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-            //{
-            //    // Prepend line numbers to each line of the output.
-            //    if (!String.IsNullOrEmpty(e.Data))
-            //    {
-            //        lineCount++;
-            //        output.Append("\n[" + lineCount + "]: " + e.Data);
-            //    }
-            //});
-            process.Start();
-            //process.BeginOutputReadLine();
-            //process.WaitForExit();
-            //Debug.WriteLine(output);
-            //res = output.ToString();
-            //process.WaitForExit();
 
-            //process.Close();
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
+                    {
+                        CreateNoWindow = false
+                    }
+                };
+                //process.StartInfo.RedirectStandardOutput = true;
+                //process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                //{
+                //    // Prepend line numbers to each line of the output.
+                //    if (!String.IsNullOrEmpty(e.Data))
+                //    {
+                //        lineCount++;
+                //        output.Append("\n[" + lineCount + "]: " + e.Data);
+                //    }
+                //});
+                process.Start();
+                //process.BeginOutputReadLine();
+                //process.WaitForExit();
+                //Debug.WriteLine(output);
+                //res = output.ToString();
+                //process.WaitForExit();
+
+                //process.Close();
+            }
         }
 
-        public static void LaunchScript(string scriptPath, string args, string type)
+        private static void LaunchScript(string scriptPath, string args, string type, string inputType)
         {
             //Overload condition for what we expect to use
-            LaunchScript(null, null, scriptPath, args, type);
+            LaunchScript(null, null, scriptPath, args, type, inputType);
         }
 
-        public static void LaunchScript(string scriptPath, string type)
+        private static void LaunchScript(string scriptPath, string type, string inputType)
         {
             //Overload condition if there are no args
-            LaunchScript(null,null,scriptPath, "", type);
+            LaunchScript(null,null,scriptPath, "", type, inputType);
         }
 
         public static void LaunchExplorer(Object sender, EventArgs e, string path)
@@ -168,7 +207,7 @@ namespace ITATKWinUI
             {
                 if(item.Attribute("category").Value == name)
                 {
-                    stackPanel.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value, item.Attribute("psVersion").Value, item.Attribute("icon").Value, item.Attribute("category").Value));
+                    stackPanel.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value, item.Attribute("psVersion").Value, item.Attribute("icon").Value, item.Attribute("category").Value, item.Attribute("inputType").Value));
                 }
             }
 
@@ -249,7 +288,7 @@ namespace ITATKWinUI
             return btn;
         }
 
-        public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category)
+        public static Expander GenerateExpanderFromXML(string name, string description, string path, string psVersion, string icon, string category, string inputType)
         {
             //Build the base Expander
             Expander tmp = new Microsoft.UI.Xaml.Controls.Expander();
@@ -301,9 +340,9 @@ namespace ITATKWinUI
             Button headerContentRunButton = GenerateExpanderButton("Run", name, Microsoft.UI.Xaml.Controls.Orientation.Horizontal, Symbol.Play, new Microsoft.UI.Xaml.Thickness(0, 0, 5, 0), new Microsoft.UI.Xaml.Thickness(0));
 
             //PS Version
-            //TODO: Instead of a TextBlock this should be an icon
+            //TODO: Instead of a TextBlock this should be identifiable icons
             TextBlock headerContentpsVersion = new TextBlock();
-            headerContentpsVersion.Text = psVersion;
+            headerContentpsVersion.Text = psVersion + " / " + inputType;
 
             //TODO: Show required inputs (Machine, Machines, or standalone)
 
@@ -321,7 +360,7 @@ namespace ITATKWinUI
             tmp.Content = headerContentStackPanel;
 
             //Add Run and Explore click events
-            headerContentRunButton.Click += (sender, e) => LaunchScript(path,psVersion);
+            headerContentRunButton.Click += (sender, e) => LaunchScript(path, psVersion, inputType);
             headerContentExploreButton.Click += (sender, e) => LaunchExplorer(path);
 
             return tmp;
@@ -408,6 +447,16 @@ namespace ITATKWinUI
 
         private void MachineComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Add machine to the history, prevent duplicates
+            if (!MachineComboBox.Items.Contains(MachineComboBox.Text))
+            {
+                //MachineComboBox.Items.Add(MachineComboBox.Text); //TODO: This is buggy and needs some work, disabling for now
+            }
+
+            //Set public variable with the current input
+            CurrentInput = MachineComboBox.Text;
+
+            //TODO: Provide realtime ping checks
             if(MachineComboBox.Text == "test")
             {
                 PingSymbol.Visibility = Visibility.Visible;
@@ -431,6 +480,8 @@ namespace ITATKWinUI
         {
             if(MachineComboBox.Visibility == Visibility.Visible)
             {
+                SingleOrMulti = "Multi";
+                PingSymbol.Visibility = Visibility.Collapsed;
                 MachineComboBox.Visibility = Visibility.Collapsed;
                 MultipleMachineInput.Visibility = Visibility.Visible;
                 MachineMultipleClearButton.Visibility = Visibility.Visible;
@@ -441,6 +492,7 @@ namespace ITATKWinUI
                 MachineDetailsToggleButton.Visibility = Visibility.Collapsed;
             } else
             {
+                SingleOrMulti = "Single";
                 MachineComboBox.Visibility = Visibility.Visible;
                 MultipleMachineInput.Visibility = Visibility.Collapsed;
                 MachineMultipleClearButton.Visibility = Visibility.Collapsed;
@@ -512,6 +564,12 @@ namespace ITATKWinUI
         {
             ScriptTerminal.SelectAll();
             ScriptTerminal.CopySelectionToClipboard();
+        }
+
+        private void MultipleMachineInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Replace new lines with commas
+            CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
     } 
 }

@@ -83,7 +83,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
                     <SymbolIcon Name="PingSymbol" Visibility="Collapsed" Symbol="Target" />
                     <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />
-                    <TextBox Name="MultipleMachineInput" Width="200" Height="175" HorizontalAlignment="Right" Margin="5" Visibility="Collapsed" PlaceholderText="Machines (1 per line)" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"  />
+                    <TextBox Name="MultipleMachineInput" Width="200" Height="175" HorizontalAlignment="Right" Margin="5" Visibility="Collapsed" PlaceholderText="Machines (1 per line)" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextChanged="MultipleMachineInput_TextChanged" />
                     <TeachingTip x:Name="MachineTeachingTip" Target="{x:Bind MachineComboBox}" Title="First time?" Subtitle="Enter a target machine name to execute a tool against.">
                         <TeachingTip.IconSource>
                             <SymbolIconSource Symbol="World" />
@@ -104,6 +104,7 @@
                         
                     </StackPanel>
                 </StackPanel>
+                <!-- TODO: Fix scrollbar issue to prevent slight cutting off of content -->
                 <ScrollViewer Grid.Row="1" x:Name="ContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ZoomMode="Enabled" >
                     <Frame x:Name="contentFrame" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" Grid.Row="1" />
                 </ScrollViewer>
