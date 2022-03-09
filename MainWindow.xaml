@@ -20,6 +20,7 @@
             PaneDisplayMode="Left" 
             SelectionFollowsFocus="Disabled"
             IsTabStop="False"
+            OpenPaneLength="250"
             >
 
         <NavigationView.Resources>
