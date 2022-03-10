@@ -461,6 +461,7 @@ namespace ITATKWinUI
                 Type _page = null;
                 _page = typeof(Settings);
                 contentFrame.Navigate(_page);
+                //TODO: Should we hide the machine input, terminal, and machine info pane here? If so ensure we show it once we navigate away below
             }
             else
             {
