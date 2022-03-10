@@ -17,6 +17,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using System.Runtime.InteropServices;
 using WinRT;
+using System.Xml.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,7 +36,40 @@ namespace ITATKWinUI
         public App()
         {
             this.InitializeComponent();
+
+            //Set the theme and app icon from settings at startup
+            XDocument settingsXML = XDocument.Load(@"Settings.xml");
+            foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
+            {
+                if (item.Attribute("Name").Value == "SettingTheme")
+                {
+                    switch (item.Attribute("Setting").Value)
+                    {
+                        case "Dark Mode":
+                            App.Current.RequestedTheme = ApplicationTheme.Dark;
+                            break;
+
+                        case "Light Mode":
+                            App.Current.RequestedTheme = ApplicationTheme.Light;
+                            break;
+
+                        case "System Theme":
+                            //We don't need to do anything, this is already the default
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                if (item.Attribute("Name").Value == "SettingApplicationIconImage")
+                {
+                    AppIcon = item.Attribute("Setting").Value;
+                }
+            }
         }
+
+        public string AppIcon;
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -56,7 +90,20 @@ namespace ITATKWinUI
             //Get the Window's HWND
             var windowNative = m_window.As<IWindowNative>();
             m_windowHandle = windowNative.WindowHandle;
-            m_window.Title = "IT Admin Toolkit";
+
+            void LoadIcon(string iconName)
+            {
+                string i = iconName.Replace("ms-appx:///","");
+                //Get the Window's HWND
+                var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(m_window);
+                var hIcon = PInvoke.User32.LoadImage(System.IntPtr.Zero, i,
+                          PInvoke.User32.ImageType.IMAGE_ICON, 16, 16, PInvoke.User32.LoadImageFlags.LR_LOADFROMFILE);
+
+                PInvoke.User32.SendMessage(hwnd, PInvoke.User32.WindowMessage.WM_SETICON, (System.IntPtr)0, hIcon);
+            }
+
+            LoadIcon(AppIcon);
+
             m_window.Activate();
 
             // The Window object doesn't have Width and Height properties in WInUI 3 Desktop yet.
@@ -64,6 +111,8 @@ namespace ITATKWinUI
             // Note, you should apply the DPI scale factor if you are thinking of dpi instead of pixels.
             SetWindowSize(m_windowHandle, 1200, 680);
         }
+
+        public static string Title;
 
         private void SetWindowSize(IntPtr hwnd, int width, int height)
         {
