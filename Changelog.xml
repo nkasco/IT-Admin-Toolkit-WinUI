@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Changelog>
-	<Item version="V1.01" detail="First WinUI revamp preview" />
-	<Item version="V1.0" detail="Initial Launch" />
+	<Item version="1.0" detail="Initial Launch" />
+	<Item version="1.02" detail="First WinUI revamp preview" />
 </Changelog>

@@ -390,7 +390,10 @@ namespace ITATKWinUI
             }
 
             //Add Buttons to Buttons Stack Panel
-            headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
+            if(SettingExplorer == "true")
+            {
+                headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
+            }
             headerContentStackPanelStackPanel.Children.Add(headerContentRunButton);
 
             //Add Buttons Stack Panel to Parent Content Stack Panel
@@ -411,9 +414,28 @@ namespace ITATKWinUI
 
         public static XDocument guiConfig;
 
+        public static string SettingExplorer;
+
         public MainWindow()
         {
             this.InitializeComponent();
+
+            //Set the Navigation Title
+            XDocument settingsXML = XDocument.Load(@"Settings.xml");
+            foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
+            {
+                if (item.Attribute("Name").Value == "SettingApplicationTitle")
+                {
+                    this.Title = item.Attribute("Setting").Value.ToString();
+                    MainNav.PaneTitle = this.Title;
+                }
+
+                if (item.Attribute("Name").Value == "SettingShowExplorer")
+                {
+                    SettingExplorer = item.Attribute("Setting").Value.ToString();
+                }
+            }
+
             //Load categories into the UI
             XDocument categoryConfig = XDocument.Load(@"XML\Categories.xml");
             guiConfig = XDocument.Load(@"XML\Scripts.xml");

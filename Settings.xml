@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
-	<Item version="V1.01" detail="First WinUI revamp preview" />
-	<Item version="V1.0" detail="Initial Launch" />
+	<Item Name="SettingStartupBehavior" Setting="false" />
+	<Item Name="SettingAutomaticUpdates" Setting="false" />
+	<Item Name="SettingShowExplorer" Setting="true" />
+	<Item Name="SettingTheme" Setting="System Theme" />
+	<Item Name="SettingApplicationTitle" Setting="IT Admin Toolkit" />
+	<Item Name="SettingApplicationIconImage" Setting="ms-appx:///Assets/Powershell7.ico" />
 </Settings>

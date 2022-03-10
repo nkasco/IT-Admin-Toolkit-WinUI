@@ -35,7 +35,6 @@
             <NavigationViewItem Content="Changelog"/>
             <NavigationViewItemSeparator />
             <NavigationViewItemHeader Content="IT Admin Toolkit v1.01" Name="SettingVersion" />
-            <NavigationViewItemHeader Content="host OS - Arch (build#)" Name="hostOSNavItem" />
         </NavigationView.FooterMenuItems>
 
         <ScrollViewer x:Name="SettingsContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
@@ -65,7 +64,7 @@
                             <TextBlock FontWeight="Bold">Automatic Updates</TextBlock>
                             <TextBlock>Automatically check for updates each time you launch this application</TextBlock>
                         </StackPanel>
-                        <ToggleSwitch Name="SettingAutomaticUpdates" HorizontalAlignment="Right" Grid.Column="1" OffContent="" OnContent="" MinWidth="0"/>
+                        <ToggleSwitch Name="SettingAutomaticUpdates" HorizontalAlignment="Right" Grid.Column="1" OffContent="" OnContent="" IsEnabled="False" MinWidth="0"/>
                     </Grid>
                     <Grid Padding="25, 25, 25, 0" >
                         <Grid.ColumnDefinitions>
@@ -78,6 +77,14 @@
                             <TextBlock>For each script show an Explorer button to open the containing folder</TextBlock>
                         </StackPanel>
                         <ToggleSwitch Name="SettingShowExplorer" HorizontalAlignment="Right" Grid.Column="1" OffContent="" OnContent="" MinWidth="0"/>
+                    </Grid>
+                    <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
                     </Grid>
                 </StackPanel>
                 
@@ -98,6 +105,14 @@
                             <x:String>Dark Mode</x:String>
                             <x:String>System Theme</x:String>
                         </ComboBox>
+                    </Grid>
+                    <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
                     </Grid>
                 </StackPanel>
                 
@@ -131,18 +146,42 @@
                             <SymbolIcon Symbol="OpenFile"/>
                         </Button>
                     </Grid>
+                    <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Name="KeybindsTab">
                     <TextBlock Padding="15,12,0,0" FontWeight="Bold" FontSize="18">Keybinds</TextBlock>
+                    <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Name="HelpTab">
                     <TextBlock Padding="15,12,0,0" FontWeight="Bold" FontSize="18">Help</TextBlock>
+                    <StackPanel>
+                        <TextBlock Padding="20">Coming Soon</TextBlock>
+                    </StackPanel>
                 </StackPanel>
 
-                <StackPanel  Name="Changelog">
-                    <TextBlock Padding="15,12,0,0" FontWeight="Bold" FontSize="18">Changelog</TextBlock>
+                <StackPanel Name="Changelog">
+                    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
+                        <StackPanel>
+                            <TextBlock Padding="15,12,0,0" FontWeight="Bold" FontSize="18">Changelog</TextBlock>
+                            <StackPanel Name="ChangelogXMLUI" Padding="50,10,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
