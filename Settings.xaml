@@ -83,8 +83,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+
+                        <StackPanel Grid.Column="1">
+                            <Button Content="Save Settings" Click="SaveButton_Click" HorizontalAlignment="Right" />
+                            <TextBlock Margin="0,5,0,0" FontStyle="Italic">(Note: Setting changes take effect the next time the application is started)</TextBlock>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
                 
@@ -112,7 +115,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+                        <StackPanel Grid.Column="1">
+                            <Button Content="Save Settings" Click="SaveButton_Click" HorizontalAlignment="Right" />
+                            <TextBlock Margin="0,5,0,0" FontStyle="Italic">(Note: Setting changes take effect the next time the application is started)</TextBlock>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
                 
@@ -142,7 +148,7 @@
                             <TextBlock>Change the default icon for this application to match your organization's branding</TextBlock>
                         </StackPanel>
                         <Image Source="Assets/Powershell5.png" Name="SettingApplicationIconImage" Width="25" HorizontalAlignment="Right" Grid.Column="1"/>
-                        <Button Name="SettingApplicationIconOFD" HorizontalAlignment="Right" Grid.Column="2">
+                        <Button Name="SettingApplicationIconOFD" Click="SettingApplicationIconOFD_Click" HorizontalAlignment="Right" Grid.Column="2">
                             <SymbolIcon Symbol="OpenFile"/>
                         </Button>
                     </Grid>
@@ -152,7 +158,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+                        <StackPanel Grid.Column="1">
+                            <Button Content="Save Settings" Click="SaveButton_Click" HorizontalAlignment="Right" />
+                            <TextBlock Margin="0,5,0,0" FontStyle="Italic">(Note: Setting changes take effect the next time the application is started)</TextBlock>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
 
@@ -164,7 +173,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="Save Settings" Click="SaveButton_Click" Grid.Column="1" />
+                        <StackPanel Grid.Column="1">
+                            <Button Content="Save Settings" Click="SaveButton_Click" HorizontalAlignment="Right" />
+                            <TextBlock Margin="0,5,0,0" FontStyle="Italic">(Note: Setting changes take effect the next time the application is started)</TextBlock>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
 
