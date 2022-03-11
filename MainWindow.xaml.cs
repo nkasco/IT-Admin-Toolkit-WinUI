@@ -24,6 +24,8 @@ using Windows.UI;
 using System.Reflection;
 using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Media.Imaging;
+using System.Management.Automation.Runspaces;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -511,37 +513,6 @@ namespace ITATKWinUI
             }
         }
 
-        private void MachineComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //Add machine to the history, prevent duplicates
-            if (!MachineComboBox.Items.Contains(MachineComboBox.Text))
-            {
-                //MachineComboBox.Items.Add(MachineComboBox.Text); //TODO: This is buggy and needs some work, disabling for now
-            }
-
-            //Set public variable with the current input
-            CurrentInput = MachineComboBox.Text;
-
-            //TODO: Provide realtime ping checks
-            if(MachineComboBox.Text == "test")
-            {
-                PingSymbol.Visibility = Visibility.Visible;
-                var greencolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
-                greencolor.Color = Colors.Green;
-                PingSymbol.Foreground = greencolor;
-            } else if(MachineComboBox.Text == "offline")
-            {
-                PingSymbol.Visibility = Visibility.Visible;
-                var redcolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
-                redcolor.Color = Colors.Red;
-                PingSymbol.Foreground = redcolor;
-            } else
-            {
-                PingSymbol.Visibility= Visibility.Collapsed;
-                MachineTeachingTip.IsOpen = true;
-            }
-        }
-
         private void MachineMultipleToggleButton_Click(object sender, RoutedEventArgs e)
         {
             if(MachineComboBox.Visibility == Visibility.Visible)
@@ -637,5 +608,77 @@ namespace ITATKWinUI
             //Replace new lines with commas
             CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
-    } 
+
+        private async void MachineComboBox_TextChangedAsync(object sender, TextChangedEventArgs e)
+        {
+            async Task<bool> UserKeepsTyping()
+            {
+                string txt = MachineComboBox.Text;   // remember text
+                await Task.Delay(1000);        // wait some
+                return txt != MachineComboBox.Text;  // return that text chaged or not
+            }
+            if (await UserKeepsTyping()) return;
+
+            if (MachineComboBox.Text != "")
+            { 
+                //Set public variable with the current input
+                CurrentInput = MachineComboBox.Text;
+
+                Runspace rs = RunspaceFactory.CreateRunspace();
+                rs.Open();
+
+                PowerShell ps = PowerShell.Create();
+                ps.Runspace = rs;
+                ps.AddCommand("Test-Connection")
+                .AddParameter("ComputerName", MachineComboBox.Text)
+                .AddParameter("Count", 1)
+                .AddParameter("Quiet");
+
+                IAsyncResult a = ps.BeginInvoke();
+
+                //Prevent hanging the UI
+                async Task<bool> StartPing()
+                {
+                    await Task.Delay(500);
+                    if(ps.InvocationStateInfo.State == PSInvocationState.Completed)
+                    {
+                        return false;
+                    } else
+                    {
+                        return true;
+                    }
+                }
+
+                bool res;
+                do
+                {
+                    res = await StartPing();
+                } while (res == true);
+
+                var result = ps.EndInvoke(a);
+
+                foreach (PSObject r in result)
+                {
+                    if (r.ToString() == "True")
+                    {
+                        PingSymbol.Visibility = Visibility.Visible;
+                        var greencolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
+                        greencolor.Color = Colors.Green;
+                        PingSymbol.Foreground = greencolor;
+                    }
+                    else
+                    {
+                        PingSymbol.Visibility = Visibility.Visible;
+                        var redcolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
+                        redcolor.Color = Colors.Red;
+                        PingSymbol.Foreground = redcolor;
+                    }
+                }
+            }
+            else
+            {
+                PingSymbol.Visibility = Visibility.Collapsed;
+            }
+        }
+    }
 }
