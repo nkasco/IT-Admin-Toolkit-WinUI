@@ -392,7 +392,7 @@ namespace ITATKWinUI
             }
 
             //Add Buttons to Buttons Stack Panel
-            if(SettingExplorer == "true")
+            if(SettingExplorer == "true" || SettingExplorer == "True")
             {
                 headerContentStackPanelStackPanel.Children.Add(headerContentExploreButton);
             }
