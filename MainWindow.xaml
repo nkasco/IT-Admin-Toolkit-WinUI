@@ -83,13 +83,9 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
                     <SymbolIcon Name="PingSymbol" Visibility="Collapsed" Symbol="Target" />
-                    <ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />
-                    <TextBox Name="MultipleMachineInput" Width="200" Height="175" HorizontalAlignment="Right" Margin="5" Visibility="Collapsed" PlaceholderText="Machines (1 per line)" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextChanged="MultipleMachineInput_TextChanged" />
-                    <TeachingTip x:Name="MachineTeachingTip" Target="{x:Bind MachineComboBox}" Title="First time?" Subtitle="Enter a target machine name to execute a tool against.">
-                        <TeachingTip.IconSource>
-                            <SymbolIconSource Symbol="World" />
-                        </TeachingTip.IconSource>
-                    </TeachingTip>
+                    <!--<ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />-->
+                    <TextBox Name="MachineComboBox" Margin="5" PlaceholderText="Machine" HorizontalAlignment="Right"  Width="200" TextChanged="MachineComboBox_TextChangedAsync" IsSpellCheckEnabled="False" />
+                    <TextBox Name="MultipleMachineInput" Width="200" Height="175" HorizontalAlignment="Right" Margin="5" Visibility="Collapsed" PlaceholderText="Machines (1 per line)" IsSpellCheckEnabled="False" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" TextChanged="MultipleMachineInput_TextChanged" />
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                         <StackPanel>
                             <ToggleButton Name="MachineMultipleToggleButton" Click="MachineMultipleToggleButton_Click" ToolTipService.ToolTip="Toggle Multiple" Margin="0,5,5,5">
