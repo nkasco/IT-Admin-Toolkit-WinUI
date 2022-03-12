@@ -26,6 +26,7 @@ using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -607,12 +608,13 @@ namespace ITATKWinUI
             CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
 
-
         private void LoadMachineInfo(string Machine)
         {
+            
             InitialSessionState _initialSessionState = InitialSessionState.CreateDefault2();
             _initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            var script = "Get-CimInstance -ClassName Win32_ComputerSystem -ComputerName " + Machine;
+            //var script = Environment.CurrentDirectory + @"\MachineInfoGather.ps1";
+            var script = @"C:\scripts\MachineInfo.ps1";
             using (var run = RunspaceFactory.CreateRunspace(_initialSessionState))
             {
                 run.Open();
@@ -623,18 +625,28 @@ namespace ITATKWinUI
                 ps.Invoke();
                 var err = run.SessionStateProxy.PSVariable.GetValue("error");
                 System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
-                ps.Commands.AddScript(script);
+                
+                ps.AddCommand(script);
+                ps.AddArgument(Machine);
                 var result = ps.Invoke();
                 run.Close();
+
                 foreach (PSObject r in result)
                 {
-                    MachineName.Text = "Machine: " + r.Members["Name"].Value;
-                    MachineModel.Text = "Model: " + r.Members["Model"].Value;
-                    MachineDomain.Text = "Domain: " + r.Members["Domain"].Value;
-                    MachineMemory.Text = "Memory: " + r.Members["TotalPhysicalMemory"].Value;
+                    MachineName.Text = r.Members["Name"].Value.ToString();
+                    MachineDomain.Text = r.Members["Domain"].Value.ToString();
+                    MachineModel.Text = r.Members["Model"].Value.ToString();
+                    MachineMemory.Text = r.Members["TotalPhysicalMemory"].Value.ToString();
+                    MachineBIOS.Text = r.Members["SMBIOSBIOSVersion"].Value.ToString();
+                    MachineCPU.Text = r.Members["CPUName"].Value.ToString();
+                    MachineDiskSize.Text = r.Members["Size"].Value.ToString();
+                    MachineDiskFree.Text = r.Members["FreeSpace"].Value.ToString();
+                    MachineWinEdition.Text = r.Members["Caption"].Value.ToString();
+                    MachineOSBuild.Text = r.Members["BuildNumber"].Value.ToString();
                 }
             }
 
+            /*
             InitialSessionState _initialSessionState2 = InitialSessionState.CreateDefault2();
             _initialSessionState2.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
             var script2 = "Get-CimInstance -ClassName Win32_BIOS -ComputerName " + Machine;
@@ -723,7 +735,7 @@ namespace ITATKWinUI
                     MachineWinEdition.Text = "Windows Edition: " + r.Members["Caption"].Value;
                     MachineOSBuild.Text = "OS Build: " + r.Members["BuildNumber"].Value;
                 }
-            }
+            }*/
 
             /*
             Runspace MachineRS = RunspaceFactory.CreateRunspace();
