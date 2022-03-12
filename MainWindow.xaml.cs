@@ -504,11 +504,9 @@ namespace ITATKWinUI
         {
             if (ContentSplitView.IsPaneOpen == true)
             {
-                MachineProgressRing.IsActive = false;
                 ContentSplitView.IsPaneOpen = false;
             } else
             {
-                MachineProgressRing.IsActive = true;
                 ContentSplitView.IsPaneOpen= true;
             }
         }
@@ -820,9 +818,13 @@ namespace ITATKWinUI
                         var greencolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
                         greencolor.Color = Colors.Green;
                         PingSymbol.Foreground = greencolor;
-                        MachineProgressRing.IsActive = true;
-                        LoadMachineInfo(MachineComboBox.Text);
-                        MachineProgressRing.IsActive = false;
+
+                        if (ContentSplitView.IsPaneOpen == true)
+                        {
+                            MachineProgressRing.IsActive = true;
+                            LoadMachineInfo(MachineComboBox.Text);
+                            MachineProgressRing.IsActive = false;
+                        }
                     }
                     else
                     {
