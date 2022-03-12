@@ -26,6 +26,7 @@
     <None Remove="Assets\Powershell5.png" />
     <None Remove="Assets\Powershell7.ico" />
     <None Remove="Loading.xaml" />
+    <None Remove="MachineInfo.ps1" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
 
@@ -61,6 +62,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Update="Changelog.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="MachineInfoGather.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Scripts\MultiLineTestScript.ps1">
