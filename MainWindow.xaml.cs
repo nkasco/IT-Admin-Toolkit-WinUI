@@ -609,6 +609,161 @@ namespace ITATKWinUI
             CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
 
+
+        private void LoadMachineInfo(string Machine)
+        {
+            InitialSessionState _initialSessionState = InitialSessionState.CreateDefault2();
+            _initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script = "Get-CimInstance -ClassName Win32_ComputerSystem -ComputerName " + Machine;
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                ps.Commands.AddScript(script);
+                var result = ps.Invoke();
+                run.Close();
+                foreach (PSObject r in result)
+                {
+                    MachineName.Text = "Machine: " + r.Members["Name"].Value;
+                    MachineModel.Text = "Model: " + r.Members["Model"].Value;
+                    MachineDomain.Text = "Domain: " + r.Members["Domain"].Value;
+                    MachineMemory.Text = "Memory: " + r.Members["TotalPhysicalMemory"].Value;
+                }
+            }
+
+            InitialSessionState _initialSessionState2 = InitialSessionState.CreateDefault2();
+            _initialSessionState2.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script2 = "Get-CimInstance -ClassName Win32_BIOS -ComputerName " + Machine;
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState2))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                ps.Commands.AddScript(script2);
+                var result = ps.Invoke();
+                run.Close();
+                foreach (PSObject r in result)
+                {
+                    MachineBIOS.Text = "BIOS: " + r.Members["SMBIOSBIOSVersion"].Value;
+                }
+            }
+
+            InitialSessionState _initialSessionState3 = InitialSessionState.CreateDefault2();
+            _initialSessionState3.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script3 = "Get-CimInstance -ClassName Win32_Processor -ComputerName " + Machine;
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState3))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                ps.Commands.AddScript(script3);
+                var result = ps.Invoke();
+                run.Close();
+                foreach (PSObject r in result)
+                {
+                    MachineCPU.Text = "CPU: " + r.Members["Name"].Value;
+                }
+            }
+
+            InitialSessionState _initialSessionState4 = InitialSessionState.CreateDefault2();
+            _initialSessionState4.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script4 = "Get-CimInstance -ClassName Win32_LogicalDisk -ComputerName " + Machine;
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState4))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                ps.Commands.AddScript(script4);
+                var result = ps.Invoke();
+                run.Close();
+                foreach (PSObject r in result)
+                {
+                    MachineDiskSize.Text = "Disk Size: " + r.Members["Size"].Value;
+                    MachineDiskFree.Text = "Disk Free: " + r.Members["FreeSpace"].Value;
+                }
+            }
+
+            InitialSessionState _initialSessionState5 = InitialSessionState.CreateDefault2();
+            _initialSessionState4.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script5 = "Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName " + Machine;
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState5))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                ps.Commands.AddScript(script5);
+                var result = ps.Invoke();
+                run.Close();
+                foreach (PSObject r in result)
+                {
+                    MachineWinEdition.Text = "Windows Edition: " + r.Members["Caption"].Value;
+                    MachineOSBuild.Text = "OS Build: " + r.Members["BuildNumber"].Value;
+                }
+            }
+
+            /*
+            Runspace MachineRS = RunspaceFactory.CreateRunspace();
+            MachineRS.Open();
+
+            PowerShell MachinePS = PowerShell.Create();
+            MachinePS.Runspace = MachineRS;
+            MachinePS.AddCommand("Import-Module").AddArgument("CimCmdlets").Invoke();
+            MachinePS.AddParameter("ClassName", "Win32_ComputerSystem")
+            .AddStatement()
+            .AddCommand("Select-Object")
+            .AddParameter("Property", "Name");
+
+            IAsyncResult MachinePSInvoke = MachinePS.BeginInvoke();
+
+            //Prevent hanging the UI
+            async Task<bool> StartPSCommand()
+            {
+                await Task.Delay(1000);
+                if (MachinePS.InvocationStateInfo.State == PSInvocationState.Completed)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            bool res;
+            do
+            {
+                res = await StartPSCommand();
+            } while (res == true);
+
+            var result = MachinePS.EndInvoke(MachinePSInvoke);*/
+        }
+
         private async void MachineComboBox_TextChangedAsync(object sender, TextChangedEventArgs e)
         {
             async Task<bool> UserKeepsTyping()
@@ -665,6 +820,9 @@ namespace ITATKWinUI
                         var greencolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
                         greencolor.Color = Colors.Green;
                         PingSymbol.Foreground = greencolor;
+                        MachineProgressRing.IsActive = true;
+                        LoadMachineInfo(MachineComboBox.Text);
+                        MachineProgressRing.IsActive = false;
                     }
                     else
                     {
