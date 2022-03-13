@@ -3,7 +3,7 @@
 ![Sample Pic](Assets/ITATKWinUIPromo.jpg)
 
 **Current Functionality (Alpha):**
-- Core App
+- Core App - Open source, free, forever - Allow community contributions and provide credit to authors.
     - Accessibility - Light or Dark Mode support and Per-Monitor v2 DPI Aware
 - Basic Settings Functionality
 - Configurable XML to add categories or scripts as needed
@@ -12,8 +12,7 @@
     - Configuration options for passing a target machine as a script parameter (Optional)
 - Remote Machine Info Panel - Quickly gain at a glance key information for inputted machines as needed
 
-**Features/Goals:**
-- Open source, free, forever - Allow community contributions and provide credit to authors.
+**Features/In-Progress Goals:**
 - Launcher - Provide a script launcher that can be easily customized (initially with XML) to centralize and launch script files across various languages.
     - To be added: CMD, BAT, VB, WSF, PY
 - Task Scheduler - Create scheduled tasks, local or remote, quickly and easily from your script library.
