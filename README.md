@@ -1,6 +1,7 @@
 ﻿# IT Admin Toolkit
 ## A customizable and expandable destination for centralizing day-to-day job functions.
-Created by: Nathan Kasco
+**Created by: [Nathan Kasco](https://nkasco.com)**
+
 ![Sample Pic](Assets/ITATKWinUIPromo.jpg)
 
 **Current Functionality (Alpha):**
