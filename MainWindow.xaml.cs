@@ -26,6 +26,7 @@ using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -504,11 +505,9 @@ namespace ITATKWinUI
         {
             if (ContentSplitView.IsPaneOpen == true)
             {
-                MachineProgressRing.IsActive = false;
                 ContentSplitView.IsPaneOpen = false;
             } else
             {
-                MachineProgressRing.IsActive = true;
                 ContentSplitView.IsPaneOpen= true;
             }
         }
@@ -609,6 +608,36 @@ namespace ITATKWinUI
             CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
 
+        private PSDataCollection<PSObject> LoadMachineInfo(string Machine)
+        {
+            
+            InitialSessionState _initialSessionState = InitialSessionState.CreateDefault2();
+            _initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
+            var script = AppContext.BaseDirectory + @"\MachineInfoGather.ps1";
+            //var script = @"C:\scripts\MachineInfo.ps1";
+            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState))
+            {
+                run.Open();
+                var ps = PowerShell.Create(run);
+                ps.AddCommand("Import-Module");
+                ps.AddParameter("SkipEditionCheck");
+                ps.AddArgument("CIMcmdlets");
+                ps.Invoke();
+                var err = run.SessionStateProxy.PSVariable.GetValue("error");
+                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
+                
+                ps.AddCommand(script);
+                ps.AddArgument(Machine);
+
+                IAsyncResult ab = ps.BeginInvoke();
+
+                PSDataCollection<PSObject> result = ps.EndInvoke(ab);
+                run.Close();
+
+                return result;
+            }
+        }
+
         private async void MachineComboBox_TextChangedAsync(object sender, TextChangedEventArgs e)
         {
             async Task<bool> UserKeepsTyping()
@@ -624,38 +653,23 @@ namespace ITATKWinUI
                 //Set public variable with the current input
                 CurrentInput = MachineComboBox.Text;
 
-                Runspace rs = RunspaceFactory.CreateRunspace();
-                rs.Open();
-
-                PowerShell ps = PowerShell.Create();
-                ps.Runspace = rs;
-                ps.AddCommand("Test-Connection")
-                .AddParameter("ComputerName", MachineComboBox.Text)
-                .AddParameter("Count", 1)
-                .AddParameter("Quiet");
-
-                IAsyncResult a = ps.BeginInvoke();
-
-                //Prevent hanging the UI
-                async Task<bool> StartPing()
+                PSDataCollection<PSObject> RunPing(string CurrentInput)
                 {
-                    await Task.Delay(500);
-                    if(ps.InvocationStateInfo.State == PSInvocationState.Completed)
-                    {
-                        return false;
-                    } else
-                    {
-                        return true;
-                    }
+                    Runspace rs = RunspaceFactory.CreateRunspace();
+                    rs.Open();
+
+                    PowerShell ps = PowerShell.Create();
+                    ps.Runspace = rs;
+                    ps.AddCommand("Test-Connection")
+                    .AddParameter("ComputerName", CurrentInput)
+                    .AddParameter("Count", 1)
+                    .AddParameter("Quiet");
+
+                    IAsyncResult a = ps.BeginInvoke();
+                    return ps.EndInvoke(a);
                 }
 
-                bool res;
-                do
-                {
-                    res = await StartPing();
-                } while (res == true);
-
-                var result = ps.EndInvoke(a);
+                var result = await Task.Run(() => RunPing(CurrentInput));
 
                 foreach (PSObject r in result)
                 {
@@ -665,6 +679,36 @@ namespace ITATKWinUI
                         var greencolor = new Microsoft.UI.Xaml.Media.SolidColorBrush();
                         greencolor.Color = Colors.Green;
                         PingSymbol.Foreground = greencolor;
+
+                        if (ContentSplitView.IsPaneOpen == true)
+                        {
+                            SplitViewStackPanel.VerticalAlignment = VerticalAlignment.Center;
+                            MachineProgressRing.IsActive = true;
+                            MachineProgressCaption.Visibility = Visibility.Visible;
+                            AdditionalInfoPanel.Visibility = Visibility.Collapsed;
+                            MachineComboBox.IsReadOnly = true;
+                            var ress = await Task.Run(() => LoadMachineInfo(CurrentInput));
+
+                            foreach (PSObject rst in ress)
+                            {
+                                MachineName.Text = rst.Members["Name"].Value.ToString();
+                                MachineDomain.Text = rst.Members["Domain"].Value.ToString();
+                                MachineModel.Text = rst.Members["Model"].Value.ToString();
+                                MachineMemory.Text = rst.Members["TotalPhysicalMemory"].Value.ToString();
+                                MachineBIOS.Text = rst.Members["SMBIOSBIOSVersion"].Value.ToString();
+                                MachineCPU.Text = rst.Members["CPUName"].Value.ToString();
+                                MachineDiskSize.Text = rst.Members["Size"].Value.ToString();
+                                MachineDiskFree.Text = rst.Members["FreeSpace"].Value.ToString();
+                                MachineWinEdition.Text = rst.Members["Caption"].Value.ToString();
+                                MachineOSBuild.Text = rst.Members["BuildNumber"].Value.ToString();
+                            }
+
+                            SplitViewStackPanel.VerticalAlignment = VerticalAlignment.Top;
+                            MachineProgressRing.IsActive = false;
+                            MachineProgressCaption.Visibility= Visibility.Collapsed;
+                            AdditionalInfoPanel.Visibility = Visibility.Visible;
+                            MachineComboBox.IsReadOnly = false;
+                        }
                     }
                     else
                     {

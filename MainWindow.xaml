@@ -56,22 +56,70 @@
 
         <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
-                <StackPanel Name="AdditionalInfoPanel" Padding="20">
-                    <ProgressRing Name="MachineProgressRing" IsActive="false" Width="25" Height="25" />
-                    <TextBlock Name="MachineName" Text="Machine: "/>
-                    <TextBlock Name="MachineModel" Text="Model: " />
-                    <TextBlock Name="MachineBIOS" Text="BIOS: " />
-                    <TextBlock Name="MachineCPU" Text="CPU: " />
-                    <TextBlock Name="MachineMemory" Text="RAM: " />
-                    <TextBlock Name="MachineDiskSize" Text="Disk Size: " />
-                    <TextBlock Name="MachineDiskFree" Text="Disk Free: " />
-                    <TextBlock Name="MachineWinEdition" Text="Windows Edition: " />
-                    <TextBlock Name="MachineWinVer" Text="Windows Version: " />
-                    <TextBlock Name="MachineOSBuild" Text="OS Build: " />
-                    <TextBlock Name="MachineDomain" Text="Domain: " />
-                    <TextBlock Name="MachineOU" Text="Active Directory OU: " />
-                    <TextBlock Name="MachineAADJoinStatus" Text="AAD Join Status: " />
-                </StackPanel>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
+                    <StackPanel Name="SplitViewStackPanel">  
+                        <ProgressRing Name="MachineProgressRing" HorizontalAlignment="Center" IsActive="false" Width="25" Height="25" />
+                        <TextBlock Text="(Querying Remote Machine)" Visibility="Collapsed" Name="MachineProgressCaption" HorizontalAlignment="Center" />
+                        <StackPanel Name="AdditionalInfoPanel" Padding="10" HorizontalAlignment="Center">
+                            <TextBlock Text="Machine Information" FontSize="16" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Machine:" VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineName" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Model: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineModel" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="BIOS: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineBIOS" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="CPU: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineCPU" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="RAM (GB): " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineMemory" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Disk Size (GB): " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineDiskSize" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Disk Free (GB): " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineDiskFree" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Win Edition: " VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" Name="MachineWinEdition" Width="180" Margin="5" />
+                            </StackPanel>
+                            <!-- TODO: Will add at a later time -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
+                                <TextBlock Text="Win Version: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineWinVer" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="OS Build: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineOSBuild" Width="180" Margin="5" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="Domain: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineDomain" Width="180" Margin="5" />
+                            </StackPanel>
+                            <!-- TODO: Will add at a later time -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
+                                <TextBlock Text="AD OU: " VerticalAlignment="Center"/>
+                                <TextBox IsReadOnly="True" Name="MachineOU" Width="180" Margin="5" />
+                            </StackPanel>
+                            <!-- TODO: Will add at a later time -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
+                                <TextBlock Text="AAD Status: " VerticalAlignment="Center" />
+                                <TextBox IsReadOnly="True" Name="MachineAADJoinStatus" Width="180" Margin="5" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </SplitView.Pane>
 
             <Grid>
