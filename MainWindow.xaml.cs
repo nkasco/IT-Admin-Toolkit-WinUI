@@ -613,8 +613,8 @@ namespace ITATKWinUI
             
             InitialSessionState _initialSessionState = InitialSessionState.CreateDefault2();
             _initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            //var script = AppContext.BaseDirectory + @"\MachineInfoGather.ps1";
-            var script = @"C:\scripts\MachineInfo.ps1";
+            var script = AppContext.BaseDirectory + @"\MachineInfoGather.ps1";
+            //var script = @"C:\scripts\MachineInfo.ps1";
             using (var run = RunspaceFactory.CreateRunspace(_initialSessionState))
             {
                 run.Open();
@@ -682,6 +682,7 @@ namespace ITATKWinUI
 
                         if (ContentSplitView.IsPaneOpen == true)
                         {
+                            SplitViewStackPanel.VerticalAlignment = VerticalAlignment.Center;
                             MachineProgressRing.IsActive = true;
                             MachineProgressCaption.Visibility = Visibility.Visible;
                             AdditionalInfoPanel.Visibility = Visibility.Collapsed;
@@ -702,7 +703,7 @@ namespace ITATKWinUI
                                 MachineOSBuild.Text = rst.Members["BuildNumber"].Value.ToString();
                             }
 
-
+                            SplitViewStackPanel.VerticalAlignment = VerticalAlignment.Top;
                             MachineProgressRing.IsActive = false;
                             MachineProgressCaption.Visibility= Visibility.Collapsed;
                             AdditionalInfoPanel.Visibility = Visibility.Visible;

@@ -21,7 +21,7 @@ if($Session){
     $CPU = Get-CimInstance -ClassName Win32_Processor -CimSession $Session
 
     #Disk Size #Disk Free
-    $Disk = Get-CimInstance -ClassName Win32_LogicalDisk -CimSession $Session #| Where-Object -Property DeviceID -eq "C:"
+    $Disk = Get-CimInstance -ClassName Win32_LogicalDisk -CimSession $Session | Where-Object -Property DeviceID -eq "C:"
 
     #Windows Edition #OS Build
     $WinInfo = Get-CimInstance Win32_OperatingSystem -CimSession $Session
@@ -47,11 +47,11 @@ if($Session){
         Name = $ComputerSystem.Name
         Model = $ComputerSystem.Model
         Domain = $ComputerSystem.Domain
-        TotalPhysicalMemory = $ComputerSystem.TotalPhysicalMemory
+        TotalPhysicalMemory = [math]::Round($ComputerSystem.TotalPhysicalMemory/1GB,2)
         SMBIOSBIOSVersion = $BIOS.SMBIOSBIOSVersion
         CPUName = $CPU.Name
-        Size = $Disk.Size
-        FreeSpace = $Disk.FreeSpace
+        Size = [math]::Round($Disk.Size/1GB,2)
+        FreeSpace = [math]::Round($Disk.FreeSpace/1GB,2)
         Caption = $WinInfo.Caption
         BuildNumber = $WinInfo.BuildNumber
     }
