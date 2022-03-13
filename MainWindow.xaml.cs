@@ -653,38 +653,23 @@ namespace ITATKWinUI
                 //Set public variable with the current input
                 CurrentInput = MachineComboBox.Text;
 
-                Runspace rs = RunspaceFactory.CreateRunspace();
-                rs.Open();
-
-                PowerShell ps = PowerShell.Create();
-                ps.Runspace = rs;
-                ps.AddCommand("Test-Connection")
-                .AddParameter("ComputerName", MachineComboBox.Text)
-                .AddParameter("Count", 1)
-                .AddParameter("Quiet");
-
-                IAsyncResult a = ps.BeginInvoke();
-
-                //Prevent hanging the UI
-                async Task<bool> StartPing()
+                PSDataCollection<PSObject> RunPing(string CurrentInput)
                 {
-                    await Task.Delay(500);
-                    if(ps.InvocationStateInfo.State == PSInvocationState.Completed)
-                    {
-                        return false;
-                    } else
-                    {
-                        return true;
-                    }
+                    Runspace rs = RunspaceFactory.CreateRunspace();
+                    rs.Open();
+
+                    PowerShell ps = PowerShell.Create();
+                    ps.Runspace = rs;
+                    ps.AddCommand("Test-Connection")
+                    .AddParameter("ComputerName", CurrentInput)
+                    .AddParameter("Count", 1)
+                    .AddParameter("Quiet");
+
+                    IAsyncResult a = ps.BeginInvoke();
+                    return ps.EndInvoke(a);
                 }
 
-                bool res;
-                do
-                {
-                    res = await StartPing();
-                } while (res == true);
-
-                var result = ps.EndInvoke(a);
+                var result = await Task.Run(() => RunPing(CurrentInput));
 
                 foreach (PSObject r in result)
                 {
@@ -700,8 +685,8 @@ namespace ITATKWinUI
                             MachineProgressRing.IsActive = true;
                             MachineProgressCaption.Visibility = Visibility.Visible;
                             AdditionalInfoPanel.Visibility = Visibility.Collapsed;
-                            string mchne = MachineComboBox.Text;
-                            var ress = await Task.Run(() => LoadMachineInfo(mchne));
+                            MachineComboBox.IsReadOnly = true;
+                            var ress = await Task.Run(() => LoadMachineInfo(CurrentInput));
 
                             foreach (PSObject rst in ress)
                             {
@@ -721,6 +706,7 @@ namespace ITATKWinUI
                             MachineProgressRing.IsActive = false;
                             MachineProgressCaption.Visibility= Visibility.Collapsed;
                             AdditionalInfoPanel.Visibility = Visibility.Visible;
+                            MachineComboBox.IsReadOnly = false;
                         }
                     }
                     else
