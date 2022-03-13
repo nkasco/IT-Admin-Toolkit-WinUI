@@ -27,12 +27,12 @@
 - Eventually, explore cross-platform support for macOS and Linux.
 
 **Prerequisites (In-Progress):**
-- At a minimum you will need the proper [Windows App Runtime Redist](https://aka.ms/windowsappsdk/1.0-stable/msix-installer) installed, this project is targeted towards x64.
-    - More on this here and other development environmental requirements: https://docs.microsoft.com/en-us/windows/apps/winui/winui3/create-your-first-winui3-app#unpackaged-create-a-new-project-for-an-unpackaged-c-or-c-winui-3-desktop-app
-- Currently, this project is meant to be unpackaged if you are running the sln from Visual Studio
+- At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://aka.ms/windowsappsdk/1.0-stable/msix-installer) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
+    - For development - environmental requirements can be found [here](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/create-your-first-winui3-app#unpackaged-create-a-new-project-for-an-unpackaged-c-or-c-winui-3-desktop-app)
+    - Currently, this project is intended to be unpackaged if you are running the .sln from Visual Studio
 - Other potential things to check:
-    - Enable sideloading: https://docs.microsoft.com/en-us/windows/application-management/sideload-apps-in-windows-10#user-interface
     - Install the .NET 6 runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime
+    - Enable sideloading: https://docs.microsoft.com/en-us/windows/application-management/sideload-apps-in-windows-10#user-interface
 
 While you can of course submit issue or pull requests on the repo itself, please don’t hesitate to connect with me via any of the methods below:
 - [Contact page](https://www.nkasco.com/contact)
