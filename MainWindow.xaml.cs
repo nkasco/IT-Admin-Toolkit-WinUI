@@ -608,12 +608,12 @@ namespace ITATKWinUI
             CurrentMultipleInput = MultipleMachineInput.Text.Trim().Replace("\r", ",");
         }
 
-        private void LoadMachineInfo(string Machine)
+        private PSDataCollection<PSObject> LoadMachineInfo(string Machine)
         {
             
             InitialSessionState _initialSessionState = InitialSessionState.CreateDefault2();
             _initialSessionState.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            //var script = Environment.CurrentDirectory + @"\MachineInfoGather.ps1";
+            //var script = AppContext.BaseDirectory + @"\MachineInfoGather.ps1";
             var script = @"C:\scripts\MachineInfo.ps1";
             using (var run = RunspaceFactory.CreateRunspace(_initialSessionState))
             {
@@ -628,150 +628,14 @@ namespace ITATKWinUI
                 
                 ps.AddCommand(script);
                 ps.AddArgument(Machine);
-                var result = ps.Invoke();
+
+                IAsyncResult ab = ps.BeginInvoke();
+
+                PSDataCollection<PSObject> result = ps.EndInvoke(ab);
                 run.Close();
 
-                foreach (PSObject r in result)
-                {
-                    MachineName.Text = r.Members["Name"].Value.ToString();
-                    MachineDomain.Text = r.Members["Domain"].Value.ToString();
-                    MachineModel.Text = r.Members["Model"].Value.ToString();
-                    MachineMemory.Text = r.Members["TotalPhysicalMemory"].Value.ToString();
-                    MachineBIOS.Text = r.Members["SMBIOSBIOSVersion"].Value.ToString();
-                    MachineCPU.Text = r.Members["CPUName"].Value.ToString();
-                    MachineDiskSize.Text = r.Members["Size"].Value.ToString();
-                    MachineDiskFree.Text = r.Members["FreeSpace"].Value.ToString();
-                    MachineWinEdition.Text = r.Members["Caption"].Value.ToString();
-                    MachineOSBuild.Text = r.Members["BuildNumber"].Value.ToString();
-                }
+                return result;
             }
-
-            /*
-            InitialSessionState _initialSessionState2 = InitialSessionState.CreateDefault2();
-            _initialSessionState2.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            var script2 = "Get-CimInstance -ClassName Win32_BIOS -ComputerName " + Machine;
-            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState2))
-            {
-                run.Open();
-                var ps = PowerShell.Create(run);
-                ps.AddCommand("Import-Module");
-                ps.AddParameter("SkipEditionCheck");
-                ps.AddArgument("CIMcmdlets");
-                ps.Invoke();
-                var err = run.SessionStateProxy.PSVariable.GetValue("error");
-                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
-                ps.Commands.AddScript(script2);
-                var result = ps.Invoke();
-                run.Close();
-                foreach (PSObject r in result)
-                {
-                    MachineBIOS.Text = "BIOS: " + r.Members["SMBIOSBIOSVersion"].Value;
-                }
-            }
-
-            InitialSessionState _initialSessionState3 = InitialSessionState.CreateDefault2();
-            _initialSessionState3.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            var script3 = "Get-CimInstance -ClassName Win32_Processor -ComputerName " + Machine;
-            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState3))
-            {
-                run.Open();
-                var ps = PowerShell.Create(run);
-                ps.AddCommand("Import-Module");
-                ps.AddParameter("SkipEditionCheck");
-                ps.AddArgument("CIMcmdlets");
-                ps.Invoke();
-                var err = run.SessionStateProxy.PSVariable.GetValue("error");
-                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
-                ps.Commands.AddScript(script3);
-                var result = ps.Invoke();
-                run.Close();
-                foreach (PSObject r in result)
-                {
-                    MachineCPU.Text = "CPU: " + r.Members["Name"].Value;
-                }
-            }
-
-            InitialSessionState _initialSessionState4 = InitialSessionState.CreateDefault2();
-            _initialSessionState4.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            var script4 = "Get-CimInstance -ClassName Win32_LogicalDisk -ComputerName " + Machine;
-            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState4))
-            {
-                run.Open();
-                var ps = PowerShell.Create(run);
-                ps.AddCommand("Import-Module");
-                ps.AddParameter("SkipEditionCheck");
-                ps.AddArgument("CIMcmdlets");
-                ps.Invoke();
-                var err = run.SessionStateProxy.PSVariable.GetValue("error");
-                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
-                ps.Commands.AddScript(script4);
-                var result = ps.Invoke();
-                run.Close();
-                foreach (PSObject r in result)
-                {
-                    MachineDiskSize.Text = "Disk Size: " + r.Members["Size"].Value;
-                    MachineDiskFree.Text = "Disk Free: " + r.Members["FreeSpace"].Value;
-                }
-            }
-
-            InitialSessionState _initialSessionState5 = InitialSessionState.CreateDefault2();
-            _initialSessionState4.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Unrestricted;
-            var script5 = "Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName " + Machine;
-            using (var run = RunspaceFactory.CreateRunspace(_initialSessionState5))
-            {
-                run.Open();
-                var ps = PowerShell.Create(run);
-                ps.AddCommand("Import-Module");
-                ps.AddParameter("SkipEditionCheck");
-                ps.AddArgument("CIMcmdlets");
-                ps.Invoke();
-                var err = run.SessionStateProxy.PSVariable.GetValue("error");
-                System.Diagnostics.Debug.WriteLine(err);//This will reveal any error loading
-                ps.Commands.AddScript(script5);
-                var result = ps.Invoke();
-                run.Close();
-                foreach (PSObject r in result)
-                {
-                    MachineWinEdition.Text = "Windows Edition: " + r.Members["Caption"].Value;
-                    MachineOSBuild.Text = "OS Build: " + r.Members["BuildNumber"].Value;
-                }
-            }*/
-
-            /*
-            Runspace MachineRS = RunspaceFactory.CreateRunspace();
-            MachineRS.Open();
-
-            PowerShell MachinePS = PowerShell.Create();
-            MachinePS.Runspace = MachineRS;
-            MachinePS.AddCommand("Import-Module").AddArgument("CimCmdlets").Invoke();
-            MachinePS.AddParameter("ClassName", "Win32_ComputerSystem")
-            .AddStatement()
-            .AddCommand("Select-Object")
-            .AddParameter("Property", "Name");
-
-            IAsyncResult MachinePSInvoke = MachinePS.BeginInvoke();
-
-            //Prevent hanging the UI
-            async Task<bool> StartPSCommand()
-            {
-                await Task.Delay(1000);
-                if (MachinePS.InvocationStateInfo.State == PSInvocationState.Completed)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-
-            bool res;
-            do
-            {
-                res = await StartPSCommand();
-            } while (res == true);
-
-            var result = MachinePS.EndInvoke(MachinePSInvoke);*/
         }
 
         private async void MachineComboBox_TextChangedAsync(object sender, TextChangedEventArgs e)
@@ -834,8 +698,29 @@ namespace ITATKWinUI
                         if (ContentSplitView.IsPaneOpen == true)
                         {
                             MachineProgressRing.IsActive = true;
-                            LoadMachineInfo(MachineComboBox.Text);
+                            MachineProgressCaption.Visibility = Visibility.Visible;
+                            AdditionalInfoPanel.Visibility = Visibility.Collapsed;
+                            string mchne = MachineComboBox.Text;
+                            var ress = await Task.Run(() => LoadMachineInfo(mchne));
+
+                            foreach (PSObject rst in ress)
+                            {
+                                MachineName.Text = rst.Members["Name"].Value.ToString();
+                                MachineDomain.Text = rst.Members["Domain"].Value.ToString();
+                                MachineModel.Text = rst.Members["Model"].Value.ToString();
+                                MachineMemory.Text = rst.Members["TotalPhysicalMemory"].Value.ToString();
+                                MachineBIOS.Text = rst.Members["SMBIOSBIOSVersion"].Value.ToString();
+                                MachineCPU.Text = rst.Members["CPUName"].Value.ToString();
+                                MachineDiskSize.Text = rst.Members["Size"].Value.ToString();
+                                MachineDiskFree.Text = rst.Members["FreeSpace"].Value.ToString();
+                                MachineWinEdition.Text = rst.Members["Caption"].Value.ToString();
+                                MachineOSBuild.Text = rst.Members["BuildNumber"].Value.ToString();
+                            }
+
+
                             MachineProgressRing.IsActive = false;
+                            MachineProgressCaption.Visibility= Visibility.Collapsed;
+                            AdditionalInfoPanel.Visibility = Visibility.Visible;
                         }
                     }
                     else
