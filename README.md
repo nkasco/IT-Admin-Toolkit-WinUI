@@ -17,6 +17,7 @@
 **Features/In-Progress Goals:**
 - Launcher - Provide a script launcher that can be easily customized (initially with XML) to centralize and launch script files across various languages.
     - To be added: CMD, BAT, VB, WSF, PY
+    - Built In XML editor UI
 - Task Scheduler - Create scheduled tasks, local or remote, quickly and easily from your script library.
 - Reporting - Built-in logging and reporting statistics based on usage.
 - Role Management - Manage groups of users (likely via AD Group Enrollment) to control script visibility.
