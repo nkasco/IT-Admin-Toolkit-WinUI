@@ -27,6 +27,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using AutoUpdaterDotNET;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -449,6 +450,42 @@ namespace ITATKWinUI
 
             //Select the first navigation item
             MainNav.SelectedItem = MainNav.MenuItems[1]; //Index 1 because 0 is the "Categories" text header
+
+            //We've got to check for updates in the main window due to a WinUI limitation that currently exists
+            CheckForUpdates();
+        }
+
+        private async void CheckForUpdates()
+        {
+            //Check for updates if enabled
+            XDocument settingsXML = XDocument.Load(@"Settings.xml");
+            foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
+            {
+                if (item.Attribute("Name").Value == "SettingAutomaticUpdates")
+                {
+                    if (item.Attribute("Setting").Value == "true" || item.Attribute("Setting").Value == "True")
+                    {
+                        LoadingText.Text = "Checking for updates...";
+                        await Task.Run(() => Task.Delay(3000)); //Sample for testing the loading screen
+                        string UpdateXMLURL = "";
+                        AutoUpdater.Mandatory = true;
+                        AutoUpdater.UpdateMode = Mode.Forced;
+                        //AutoUpdater.Start(UpdateXMLURL);
+                    }
+                }
+            }
+
+            await Task.Run(() => Task.Delay(3000)); //Sample for testing the loading screen
+            LoadingStack.Visibility = Visibility.Collapsed;
+            MainNav.Visibility = Visibility.Visible;
+        }
+
+        private string LoadingPhrase()
+        {
+            //Return a random string for the loading window
+            string phrase = "";
+
+            return phrase;
         }
 
         //TODO: Terminal output WIP

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<item>
+	<version>2.0.0.0</version>
+	<url>https://rbsoft.org/downloads/AutoUpdaterTest.zip</url>
+	<changelog>https://github.com/nkasco/IT-Admin-Toolkit-WinUI/releases</changelog>
+	<mandatory>false</mandatory>
+</item>

@@ -69,7 +69,7 @@ namespace ITATKWinUI
             }
         }
 
-        public string AppIcon;
+        public static string AppIcon;
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

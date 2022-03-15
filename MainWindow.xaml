@@ -7,9 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-
-    <NavigationView 
+    <Grid>
+        <StackPanel Name="LoadingStack" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Loading..." Name="LoadingText" Width="150" TextAlignment="Center"/>
+            <ProgressBar Name="LoadingProgressBar" Width="150" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
+        </StackPanel>
+        <NavigationView 
             Name="MainNav"
+            Visibility="Collapsed"
             IsSettingsVisible="True"
             IsBackButtonVisible="Collapsed"
             IsBackEnabled="False"
@@ -181,4 +186,5 @@
         </SplitView>
 
     </NavigationView>
+    </Grid>
 </Window>
