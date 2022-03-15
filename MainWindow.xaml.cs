@@ -27,7 +27,6 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using AutoUpdaterDotNET;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -467,10 +466,6 @@ namespace ITATKWinUI
                     {
                         LoadingText.Text = "Checking for updates...";
                         await Task.Run(() => Task.Delay(3000)); //Sample for testing the loading screen
-                        string UpdateXMLURL = "";
-                        AutoUpdater.Mandatory = true;
-                        AutoUpdater.UpdateMode = Mode.Forced;
-                        //AutoUpdater.Start(UpdateXMLURL);
                     }
                 }
             }
