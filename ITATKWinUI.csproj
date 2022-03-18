@@ -42,8 +42,8 @@
 
   <ItemGroup>
     <PackageReference Include="microsoft.powershell.sdk" Version="7.2.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -111,6 +111,9 @@
     </None>
     <None Update="Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Updater.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="XML\Categories.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
