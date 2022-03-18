@@ -64,7 +64,7 @@
                             <TextBlock FontWeight="Bold">Automatic Updates</TextBlock>
                             <TextBlock>Automatically check for updates each time you launch this application</TextBlock>
                         </StackPanel>
-                        <ToggleSwitch Name="SettingAutomaticUpdates" HorizontalAlignment="Right" Grid.Column="1" OffContent="" OnContent="" IsEnabled="False" MinWidth="0"/>
+                        <ToggleSwitch Name="SettingAutomaticUpdates" HorizontalAlignment="Right" Grid.Column="1" OffContent="" OnContent="" MinWidth="0"/>
                     </Grid>
                     <Grid Padding="25, 25, 25, 0" >
                         <Grid.ColumnDefinitions>
