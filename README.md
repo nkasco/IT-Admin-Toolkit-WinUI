@@ -13,6 +13,7 @@
 - Launcher functionality for PowerShell 5 or PowerShell 7 scripts (powershell.exe or pwsh.exe)
     - Configuration options for passing a target machine as a script parameter (Optional)
 - Remote Machine Info Panel - Quickly gain at a glance key information for inputted machines as needed
+- Automatic update support - Choose whether you want to control update cycles or take them automatically
 
 **Features/In-Progress Goals:**
 - Launcher - Provide a script launcher that can be easily customized (initially with XML) to centralize and launch script files across various languages.
@@ -22,7 +23,6 @@
 - Reporting - Built-in logging and reporting statistics based on usage.
 - Role Management - Manage groups of users (likely via AD Group Enrollment) to control script visibility.
 - Built-In PowerShell Console - Choose whether you want your scripts to run in an integrated console or as a standalone process.
-- Automatic update support - Choose whether you want to control update cycles or take them automatically.
 - PowerShell Gallery integration -  Make it easy to add PS gallery scripts to your library from within the tool.
 - Eventually, explore cross-platform support for macOS and Linux.
 
