@@ -62,7 +62,7 @@ namespace ITATKWinUI
 
         private static string SingleOrMulti = "Single";
 
-        private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType)
+        private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
         {
             string EXEPath;
 
@@ -125,14 +125,25 @@ namespace ITATKWinUI
                 {
                     scriptPath = Environment.CurrentDirectory + "\\" + scriptPath;
                 }
-
-                var process = new Process
+                var process = new Process();
+                if (hide == "true")
                 {
-                    StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
+                    process.StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -WindowStyle Hidden -NoProfile -File \"" + scriptPath + "\" " + args)
                     {
                         CreateNoWindow = false
-                    }
-                };
+                    };
+                } else {
+                    process.StartInfo = new ProcessStartInfo("\"" + EXEPath + "\"", "-ExecutionPolicy Bypass -NoProfile -File \"" + scriptPath + "\" " + args)
+                    {
+                        CreateNoWindow = false
+                    };
+                }
+
+                if(elevate == "true")
+                {
+                    process.StartInfo.Verb = "runas";
+                    process.StartInfo.UseShellExecute = true;
+                }
                 //process.StartInfo.RedirectStandardOutput = true;
                 //process.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 //{
@@ -143,7 +154,13 @@ namespace ITATKWinUI
                 //        output.Append("\n[" + lineCount + "]: " + e.Data);
                 //    }
                 //});
-                process.Start();
+                if(wait == "true")
+                {
+                    process.WaitForExit();
+                } else
+                {
+                    process.Start();
+                }
                 //process.BeginOutputReadLine();
                 //process.WaitForExit();
                 //Debug.WriteLine(output);
@@ -154,16 +171,22 @@ namespace ITATKWinUI
             }
         }
 
+        private static void LaunchScript(string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
+        {
+            //Overload condition for what we expect to use
+            LaunchScript(null, null, scriptPath, args, type, inputType, wait, elevate, hide);
+        }
+
         private static void LaunchScript(string scriptPath, string args, string type, string inputType)
         {
             //Overload condition for what we expect to use
-            LaunchScript(null, null, scriptPath, args, type, inputType);
+            LaunchScript(null, null, scriptPath, args, type, inputType, "false", "no", "false");
         }
 
         private static void LaunchScript(string scriptPath, string type, string inputType)
         {
             //Overload condition if there are no args
-            LaunchScript(null,null,scriptPath, "", type, inputType);
+            LaunchScript(null,null,scriptPath, "", type, inputType, "false", "no", "false");
         }
 
         public static void LaunchExplorer(Object sender, EventArgs e, string path)
@@ -464,15 +487,45 @@ namespace ITATKWinUI
                 {
                     if (item.Attribute("Setting").Value == "true" || item.Attribute("Setting").Value == "True")
                     {
+                        bool updateRequired = false;
                         LoadingText.Text = "Checking for updates...";
-                        await Task.Run(() => Task.Delay(3000)); //Sample for testing the loading screen
+                        XDocument updateXML = XDocument.Load("https://raw.githubusercontent.com/nkasco/IT-Admin-Toolkit-WinUI/master/UpdateInfo.xml");
+                        XElement updateXMLData = updateXML.Descendants("Item").Last();
+                        string updateVersion = updateXMLData.Attribute("version").Value;
+                        Version updateVersionv = new Version(updateVersion);
+
+                        string currentVersion = CurrentVersion();
+                        Version currentVersionv = new Version(currentVersion);
+                        if (currentVersionv < updateVersionv)
+                        { 
+                            updateRequired = true;
+                        }
+
+                        if (updateRequired == true)
+                        {
+                            LoadingText.Text = "Downloading update...";
+                            string scriptName = "Updater.ps1";
+                            string scriptPath = Environment.CurrentDirectory + "\\" + scriptName;
+                            LaunchScript(scriptPath, " -InstallPath \"" + Environment.CurrentDirectory + "\" -DownloadURL \"" + updateXMLData.Attribute("link").Value + "\"", "PS5", "None", "false", "true", "true"); //TODO: Should this be moved to run with the integrated host? Probably can't until elevation support is added to Windows App SDK with v1.1
+                            await Task.Run(() => Task.Delay(1000000)); //TODO: This needs fixed, for some reason WaitForExit() isn't working
+                            //TODO: Run LoadingPhrase() on a loop
+                        }
                     }
                 }
             }
 
-            await Task.Run(() => Task.Delay(3000)); //Sample for testing the loading screen
             LoadingStack.Visibility = Visibility.Collapsed;
             MainNav.Visibility = Visibility.Visible;
+        }
+
+        private string CurrentVersion()
+        {
+            string version = "";
+
+            XDocument changelogDetail = XDocument.Load(@"Changelog.xml");
+            version = changelogDetail.Descendants("Item").Last().Attribute("version").Value;
+
+            return version;
         }
 
         private string LoadingPhrase()
