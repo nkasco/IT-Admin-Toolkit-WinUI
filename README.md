@@ -13,7 +13,7 @@
 - Launcher functionality for PowerShell 5 or PowerShell 7 scripts (powershell.exe or pwsh.exe)
     - Configuration options for passing a target machine as a script parameter (Optional)
 - Remote Machine Info Panel - Quickly gain at a glance key information for inputted machines as needed
-    - Note: At present this feature is only supported when remote connections can be made without explicitly passing credentials (i.e. either an open network share, same account on both machines, or a domain that allows it). Therefore it may be expected that this doesn't work in all environments. Initiating connections with different credentials will come at a later time.
+    - Note: At present this feature is only supported when remote connections can be made without explicitly passing credentials (i.e. either an open network share, same account on both machines, or a domain that allows it). Therefore it may be expected that this doesn't work in all environments. Initiating connections with different credentials will come at a later time. PSRemoting also must be enabled, optionally initiating connections with DCOM instead of WSMan will also come later.
 - Automatic update support - Choose whether you want to control update cycles or take them automatically
 
 **Features/In-Progress Goals:**
