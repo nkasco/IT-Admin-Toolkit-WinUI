@@ -27,6 +27,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Management.Automation.Runspaces;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using CsvHelper;
+using System.Globalization;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -52,6 +54,17 @@ namespace ITATKWinUI
     //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     //    }
     //}
+
+    public class ReportingRecord
+    {
+        public string ScriptName { get; set; }
+        public string ScriptPath { get; set; }
+        public DateTime DateTime { get; set; }
+        public string UserExecuting { get; set; }
+        public string HostExecuting { get; set; }
+        public string FileExtension { get; set; }
+        public string Target { get; set; }
+    }
 
     public partial class MainWindow : Window
     {
@@ -432,7 +445,13 @@ namespace ITATKWinUI
             tmp.Content = headerContentStackPanel;
 
             //Add Run and Explore click events
-            headerContentRunButton.Click += (sender, e) => LaunchScript(path, psVersion, inputType);
+            void RunButtonMethods()
+            {
+                LaunchScript(path, psVersion, inputType);
+                WriteReportingRecord(name, path, CurrentInput, psVersion);
+            }
+
+            headerContentRunButton.Click += (sender, e) => RunButtonMethods();
             headerContentExploreButton.Click += (sender, e) => LaunchExplorer(path);
 
             return tmp;
@@ -572,6 +591,11 @@ namespace ITATKWinUI
                 _page = typeof(Settings);
                 contentFrame.Navigate(_page);
                 //TODO: Should we hide the machine input, terminal, and machine info pane here? If so ensure we show it once we navigate away below
+            } else if (args.SelectedItemContainer.Content.ToString() == "Reporting")
+            {
+                Type _page = null;
+                _page = typeof(Reporting);
+                contentFrame.Navigate(_page);
             }
             else
             {
@@ -671,6 +695,51 @@ namespace ITATKWinUI
                 ContentFrameScrollViewer.Visibility = Visibility.Visible;
                 ScriptTerminal.Height = 150;
                 TerminalRowConfig.Height = GridLength.Auto;
+            }
+        }
+
+        public static string reportFilePath = Environment.CurrentDirectory + "\\Usage.csv";
+
+        public static void WriteReportingRecord(string ScriptTitle, string ScriptFilePath, string MachineInput, string Type)
+        {
+            //Name, Input, Time, User Executing, Host Executing
+            var newRecord = new List<ReportingRecord>
+            {
+                new ReportingRecord {
+                    ScriptName = ScriptTitle,
+                    ScriptPath = ScriptFilePath,
+                    HostExecuting = Environment.MachineName,
+                    FileExtension = Type,
+                    Target = MachineInput,
+                    UserExecuting = Environment.UserName,
+                    DateTime = DateTime.Now
+                }
+            };
+
+            var records = GetReportingRecords();
+
+            using (var writer = new StreamWriter(reportFilePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteHeader<ReportingRecord>();
+                csv.NextRecord();
+                foreach (var record in records)
+                {
+                    csv.WriteRecord(record);
+                    csv.NextRecord();
+                }
+                csv.WriteRecords(newRecord);
+                csv.NextRecord();
+            }
+        }
+
+        public static List<ReportingRecord> GetReportingRecords()
+        {
+            using (var reader = new StreamReader(reportFilePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<ReportingRecord>();
+                return records.ToList();
             }
         }
 
@@ -806,6 +875,7 @@ namespace ITATKWinUI
             }
             else
             {
+                CurrentInput = "";
                 PingSymbol.Visibility = Visibility.Collapsed;
             }
         }

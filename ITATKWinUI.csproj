@@ -27,6 +27,7 @@
     <None Remove="Assets\Powershell7.ico" />
     <None Remove="Loading.xaml" />
     <None Remove="MachineInfo.ps1" />
+    <None Remove="Reporting.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
 
@@ -41,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="microsoft.powershell.sdk" Version="7.2.1" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
@@ -106,6 +108,12 @@
     <None Update="Modules\PSDiagnostics\PSDiagnostics.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Usage.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Page Update="Reporting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="Scripts\MultiLineTestScript.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

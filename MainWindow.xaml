@@ -49,13 +49,14 @@
             <NavigationViewItemHeader Content="Categories"/>
         </NavigationView.MenuItems>
 
-        <!-- TODO: Add in extra reporting and scheduling functionality -->
-        <!--<NavigationView.FooterMenuItems>
-            <NavigationViewItem Content="Reporting" />
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem Content="Reporting" Icon="Page2" />
+                <!-- TODO: Add in extra scheduling functionality
             <NavigationViewItem Content="Scheduler" />
-        </NavigationView.FooterMenuItems>-->
+            -->
+        </NavigationView.FooterMenuItems>
 
-        <NavigationView.AutoSuggestBox>
+            <NavigationView.AutoSuggestBox>
             <AutoSuggestBox QueryIcon="Find" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
         </NavigationView.AutoSuggestBox>
 
@@ -180,7 +181,7 @@
                     <ToggleButton Name="HideScriptTerminal" Click="HideScriptTerminal_Click" ToolTipService.ToolTip="Toggle Terminal" Width="25" Height="25" Padding="0" Grid.Column="0" IsChecked="false" Margin="1" Visibility="Collapsed">
                         <SymbolIcon Symbol="GoToStart"/>
                     </ToggleButton>
-                    <ProgressBar Width="100" x:Name="StatusProgressBar" IsIndeterminate="True" Grid.Column="1" HorizontalAlignment="Right"/>
+                    <ProgressBar Width="100" x:Name="StatusProgressBar" IsIndeterminate="True" Grid.Column="1" HorizontalAlignment="Right" Visibility="Collapsed"/>
                 </Grid>
             </Grid>
         </SplitView>
