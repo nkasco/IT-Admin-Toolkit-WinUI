@@ -9,5 +9,5 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <controls:DataGrid x:Name="ReportingGrid" AutoGenerateColumns="True" Margin="5" ItemsSource="{x:Bind ReportData}"/>
+    <controls:DataGrid x:Name="ReportingGrid" AutoGenerateColumns="True" Margin="5" IsReadOnly="True" AlternatingRowBackground="DodgerBlue"  ItemsSource="{x:Bind ReportData}"/>
 </Page>
