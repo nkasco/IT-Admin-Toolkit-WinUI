@@ -27,17 +27,19 @@
             <NavigationViewItem Content="General" IsSelected="True"/>
             <NavigationViewItem Content="Appearance"/>
             <NavigationViewItem Content="Branding"/>
+            <NavigationViewItem Content="Reporting"/>
             <NavigationViewItem Content="Keybinds" Visibility="Collapsed"/>
             <NavigationViewItem Content="Help"/>
         </NavigationView.MenuItems>
         <NavigationView.FooterMenuItems>
+            <NavigationViewItem Content="All Settings"/>
             <NavigationViewItemSeparator />
             <NavigationViewItem Content="Changelog"/>
             <NavigationViewItemSeparator />
             <NavigationViewItemHeader Content="IT Admin Toolkit v1.01" Name="SettingVersion" />
         </NavigationView.FooterMenuItems>
 
-        <ScrollViewer x:Name="SettingsContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
+        <ScrollViewer x:Name="SettingsContentFrameScrollViewer" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled">
             <StackPanel>
                 <!--<Frame x:Name="settingsContentFrame" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" Grid.Row="1" />-->
                 <StackPanel x:Name="GeneralTab">
@@ -151,6 +153,33 @@
                         <Button Name="SettingApplicationIconOFD" Click="SettingApplicationIconOFD_Click" HorizontalAlignment="Right" Grid.Column="2">
                             <SymbolIcon Symbol="OpenFile"/>
                         </Button>
+                    </Grid>
+                    <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="1">
+                            <Button Content="Save Settings" Click="SaveButton_Click" HorizontalAlignment="Right" />
+                            <TextBlock Margin="0,5,0,0" FontStyle="Italic">(Note: Setting changes take effect the next time the application is started)</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Name="ReportingTab">
+                    <TextBlock Padding="15,12,0,0" FontWeight="Bold" FontSize="18">Reporting</TextBlock>
+                    <Grid Padding="25, 25, 25, 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock FontWeight="Bold">Reporting Log Location</TextBlock>
+                            <TextBlock>Change the configured file path for logs, may be a local or UNC path</TextBlock>
+                        </StackPanel>
+                        <TextBox Name="SettingReportingLogLocation" HorizontalAlignment="Right" Text="" Grid.Column="1" Width="175"/>
                     </Grid>
                     <Grid Padding="25, 25, 25, 0" HorizontalAlignment="Right">
                         <Grid.ColumnDefinitions>

@@ -48,8 +48,8 @@ namespace ITATKWinUI
                 AppendChangeLogItem(item);
             }
 
-                //Load settings and set UI accordingly
-                XDocument settingsXML = XDocument.Load(@"Settings.xml");
+            //Load settings and set UI accordingly
+            XDocument settingsXML = XDocument.Load(@"Settings.xml");
             foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
             {
                 switch (item.Attribute("Name").Value)
@@ -78,6 +78,10 @@ namespace ITATKWinUI
                         BitmapImage bitmapImage = new BitmapImage();
                         bitmapImage.UriSource = new Uri(SettingApplicationIconImage.BaseUri, item.Attribute("Setting").Value);
                         SettingApplicationIconImage.Source = bitmapImage;
+                        break;
+
+                    case "SettingReportingLogLocation":
+                        SettingReportingLogLocation.Text = MainWindow.SettingReportingLogLocation;
                         break;
                 }
             }
@@ -121,6 +125,19 @@ namespace ITATKWinUI
                         var bitmapImage = (BitmapImage)SettingApplicationIconImage.Source;
                         item.Attribute("Setting").Value = bitmapImage.UriSource.ToString();
                         break;
+
+                    //Reporting
+                    case "SettingReportingLogLocation":
+                        if (File.Exists(SettingReportingLogLocation.Text))
+                        {
+                            item.Attribute("Setting").Value = SettingReportingLogLocation.Text;
+                            MainWindow.SettingReportingLogLocation = SettingReportingLogLocation.Text;
+                            break;
+                        } else
+                        {
+                            SettingReportingLogLocation.Text = "PATH NOT FOUND";
+                            break;
+                        }
                 }
             }
 
@@ -132,12 +149,22 @@ namespace ITATKWinUI
             GeneralTab.Visibility = Visibility.Collapsed;
             AppearanceTab.Visibility = Visibility.Collapsed;
             BrandingTab.Visibility = Visibility.Collapsed;
+            ReportingTab.Visibility = Visibility.Collapsed;
             KeybindsTab.Visibility = Visibility.Collapsed;
             HelpTab.Visibility = Visibility.Collapsed;
             Changelog.Visibility = Visibility.Collapsed;
 
             switch (settingTab)
             {
+                case "All Settings":
+                    GeneralTab.Visibility = Visibility.Visible;
+                    AppearanceTab.Visibility = Visibility.Visible;
+                    BrandingTab.Visibility = Visibility.Visible;
+                    ReportingTab.Visibility = Visibility.Visible;
+                    KeybindsTab.Visibility = Visibility.Visible;
+                    HelpTab.Visibility = Visibility.Visible;
+                    break;
+
                 case "General":
                     GeneralTab.Visibility = Visibility.Visible;
                     break;
@@ -148,6 +175,10 @@ namespace ITATKWinUI
 
                 case "Branding":
                     BrandingTab.Visibility = Visibility.Visible;
+                    break;
+
+                case "Reporting":
+                    ReportingTab.Visibility = Visibility.Visible;
                     break;
 
                 case "Keybinds":
@@ -170,10 +201,17 @@ namespace ITATKWinUI
         private void SettingsNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             string setting = args.SelectedItemContainer.Content.ToString();
-            if (setting == "Branding")
+            if(setting == "Reporting")
+            {
+                if(SettingReportingLogLocation.Text == "PATH NOT FOUND")
+                {
+                    SettingReportingLogLocation.Text = MainWindow.SettingReportingLogLocation;
+                }
+            }
+            /*if (setting == "Branding")
             {
                 SaveSettings();
-            }
+            }*/
             SetSettingVisibility(setting);
         }
 
