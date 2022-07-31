@@ -6,4 +6,5 @@
 	<Item Name="SettingTheme" Setting="System Theme" />
 	<Item Name="SettingApplicationTitle" Setting="IT Admin Toolkit" />
 	<Item Name="SettingApplicationIconImage" Setting="ms-appx:///Assets/Powershell7.ico" />
+	<Item Name="SettingReportingLogLocation" Setting="@AppPath/Usage.csv" />
 </Settings>

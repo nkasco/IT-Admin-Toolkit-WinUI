@@ -461,6 +461,8 @@ namespace ITATKWinUI
 
         public static string SettingExplorer;
 
+        public static string SettingReportingLogLocation;
+
         public MainWindow()
         {
             this.InitializeComponent();
@@ -478,6 +480,16 @@ namespace ITATKWinUI
                 if (item.Attribute("Name").Value == "SettingShowExplorer")
                 {
                     SettingExplorer = item.Attribute("Setting").Value.ToString();
+                }
+
+                if (item.Attribute("Name").Value == "SettingReportingLogLocation")
+                {
+                    SettingReportingLogLocation = item.Attribute("Setting").Value.ToString();
+
+                    if (SettingReportingLogLocation.Contains("@AppPath"))
+                    {
+                        SettingReportingLogLocation = SettingReportingLogLocation.Replace("@AppPath", Environment.CurrentDirectory);
+                    }
                 }
             }
 
@@ -698,8 +710,6 @@ namespace ITATKWinUI
             }
         }
 
-        public static string reportFilePath = Environment.CurrentDirectory + "\\Usage.csv";
-
         public static void WriteReportingRecord(string ScriptTitle, string ScriptFilePath, string MachineInput, string Type)
         {
             //Name, Input, Time, User Executing, Host Executing
@@ -718,6 +728,8 @@ namespace ITATKWinUI
 
             var records = GetReportingRecords();
 
+            string reportFilePath = SettingReportingLogLocation;
+
             using (var writer = new StreamWriter(reportFilePath))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
@@ -735,6 +747,8 @@ namespace ITATKWinUI
 
         public static List<ReportingRecord> GetReportingRecords()
         {
+            string reportFilePath = SettingReportingLogLocation;
+
             using (var reader = new StreamReader(reportFilePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
