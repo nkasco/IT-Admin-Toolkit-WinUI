@@ -109,7 +109,7 @@ namespace ITATKWinUI
             // The Window object doesn't have Width and Height properties in WInUI 3 Desktop yet.
             // To set the Width and Height, you can use the Win32 API SetWindowPos.
             // Note, you should apply the DPI scale factor if you are thinking of dpi instead of pixels.
-            SetWindowSize(m_windowHandle, 1200, 680);
+            SetWindowSize(m_windowHandle, 1250, 680);
         }
 
         public static string Title;

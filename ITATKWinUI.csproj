@@ -27,6 +27,7 @@
     <None Remove="Assets\Powershell7.ico" />
     <None Remove="Loading.xaml" />
     <None Remove="MachineInfo.ps1" />
+    <None Remove="Reporting.xaml" />
     <None Remove="Settings.xaml" />
   </ItemGroup>
 
@@ -41,10 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.powershell.sdk" Version="7.2.1" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
-    <PackageReference Include="PInvoke.User32" Version="0.7.104" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="CsvHelper" Version="28.0.1" />
+    <PackageReference Include="microsoft.powershell.sdk" Version="7.2.5" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.3" />
+    <PackageReference Include="PInvoke.User32" Version="0.7.124" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -106,6 +109,12 @@
     <None Update="Modules\PSDiagnostics\PSDiagnostics.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Usage.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Page Update="Reporting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="Scripts\MultiLineTestScript.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

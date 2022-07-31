@@ -28,7 +28,7 @@
 - Eventually, explore cross-platform support for macOS and Linux.
 
 **Prerequisites (In-Progress):**
-- At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#current-releases) (Currently: Version 1.0.1) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
+- At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#current-releases) (Currently: Version 1.1.3) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
     - For development - environmental requirements can be found [here](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/create-your-first-winui3-app#unpackaged-create-a-new-project-for-an-unpackaged-c-or-c-winui-3-desktop-app)
     - Currently, this project is intended to be unpackaged if you are running the .sln from Visual Studio
 - Other potential things to check:
