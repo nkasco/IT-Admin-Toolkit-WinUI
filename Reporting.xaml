@@ -5,9 +5,10 @@
     xmlns:local="using:ITATKWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <controls:DataGrid x:Name="ReportingGrid" AutoGenerateColumns="True" Margin="5" ItemsSource="{x:Bind ReportData}"/>
+    <Grid>
+        
+    </Grid>
 </Page>
