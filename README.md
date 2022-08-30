@@ -30,6 +30,7 @@
 **Prerequisites (In-Progress):**
 - At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#current-releases) (Currently: Version 1.1.3) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
     - For development - environmental requirements can be found [here](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/create-your-first-winui3-app#unpackaged-create-a-new-project-for-an-unpackaged-c-or-c-winui-3-desktop-app)
+    - Ensure you install the proper [C# Windows App SDK Templates](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=vs-2022-17-1-a%2Cvs-2022-17-1-b#required-workloads-and-components)
     - Currently, this project is intended to be unpackaged if you are running the .sln from Visual Studio
 - Other potential things to check:
     - Install the .NET 6 runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime
