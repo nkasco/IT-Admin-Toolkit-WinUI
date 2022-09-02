@@ -109,6 +109,9 @@
     <None Update="Modules\PSDiagnostics\PSDiagnostics.psm1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Scripts\OpenFileExplorer.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Usage.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
