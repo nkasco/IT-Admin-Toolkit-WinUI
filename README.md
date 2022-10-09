@@ -9,7 +9,7 @@
     - Accessibility - Light or Dark Mode support and Per-Monitor v2 DPI Aware
 - Basic Settings Functionality
 - Configurable XML to add categories or scripts as needed
-    - View examples within XML folder, all icons must be [Segoe MDL2 Assets](https://docs.microsoft.com/en-us/windows/winui/api/microsoft.ui.xaml.controls.symbol?view=winui-3.0)
+    - View examples within XML folder, all icons must be [Segoe MDL2 Assets](https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.symbol?view=winrt-22621)
 - Launcher functionality for PowerShell 5 or PowerShell 7 scripts (powershell.exe or pwsh.exe)
     - Configuration options for passing a target machine as a script parameter (Optional)
 - Remote Machine Info Panel - Quickly gain at a glance key information for inputted machines as needed
