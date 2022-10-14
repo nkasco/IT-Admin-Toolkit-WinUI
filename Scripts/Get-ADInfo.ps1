@@ -1,0 +1,15 @@
+param ($machines)
+
+$machines -split ',' | ForEach-Object { 
+    if (!(Test-Connection -TargetName $_ -Count 2 -Quiet)) {
+        Write-Host "$_ : not online"
+        return
+    }
+    else {
+        try {
+            Get-ADComputer $_ -Properties * | Select-Object *
+        }
+        catch { Write-Host "$_" -ForegroundColor Red }
+    }  
+}
+Read-Host 'Press enter to close'
