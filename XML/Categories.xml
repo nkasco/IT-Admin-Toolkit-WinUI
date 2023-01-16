@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Gui>
 	<!--<Item category="<category name>" icon="<Must be a valid Segoe MDL2 Assets glyph>" foreground="<color>" />-->
-	<Item category="General" icon="Home" foreground="White" />
-	<Item category="User Management" icon="Contact" foreground="White" />
-	<Item category="Software" icon="OpenWith" foreground="White" />
-	<Item category="Log Files" icon="TwoBars" foreground="White" />
-	<Item category="Remediate" icon="Repair" foreground="White" />
-	<Item category="Security" icon="Admin" foreground="White" />
-	<Item category="Database" icon="Page2" foreground="White" />
-	<Item category="Virtualization" icon="SwitchApps" foreground="White" />
-	<Item category="Azure" icon="Globe" foreground="White" />
-	<Item category="Active Directory" icon="Admin" foreground="White" />
+	<Item category="General" icon="Home" foreground="Default" />
+	<Item category="User Management" icon="Contact" foreground="Default" />
+	<Item category="Software" icon="OpenWith" foreground="Default" />
+	<Item category="Log Files" icon="TwoBars" foreground="Default" />
+	<Item category="Remediate" icon="Repair" foreground="Default" />
+	<Item category="Security" icon="Admin" foreground="Default" />
+	<Item category="Database" icon="Page2" foreground="Default" />
+	<Item category="Virtualization" icon="SwitchApps" foreground="Default" />
+	<Item category="Azure" icon="Globe" foreground="Default" />
+	<Item category="Active Directory" icon="Admin" foreground="Default" />
 </Gui>
