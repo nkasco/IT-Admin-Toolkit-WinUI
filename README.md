@@ -2,8 +2,8 @@
 ## A customizable and expandable destination for centralizing day-to-day job functions.
 **Created by: [Nathan Kasco](https://nkasco.com)**
 
-![Sample Pic](Assets/ITATKWinUIPromoLight.png)
-![Sample Pic](Assets/ITATKWinUIPromoDark.png)
+![Sample Pic](Assets/ITATKWinUIPromoLightSmall.png)
+![Sample Pic](Assets/ITATKWinUIPromoDarkSmall.png)
 
 **Current Functionality (Alpha):**
 - Core App - Open source, free, forever - Allow community contributions and provide credit to authors.

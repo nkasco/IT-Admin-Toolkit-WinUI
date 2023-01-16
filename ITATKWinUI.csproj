@@ -21,7 +21,9 @@
     <Content Remove="Assets\ITATKWinUI.png" />
     <Content Remove="Assets\ITATKWinUIPromo.jpg" />
     <Content Remove="Assets\ITATKWinUIPromoDark.png" />
+    <Content Remove="Assets\ITATKWinUIPromoDarkSmall.png" />
     <Content Remove="Assets\ITATKWinUIPromoLight.png" />
+    <Content Remove="Assets\ITATKWinUIPromoLightSmall.png" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
