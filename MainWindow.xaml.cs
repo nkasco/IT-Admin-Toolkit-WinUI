@@ -239,6 +239,8 @@ namespace ITATKWinUI
             TextBlock txtBlock = new TextBlock();
             txtBlock.Text = name;
             txtBlock.Padding = new Thickness(5);
+            txtBlock.FontSize = 24;
+            txtBlock.Margin = new Thickness(5);
             stackPanel.Children.Add(txtBlock);
 
             page.Content = stackPanel;
@@ -296,6 +298,16 @@ namespace ITATKWinUI
 
             SymbolIcon symbolIcon = new SymbolIcon();
             symbolIcon.Symbol = (Symbol)Enum.Parse(typeof(Symbol), icon);
+
+            //Auto set White/Black to opposite values if they match the active theme
+            if((foreground == "White") && (App.Current.RequestedTheme == ApplicationTheme.Light))
+            {
+                foreground = "Black";
+            } else if((foreground == "Black") && (App.Current.RequestedTheme == ApplicationTheme.Dark))
+            {
+                foreground = "White";
+            }
+
             var color = (Color)XamlBindingHelper.ConvertValue(typeof(Color), foreground);
             var brush = new SolidColorBrush(color);
             symbolIcon.Foreground = brush;
@@ -337,7 +349,7 @@ namespace ITATKWinUI
             tmp.ExpandDirection = Microsoft.UI.Xaml.Controls.ExpandDirection.Down;
             tmp.HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch;
             tmp.Padding = new Microsoft.UI.Xaml.Thickness(20);
-            tmp.Margin = new Microsoft.UI.Xaml.Thickness(10, 10, 10, 0);
+            tmp.Margin = new Microsoft.UI.Xaml.Thickness(25, 10, 25, 0);
 
             //Header Stack Panel
             StackPanel headerStack = new StackPanel();
@@ -603,17 +615,30 @@ namespace ITATKWinUI
                 _page = typeof(Settings);
                 contentFrame.Navigate(_page);
                 //TODO: Should we hide the machine input, terminal, and machine info pane here? If so ensure we show it once we navigate away below
+                ContentSplitView.IsPaneOpen = false;
+                MachineDetailsToggleButton.IsChecked = false;
+                MachineInputs.Visibility = Visibility.Collapsed;
             } else if (args.SelectedItemContainer.Content.ToString() == "Reporting")
             {
                 Type _page = null;
                 _page = typeof(Reporting);
                 contentFrame.Navigate(_page);
+                MachineInputs.Visibility = Visibility.Visible;
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "All Scripts")
+            {
+                //TODO: Show all scripts in button form here
+            }
+            else if (args.SelectedItemContainer.Content.ToString() == "Dashboard")
+            {
+                //TODO: Show dashboard page
             }
             else
             {
                 Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
                 //MainNav.Header = args.SelectedItemContainer.Content.ToString();
                 contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
+                MachineInputs.Visibility = Visibility.Visible;
             }
         }
 
