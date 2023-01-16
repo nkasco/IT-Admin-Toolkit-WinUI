@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Gui>
-	<!--<Item name="<Title>" description="<Description>" path="<Exact file path or relative to this directory, relative takes priority>" psVersion="<PS5 or PS7>" icon="<Must be a valid Segoe MDL2 Assets glyph>" category="<category must exist on navigation>" inputType="<None or Machine>" />-->
-	<Item name="File Explorer" description="Open Windows Explorer with the C$ share of a remote machine" path="Scripts\OpenFileExplorer.ps1" psVersion="PS7" icon="Globe" category="General" inputType="Machine" />
-	<Item name="Logon Status" description="Check a remote machine for the currently logged on user" path="Scripts\Get-CurrentLoggedUsers.ps1" psVersion="PS7" icon="OtherUser" category="General" inputType="Machine" />
-	<Item name="Get OS Info" description="Retrieve the current OS and associated info of a remote machine" path="Scripts\Get-OSinfo.ps1" psVersion="PS7" icon="BrowsePhotos" category="General" inputType="Machine" />
-	<Item name="Get AD Info" description="Retrieve Active Directory related information of a machine (requires RSAT)" path="Scripts\Get-ADInfo.ps1" psVersion="PS7" icon="StopSlideShow" category="General" inputType="Machine" />
-	<Item name="Logoff User" description="Logoff the desired user from the remote machine" path="Scripts\LogoffUser.ps1" psVersion="PS7" icon="Contact" category="General" inputType="Machine" />
-	<Item name="Reboot Machine" description="Reboot remote device instantly" path="Scripts\Invoke-Reboot.ps1" psVersion="PS7" icon="Refresh" category="General" inputType="Machine" />
+	<!--<Item name="<Title>" description="<Description>" path="<Exact file path or relative to this directory, relative takes priority>" psVersion="<PS5 or PS7>" icon="<Must be a valid Segoe MDL2 Assets glyph>" category="<category must exist on navigation>" inputType="<None or Machine>" dateAdded="1-1-2023" featured="true|false" />-->
+	<Item name="File Explorer" description="Open Windows Explorer with the C$ share of a remote machine" path="Scripts\OpenFileExplorer.ps1" psVersion="PS7" icon="Globe" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
+	<Item name="Logon Status" description="Check a remote machine for the currently logged on user" path="Scripts\Get-CurrentLoggedUsers.ps1" psVersion="PS7" icon="OtherUser" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
+	<Item name="Get OS Info" description="Retrieve the current OS and associated info of a remote machine" path="Scripts\Get-OSinfo.ps1" psVersion="PS7" icon="BrowsePhotos" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
+	<Item name="Get AD Info" description="Retrieve Active Directory related information of a machine (requires RSAT)" path="Scripts\Get-ADInfo.ps1" psVersion="PS7" icon="StopSlideShow" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
+	<Item name="Logoff User" description="Logoff the desired user from the remote machine" path="Scripts\LogoffUser.ps1" psVersion="PS7" icon="Contact" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
+	<Item name="Reboot Machine" description="Reboot remote device instantly" path="Scripts\Invoke-Reboot.ps1" psVersion="PS7" icon="Refresh" category="General" inputType="Machine" dateAdded="1-1-2023" featured="false" />
 </Gui>

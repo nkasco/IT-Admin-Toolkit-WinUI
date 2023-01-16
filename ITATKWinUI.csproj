@@ -20,6 +20,10 @@
   <ItemGroup>
     <Content Remove="Assets\ITATKWinUI.png" />
     <Content Remove="Assets\ITATKWinUIPromo.jpg" />
+    <Content Remove="Assets\ITATKWinUIPromoDark.png" />
+    <Content Remove="Assets\ITATKWinUIPromoDarkSmall.png" />
+    <Content Remove="Assets\ITATKWinUIPromoLight.png" />
+    <Content Remove="Assets\ITATKWinUIPromoLightSmall.png" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
@@ -46,7 +50,7 @@
     <PackageReference Include="CsvHelper" Version="28.0.1" />
     <PackageReference Include="microsoft.powershell.sdk" Version="7.2.5" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.5" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
     <PackageReference Include="PInvoke.User32" Version="0.7.124" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>

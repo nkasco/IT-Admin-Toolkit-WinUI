@@ -32,7 +32,7 @@
             <NavigationViewItem Content="Help"/>
         </NavigationView.MenuItems>
         <NavigationView.FooterMenuItems>
-            <NavigationViewItem Content="All Settings"/>
+            <NavigationViewItem Content="All Settings" Visibility="Collapsed"/>
             <NavigationViewItemSeparator />
             <NavigationViewItem Content="Changelog"/>
             <NavigationViewItemSeparator />

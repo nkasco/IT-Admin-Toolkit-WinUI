@@ -2,7 +2,8 @@
 ## A customizable and expandable destination for centralizing day-to-day job functions.
 **Created by: [Nathan Kasco](https://nkasco.com)**
 
-![Sample Pic](Assets/ITATKWinUIPromo.jpg)
+![Sample Pic](Assets/ITATKWinUIPromoLightSmall.png)
+![Sample Pic](Assets/ITATKWinUIPromoDarkSmall.png)
 
 **Current Functionality (Alpha):**
 - Core App - Open source, free, forever - Allow community contributions and provide credit to authors.
@@ -28,7 +29,7 @@
 - Eventually, explore cross-platform support for macOS and Linux.
 
 **Prerequisites (In-Progress):**
-- At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#current-releases) (Currently: Version 1.1.5, 1.2.x can be installed but 1.1.5 MUST also be installed) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
+- At a minimum if you just want to run the built app you will need the proper [Windows App Runtime Redist](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/downloads#current-releases) (Currently: Version 1.2.2) installed, this project is primarily targeted towards x64 but please feel free to open an Issue or PR for other platforms if you find they aren't working.
     - For development - environmental requirements can be found [here](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/create-your-first-winui3-app#unpackaged-create-a-new-project-for-an-unpackaged-c-or-c-winui-3-desktop-app)
     - Ensure you install the proper [C# Windows App SDK Templates](https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/set-up-your-development-environment?tabs=vs-2022-17-1-a%2Cvs-2022-17-1-b#required-workloads-and-components)
     - Currently, this project is intended to be unpackaged if you are running the .sln from Visual Studio

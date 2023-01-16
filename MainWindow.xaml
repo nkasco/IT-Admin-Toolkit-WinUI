@@ -28,24 +28,11 @@
             OpenPaneLength="250"
             >
 
-        <NavigationView.Resources>
-            <!--<ResourceDictionary>
-                <ResourceDictionary.ThemeDictionaries>
-                    <ResourceDictionary x:Key="Dark">
-                        <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
-                        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
-                        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
-                    </ResourceDictionary>
-                    <ResourceDictionary x:Key="Light">
-                        <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource RegionColor}" />
-                        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="{ThemeResource RegionColor}" />
-                        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource RegionColor}" />
-                    </ResourceDictionary>
-                </ResourceDictionary.ThemeDictionaries>
-            </ResourceDictionary>-->
-        </NavigationView.Resources>
-
         <NavigationView.MenuItems>
+            <!-- TODO: Add Dashboard and All Scripts functionality 
+            <NavigationViewItem Name="DashboardNavButton" Icon="Home" Content="Dashboard" Visibility="Collapsed"/>
+            <NavigationViewItem Name="AllScripts" Icon="AllApps" Content="All Scripts" Visibility="Collapsed"/>
+            <NavigationViewItemSeparator Visibility="Collapsed"/>-->
             <NavigationViewItemHeader Content="Categories"/>
         </NavigationView.MenuItems>
 
@@ -135,7 +122,7 @@
                     <RowDefinition Height="auto" x:Name="TerminalRowConfig" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"/>
                     <RowDefinition Height="auto" x:Name="StatusRowConfig" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Name="MachineInputs" HorizontalAlignment="Right" Grid.Row="0">
                     <SymbolIcon Name="PingSymbol" Visibility="Collapsed" Symbol="Target" />
                     <!--<ComboBox IsEditable="True" Width="200" PlaceholderText="Machine" HorizontalAlignment="Right" Margin="5" Name="MachineComboBox" SelectionChanged="MachineComboBox_SelectionChanged" />-->
                     <TextBox Name="MachineComboBox" Margin="5" PlaceholderText="Machine" HorizontalAlignment="Right"  Width="200" TextChanged="MachineComboBox_TextChangedAsync" IsSpellCheckEnabled="False" />
