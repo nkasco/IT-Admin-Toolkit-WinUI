@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Gui>
 	<!--<Item category="<category name>" icon="<Must be a valid Segoe MDL2 Assets glyph>" foreground="<color>" />-->
-	<Item category="General" icon="Home" foreground="Default" />
+	<Item category="General" icon="PreviewLink" foreground="Default" />
 	<Item category="User Management" icon="Contact" foreground="Default" />
 	<Item category="Software" icon="OpenWith" foreground="Default" />
 	<Item category="Log Files" icon="TwoBars" foreground="Default" />

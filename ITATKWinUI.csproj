@@ -27,8 +27,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
+    <None Remove="Assets\DashboardBannerDark.jpg" />
+    <None Remove="Assets\DashboardBannerLight.jpg" />
     <None Remove="Assets\Powershell5.png" />
     <None Remove="Assets\Powershell7.ico" />
+    <None Remove="Dashboard.xaml" />
     <None Remove="Loading.xaml" />
     <None Remove="MachineInfo.ps1" />
     <None Remove="Reporting.xaml" />
@@ -71,6 +74,9 @@
     <None Update="Changelog.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Dashboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="MachineInfoGather.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

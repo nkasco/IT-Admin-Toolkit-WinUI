@@ -631,8 +631,8 @@ namespace ITATKWinUI
             }
 
             //Select the first navigation item
-            //TODO: This will need to be adjusted once Dashboard and All Scripts are available, should this be a setting?
-            MainNav.SelectedItem = MainNav.MenuItems[1]; //Index 1 because 0 is the "Categories" text header
+            //TODO: Should this be a setting?
+            MainNav.SelectedItem = MainNav.MenuItems[0]; //Index 0 is dashboard
 
             //We've got to check for updates in the main window due to a WinUI limitation that currently exists
             CheckForUpdates();
@@ -749,6 +749,12 @@ namespace ITATKWinUI
             else if (args.SelectedItemContainer.Content.ToString() == "Dashboard")
             {
                 //TODO: Show dashboard page
+                Type _page = null;
+                _page = typeof(Dashboard);
+                contentFrame.Navigate(_page);
+                ContentSplitView.IsPaneOpen = false;
+                MachineDetailsToggleButton.IsChecked = false;
+                MachineInputs.Visibility = Visibility.Collapsed;
             }
             else
             {

@@ -1,0 +1,123 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="ITATKWinUI.Dashboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ITATKWinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Grid Margin="20">
+        <ParallaxView Source="{Binding ElementName=headerImage}" VerticalAlignment="Top" Height="256">
+            <Grid CornerRadius="5">
+                <Image x:Name="headerImage" HorizontalAlignment="Center" Source="/Assets/DashboardBanner2.jpg" Stretch="UniformToFill" />
+            </Grid>
+        </ParallaxView>
+        <TextBlock AutomationProperties.AutomationId="__ClickableAreaTextBlock" />
+        <StackPanel Orientation="Vertical" Margin="50,80,0,20">
+            <TextBlock x:Name="DashboardHeaderText" Foreground="#000000" Style="{StaticResource TitleTextBlockStyle}" Text="IT Admin Toolkit"/>
+            <TextBlock x:Name="DashboardSubHeaderText" Foreground="#000000" Style="{StaticResource SubtitleTextBlockStyle}" Text="A customizable and expandable destination for centralizing day-to-day job functions"/>
+        </StackPanel>
+
+        <StackPanel Name="FeaturedItems" Margin="0,280,0,0">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Featured Items" Name="FeaturedItemsTextHeader"/>
+            <StackPanel Orientation="Horizontal" Name="FeaturedItemStackPanel">
+                <HyperlinkButton Height="150" Width="150" Margin="0,10,10,10" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="102" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                        Source="Assets/FeaturedBg.jpg"
+                        Stretch="Fill"
+                        HorizontalAlignment="Center"/>
+
+                        <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBlock x:Name="TitleText" Text="Item 1"
+                                   Margin="16,0"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </HyperlinkButton>
+
+                <HyperlinkButton Height="150" Width="150" Margin="0,10,10,10" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText2}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="102" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                        Source="Assets/FeaturedBg2.jpg"
+                        Stretch="Fill"
+                        HorizontalAlignment="Center"/>
+
+                        <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBlock x:Name="TitleText2" Text="Item 2"
+                                   Margin="16,0"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </HyperlinkButton>
+
+                <HyperlinkButton Height="150" Width="150" Margin="0,10,10,10" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText3}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="102" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                        Source="Assets/FeaturedBg.jpg"
+                        Stretch="Fill"
+                        HorizontalAlignment="Center"/>
+
+                        <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBlock x:Name="TitleText3" Text="Item 3"
+                                   Margin="16,0"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </HyperlinkButton>
+
+                <HyperlinkButton Height="150" Width="150" Margin="0,10,10,10" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText4}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="102" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                        Source="Assets/FeaturedBg2.jpg"
+                        Stretch="Fill"
+                        HorizontalAlignment="Center"/>
+
+                        <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBlock x:Name="TitleText4" Text="Item 4"
+                                   Margin="16,0"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </HyperlinkButton>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

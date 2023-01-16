@@ -29,10 +29,10 @@
             >
 
         <NavigationView.MenuItems>
-            <!-- TODO: Add Dashboard and All Scripts functionality 
-            <NavigationViewItem Name="DashboardNavButton" Icon="Home" Content="Dashboard" Visibility="Collapsed"/>
-            <NavigationViewItem Name="AllScripts" Icon="AllApps" Content="All Scripts" Visibility="Collapsed"/>
-            <NavigationViewItemSeparator Visibility="Collapsed"/>-->
+            <NavigationViewItem Name="DashboardNavButton" Icon="Home" Content="Dashboard"/>
+            <!-- TODO: Add All Scripts functionality 
+            <NavigationViewItem Name="AllScripts" Icon="ViewAll" Content="All Scripts" Visibility="Collapsed"/>-->
+            <NavigationViewItemSeparator />
             <NavigationViewItemHeader Content="Categories"/>
         </NavigationView.MenuItems>
 
