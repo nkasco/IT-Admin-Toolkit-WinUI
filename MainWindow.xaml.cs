@@ -78,6 +78,8 @@ namespace ITATKWinUI
 
         private static string SingleOrMulti = "Single";
 
+        public Collection <Page> Pages = new Collection <Page> ();
+
         private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
         {
             string EXEPath;
@@ -231,6 +233,7 @@ namespace ITATKWinUI
         public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
+            page.Name = name;
             //ResourceDictionary myResourceDictionary = new ResourceDictionary();
             //myResourceDictionary.Source = new Uri("ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
             ////page.Resources.MergedDictionaries.Add(myResourceDictionary);
@@ -623,6 +626,7 @@ namespace ITATKWinUI
             guiConfig = XDocument.Load(@"XML\Scripts.xml");
             foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
             {
+                Pages.Add(GenerateCategoryPageFromXML(item.Attribute("category").Value)); //Add the page to a collection for later use
                 MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value));
             }
 
@@ -727,7 +731,6 @@ namespace ITATKWinUI
                 Type _page = null;
                 _page = typeof(Settings);
                 contentFrame.Navigate(_page);
-                //TODO: Should we hide the machine input, terminal, and machine info pane here? If so ensure we show it once we navigate away below
                 ContentSplitView.IsPaneOpen = false;
                 MachineDetailsToggleButton.IsChecked = false;
                 MachineInputs.Visibility = Visibility.Collapsed;
@@ -748,9 +751,14 @@ namespace ITATKWinUI
             }
             else
             {
-                Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+                //Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+                string PageName = args.SelectedItemContainer.Content.ToString();
+                var _page = from Page in Pages
+                            where Page.Name == PageName
+                            select Page;
+
                 //MainNav.Header = args.SelectedItemContainer.Content.ToString();
-                contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
+                contentFrame.Content = _page.FirstOrDefault();
                 MachineInputs.Visibility = Visibility.Visible;
             }
         }
