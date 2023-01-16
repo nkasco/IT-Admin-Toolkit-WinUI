@@ -20,6 +20,8 @@
   <ItemGroup>
     <Content Remove="Assets\ITATKWinUI.png" />
     <Content Remove="Assets\ITATKWinUIPromo.jpg" />
+    <Content Remove="Assets\ITATKWinUIPromoDark.png" />
+    <Content Remove="Assets\ITATKWinUIPromoLight.png" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
