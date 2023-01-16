@@ -78,6 +78,8 @@ namespace ITATKWinUI
 
         private static string SingleOrMulti = "Single";
 
+        public Collection <Page> Pages = new Collection <Page> ();
+
         private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
         {
             string EXEPath;
@@ -231,6 +233,7 @@ namespace ITATKWinUI
         public static Page GenerateCategoryPageFromXML(string name)
         {
             Page page = new Page();
+            page.Name = name;
             //ResourceDictionary myResourceDictionary = new ResourceDictionary();
             //myResourceDictionary.Source = new Uri("ResourceDictionary.xaml", UriKind.RelativeOrAbsolute);
             ////page.Resources.MergedDictionaries.Add(myResourceDictionary);
@@ -550,7 +553,7 @@ namespace ITATKWinUI
             }
         }
 
-        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        private void Window_Activated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs args)
         {
             m_configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
         }
@@ -623,10 +626,12 @@ namespace ITATKWinUI
             guiConfig = XDocument.Load(@"XML\Scripts.xml");
             foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
             {
+                Pages.Add(GenerateCategoryPageFromXML(item.Attribute("category").Value)); //Add the page to a collection for later use
                 MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value));
             }
 
             //Select the first navigation item
+            //TODO: This will need to be adjusted once Dashboard and All Scripts are available, should this be a setting?
             MainNav.SelectedItem = MainNav.MenuItems[1]; //Index 1 because 0 is the "Categories" text header
 
             //We've got to check for updates in the main window due to a WinUI limitation that currently exists
@@ -662,7 +667,7 @@ namespace ITATKWinUI
                             LoadingText.Text = "Downloading update...";
                             string scriptName = "Updater.ps1";
                             string scriptPath = Environment.CurrentDirectory + "\\" + scriptName;
-                            LaunchScript(scriptPath, " -InstallPath \"" + Environment.CurrentDirectory + "\" -DownloadURL \"" + updateXMLData.Attribute("link").Value + "\"", "PS5", "None", "false", "true", "true"); //TODO: Should this be moved to run with the integrated host? Probably can't until elevation support is added to Windows App SDK with v1.1
+                            LaunchScript(scriptPath, " -InstallPath \"" + Environment.CurrentDirectory + "\" -DownloadURL \"" + updateXMLData.Attribute("link").Value + "\"", "PS5", "None", "false", "true", "true");
                             await Task.Run(() => Task.Delay(1000000)); //TODO: This needs fixed, for some reason WaitForExit() isn't working
                             //TODO: Run LoadingPhrase() on a loop
                         }
@@ -727,7 +732,6 @@ namespace ITATKWinUI
                 Type _page = null;
                 _page = typeof(Settings);
                 contentFrame.Navigate(_page);
-                //TODO: Should we hide the machine input, terminal, and machine info pane here? If so ensure we show it once we navigate away below
                 ContentSplitView.IsPaneOpen = false;
                 MachineDetailsToggleButton.IsChecked = false;
                 MachineInputs.Visibility = Visibility.Collapsed;
@@ -748,9 +752,14 @@ namespace ITATKWinUI
             }
             else
             {
-                Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+                //Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+                string PageName = args.SelectedItemContainer.Content.ToString();
+                var _page = from Page in Pages
+                            where Page.Name == PageName
+                            select Page;
+
                 //MainNav.Header = args.SelectedItemContainer.Content.ToString();
-                contentFrame.Content = _page; //TODO: This probably doesn't need to generate each time you click
+                contentFrame.Content = _page.FirstOrDefault();
                 MachineInputs.Visibility = Visibility.Visible;
             }
         }
