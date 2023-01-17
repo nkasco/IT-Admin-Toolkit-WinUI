@@ -740,7 +740,9 @@ namespace ITATKWinUI
                 Type _page = null;
                 _page = typeof(Reporting);
                 contentFrame.Navigate(_page);
-                MachineInputs.Visibility = Visibility.Visible;
+                ContentSplitView.IsPaneOpen = false;
+                MachineDetailsToggleButton.IsChecked = false;
+                MachineInputs.Visibility = Visibility.Collapsed;
             }
             else if (args.SelectedItemContainer.Content.ToString() == "All Scripts")
             {
