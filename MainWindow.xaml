@@ -8,6 +8,31 @@
     mc:Ignorable="d">
 
     <Grid>
+        <!-- If Custom Title Bar isn't used, remove AppTitleBar Grid and custom RowDefinitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleBarRow" Height="44"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Background="{StaticResource LayerOnMicaBaseAltFillColorDefault}">
+            <Image Source="Assets/PowerShell5.png"
+                   HorizontalAlignment="Left" 
+                   Width="16" Height="16" 
+                   Margin="8,0"/>
+            <TextBlock x:Name="AppTitleTextBlock" Text="IT Admin Toolkit"
+                       TextWrapping="NoWrap"
+                       Style="{StaticResource CaptionTextBlockStyle}" 
+                       VerticalAlignment="Center"
+                       Margin="28,0,0,0"/>
+            <AutoSuggestBox QueryIcon="Find"
+                    PlaceholderText="Search"
+                    IsTabStop="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="400" Height="32"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
         <StackPanel Name="LoadingStack" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Loading..." Name="LoadingText" Width="150" TextAlignment="Center"/>
             <ProgressBar Name="LoadingProgressBar" Width="150" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
@@ -43,9 +68,10 @@
             -->
         </NavigationView.FooterMenuItems>
 
-            <NavigationView.AutoSuggestBox>
+        <!--
+        <NavigationView.AutoSuggestBox>
             <AutoSuggestBox QueryIcon="Find" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-        </NavigationView.AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>-->
 
         <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
@@ -178,5 +204,6 @@
         </SplitView>
 
     </NavigationView>
+        </Grid>
     </Grid>
 </Window>

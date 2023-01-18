@@ -595,6 +595,12 @@ namespace ITATKWinUI
 
             TrySetSystemBackdrop();
 
+            /* In-Progress Title Bar customization
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);*/
+            AppTitleBar.Visibility = Visibility.Collapsed;
+            TitleBarRow.Height = GridLength.Auto;
+
             //Set the Navigation Title
             XDocument settingsXML = XDocument.Load(@"Settings.xml");
             foreach (XElement item in from y in settingsXML.Descendants("Item") select y)

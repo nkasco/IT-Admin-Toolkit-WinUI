@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     >
 
-    <Grid Margin="20">
+    <Grid Margin="40">
         <ParallaxView Source="{Binding ElementName=headerImage}" VerticalAlignment="Top" Height="256">
             <Grid CornerRadius="5">
                 <Image x:Name="headerImage" HorizontalAlignment="Center" Source="/Assets/DashboardBanner2.jpg" Stretch="UniformToFill" />
