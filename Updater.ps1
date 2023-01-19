@@ -69,6 +69,35 @@ if(Test-Path $TempPath){
         }
     }
 
+    #Handle Settings.xml file
+    #Checks for new config item in "settings" node  of `Settings.xml` and append new settings while preserving existing settings.
+
+    if (Test-Path "$InstallPath\Settings.xml") {
+        $CurrentXML = [xml](Get-Content "$InstallPath\Settings.xml")
+        $NewSettingsXML = [xml](Get-Content "$Env:Temp\ITATKLatest\Settings.xml")
+
+        #Compare and find new settings
+        $NewSettingsName = Compare-Object $CurrentXML.Settings.ChildNodes.Name $NewSettingsXML.Settings.ChildNodes.Name |
+            Where-Object { $_.SideIndicator -eq '=>' } | 
+            Select-Object -ExpandProperty InputObject
+
+        if ($NewSettingsName) {
+            $NewSettingsXMLData = ''
+            foreach ($setting in $NewSettingsName) {
+                $config = (Get-Content "$Env:Temp\ITATKLatest\Settings.xml" | Select-String -Pattern $setting).ToString()
+                $NewSettingsXMLData += $config.Trim()        
+            }
+        }
+        # Append new settings if available
+        if ($NewSettingsXMLData) {
+            $CurrentXML.Settings.InnerXml += $NewSettingsXMLData
+            $CurrentXML.Save("$InstallPath\Settings.xml")
+        }
+        else {
+            #Do nothing, Settings.xml already exists in Installation path
+        }
+    }
+
     #Optimization
     <#
     $CurrentFiles = Get-ChildItem -Path "$InstallPath" -Recurse
