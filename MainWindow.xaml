@@ -14,6 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- TODO: Somehow make this background Mica -->
         <Grid x:Name="AppTitleBar" Background="{StaticResource LayerOnMicaBaseAltFillColorDefault}">
             <Image Source="Assets/PowerShell5.png"
                    HorizontalAlignment="Left" 
