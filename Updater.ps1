@@ -71,30 +71,27 @@ if(Test-Path $TempPath){
 
     #Handle Settings.xml file
     #Checks for new config item in "settings" node  of `Settings.xml` and append new settings while preserving existing settings.
+    $CurrentSettingsPath = "$InstallPath\Settings.xml"
+    $NewSettingsPath = "$Env:Temp\ITATKLatest\Settings.xml"
 
-    if (Test-Path "$InstallPath\Settings.xml") {
-        $CurrentXML = [xml](Get-Content "$InstallPath\Settings.xml")
-        $NewSettingsXML = [xml](Get-Content "$Env:Temp\ITATKLatest\Settings.xml")
+    if (Test-Path $CurrentSettingsPath) {
+        try{
+            $CurrentXML = [xml](Get-Content $CurrentSettingsPath -ErrorAction Stop)
+            $NewSettingsXML = [xml](Get-Content $NewSettingsPath -ErrorAction Stop)
 
-        #Compare and find new settings
-        $NewSettingsName = Compare-Object $CurrentXML.Settings.ChildNodes.Name $NewSettingsXML.Settings.ChildNodes.Name |
-            Where-Object { $_.SideIndicator -eq '=>' } | 
-            Select-Object -ExpandProperty InputObject
+            #Compare and find new settings
+            $NewSettingsNames = Compare-Object $CurrentXML.Settings.ChildNodes.Name $NewSettingsXML.Settings.ChildNodes.Name -ErrorAction Stop | Where-Object {($_.SideIndicator -eq '=>')} -ErrorAction Stop | Select-Object -ExpandProperty InputObject -ErrorAction Stop
 
-        if ($NewSettingsName) {
-            $NewSettingsXMLData = ''
-            foreach ($setting in $NewSettingsName) {
-                $config = (Get-Content "$Env:Temp\ITATKLatest\Settings.xml" | Select-String -Pattern $setting).ToString()
-                $NewSettingsXMLData += $config.Trim()        
+            if ($NewSettingsNames) {
+                foreach ($NewSetting in $NewSettingsNames) {
+                    $config = (Get-Content $NewSettingsPath -ErrorAction Stop | Select-String -Pattern $NewSetting ).ToString()
+                    $CurrentXML.Settings.InnerXml += $config.Trim()
+                }
+
+                $CurrentXML.Save($CurrentSettingsPath)
             }
-        }
-        # Append new settings if available
-        if ($NewSettingsXMLData) {
-            $CurrentXML.Settings.InnerXml += $NewSettingsXMLData
-            $CurrentXML.Save("$InstallPath\Settings.xml")
-        }
-        else {
-            #Do nothing, Settings.xml already exists in Installation path
+        } catch {
+            #TODO: Handle errors - This will get updated when the updater itself is overhauled
         }
     }
 
