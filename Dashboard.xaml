@@ -14,7 +14,7 @@
     <Grid Margin="40">
         <ParallaxView Source="{Binding ElementName=headerImage}" VerticalAlignment="Top" Height="256">
             <Grid CornerRadius="5">
-                <Image x:Name="headerImage" HorizontalAlignment="Center" Source="/Assets/DashboardBanner2.jpg" Stretch="UniformToFill" />
+                <Image x:Name="headerImage" HorizontalAlignment="Center" Source="/Assets/DashboardBanner4.jpg" Stretch="UniformToFill" />
             </Grid>
         </ParallaxView>
         <TextBlock AutomationProperties.AutomationId="__ClickableAreaTextBlock" />
@@ -117,6 +117,456 @@
                         </Grid>
                     </Grid>
                 </HyperlinkButton>
+
+                <HyperlinkButton Height="150" Width="150" Margin="0,10,10,10" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText4}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="102" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                        Source="Assets/FeaturedBg.jpg"
+                        Stretch="Fill"
+                        HorizontalAlignment="Center"/>
+
+                        <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBlock x:Name="TitleText5" Text="Item 5"
+                                   Margin="16,0"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
+                        </Grid>
+                    </Grid>
+                </HyperlinkButton>
+            </StackPanel>
+            
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Recently Added Scripts" Name="RecentlyAddedTextHeader" Margin="0,15,0,15"/>
+            <StackPanel Orientation="Horizontal">
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText2"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText2"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText3"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText3"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText4"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText4"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText5"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText5"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    Width="360"
+                    Height="90"
+                    Padding="8"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="{StaticResource ControlCornerRadius}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint640Plus}" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters />
+                            </VisualState>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="controlRoot.Width" Value="Auto" />
+                                    <Setter Target="controlRoot.Height" Value="120" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="72" CornerRadius="{ThemeResource ControlCornerRadius}">
+                        <Image
+                            Width="48"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="Test Title"
+                            Source="/Assets/Powershell5.png"
+                            Stretch="Uniform" />
+                    </Grid>
+
+
+                    <RelativePanel Grid.Column="1" Grid.ColumnSpan="2" Margin="16,6,0,0">
+                        <TextBlock
+                            x:Name="titleText6"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Test Title"
+                            TextLineBounds="TrimToCapHeight"
+                            TextWrapping="NoWrap" />
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Margin="0,2,8,0"
+                            RelativePanel.Below="titleText6"
+                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                            TextTrimming="CharacterEllipsis" />
+                    </RelativePanel>
+
+                    <Grid
+                        Margin="0"
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource ControlCornerRadius}" >
+
+                        <Ellipse Fill="{ThemeResource SystemAccentColorDark1}" Width="12" Height="12"/>
+                    </Grid>
+                </Grid>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
+    <None Remove="Assets\DashboardBanner3.jpg" />
     <None Remove="Assets\DashboardBannerDark.jpg" />
     <None Remove="Assets\DashboardBannerLight.jpg" />
     <None Remove="Assets\Powershell5.png" />
