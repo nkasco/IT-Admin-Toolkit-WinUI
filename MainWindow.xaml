@@ -70,7 +70,7 @@
             <AutoSuggestBox QueryIcon="Find" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
         </NavigationView.AutoSuggestBox>-->
 
-        <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
+        <SplitView IsPaneOpen="True" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
                     <StackPanel Name="SplitViewStackPanel">  
