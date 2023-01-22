@@ -14,15 +14,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- TODO: Somehow make this background Mica -->
-        <Grid x:Name="AppTitleBar" Background="{StaticResource LayerOnMicaBaseAltFillColorDefault}">
+        <Grid x:Name="AppTitleBar">
             <Image Source="Assets/PowerShell5.png"
                    HorizontalAlignment="Left" 
                    Width="16" Height="16" 
                    Margin="8,0"/>
             <TextBlock x:Name="AppTitleTextBlock" Text="IT Admin Toolkit"
                        TextWrapping="NoWrap"
-                       Style="{StaticResource CaptionTextBlockStyle}" 
                        VerticalAlignment="Center"
                        Margin="28,0,0,0"/>
             <AutoSuggestBox QueryIcon="Find"
@@ -30,7 +28,7 @@
                     IsTabStop="False"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Width="400" Height="32"/>
+                    Width="400" Height="32" Visibility="Collapsed"/>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -45,10 +43,8 @@
             IsBackButtonVisible="Collapsed"
             IsBackEnabled="False"
             SelectionChanged="MainNav_SelectionChanged"
-            Header="IT Admin Toolkit"
             AlwaysShowHeader="False"
-            PaneTitle="IT Admin Toolkit"
-            PaneDisplayMode="Left" 
+            PaneDisplayMode="Auto" 
             SelectionFollowsFocus="Disabled"
             IsTabStop="False"
             OpenPaneLength="250"
