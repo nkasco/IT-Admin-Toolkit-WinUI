@@ -18,6 +18,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -118,13 +119,17 @@ public sealed partial class Dashboard : Page
 
     private void FeaturedItemGridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        //TODO: What happens when you click a featured item?
+        //TODO: What happens when you click a featured item? Main Window contentPane should navigate to either item page or category page
         FeaturedItemsTextHeader.Text = "Featured Clicked";
+        var window = (Application.Current as App)?.Window as MainWindow;
+        Type _page = typeof(Settings);
+        window.cFrame.Navigate(_page);
     }
 
     private void RecentlyAddedGridview_ItemClick(object sender, ItemClickEventArgs e)
     {
-        //TODO: What happens when you click a recently added item?
+        //TODO: What happens when you click a recently added item? Main Window contentPane should navigate to either item page or category page
         RecentlyAddedTextHeader.Text = "Clicked";
+        var window = (Application.Current as App)?.Window as MainWindow;
     }
 }

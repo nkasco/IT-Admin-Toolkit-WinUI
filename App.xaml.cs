@@ -27,6 +27,8 @@ namespace ITATKWinUI
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
+    ///
+
     public partial class App : Application
     {
         /// <summary>
@@ -128,6 +130,7 @@ namespace ITATKWinUI
 
         private Window m_window;
         private IntPtr m_windowHandle;
+        public Window Window => m_window;
         public IntPtr WindowHandle { get { return m_windowHandle; } }
 
         [ComImport]

@@ -80,6 +80,8 @@ public partial class MainWindow : Window
 
     public Collection <Page> Pages = new();
 
+    public Frame cFrame => contentFrame;
+
     private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
     {
         string EXEPath;
