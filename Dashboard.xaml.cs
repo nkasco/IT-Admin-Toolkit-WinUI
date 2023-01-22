@@ -115,11 +115,16 @@ public sealed partial class Dashboard : Page
         scriptCards.Source = Cards;
     }
 
-    public string test = "";
 
-    private void FeaturedGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+    private void FeaturedItemGridView_ItemClick(object sender, ItemClickEventArgs e)
     {
         //TODO: What happens when you click a featured item?
-        Debug.WriteLine("It ran after clicking!"); //Why isn't this working?
+        FeaturedItemsTextHeader.Text = "Featured Clicked";
+    }
+
+    private void RecentlyAddedGridview_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        //TODO: What happens when you click a recently added item?
+        RecentlyAddedTextHeader.Text = "Clicked";
     }
 }

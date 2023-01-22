@@ -29,32 +29,30 @@
 
         <StackPanel Name="DashboardContent" Margin="0,275,0,0">
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Featured Items" Name="FeaturedItemsTextHeader"/>
-            <GridView ItemsSource="{Binding Source={StaticResource featuredCards}}" ItemClick="FeaturedGridView_ItemClick_1" x:Name="FeaturedGridView" SelectionMode="None" IsItemClickEnabled="True" MaxHeight="200" Padding="0">
+            <GridView ItemsSource="{Binding Source={StaticResource featuredCards}}" x:Name="FeaturedItemGridView" ItemClick="FeaturedItemGridView_ItemClick" SelectionMode="None" IsItemClickEnabled="True" MaxHeight="200" Padding="0">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <!--Template here-->
-                        <HyperlinkButton Height="150" Width="150" Padding="-1" AutomationProperties.LabeledBy="{Binding ElementName=TitleText}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="102" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Image
+                        <Grid Height="150" Width="150" CornerRadius="5" AutomationProperties.LabeledBy="{Binding ElementName=TitleText}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="102" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Image
                                     Source="{Binding pictureAssetName, Mode=OneWay}"
                                     Stretch="Fill"
                                     HorizontalAlignment="Center"/>
 
-                                <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                                    <TextBlock x:Name="TitleText" Text="{Binding Title, Mode=OneWay}"
+                            <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                                <TextBlock x:Name="TitleText" Text="{Binding Title, Mode=OneWay}"
                                    Margin="16,0"
                                    Style="{StaticResource BodyStrongTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
                                    VerticalAlignment="Center"
                                    TextWrapping="Wrap" />
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
-                                </Grid>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8A7;" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12" FontSize="16"/>
                             </Grid>
-                        </HyperlinkButton>
+                        </Grid>
                     </DataTemplate>
                 </GridView.ItemTemplate>
 
@@ -72,8 +70,7 @@
             </GridView>
 
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Recently Added Scripts" Name="RecentlyAddedTextHeader" Margin="0,15,0,15"/>
-            <!-- TODO: Add ItemClick="FeaturedGridView_ItemClick" -->
-            <GridView ItemsSource="{Binding Source={StaticResource scriptCards}}" x:Name="RecentlyAddedGridview" SelectionMode="None" IsItemClickEnabled="True" MaxHeight="500" Padding="0">
+            <GridView ItemsSource="{Binding Source={StaticResource scriptCards}}" x:Name="RecentlyAddedGridview" SelectionMode="None" IsItemClickEnabled="True" ItemClick="RecentlyAddedGridview_ItemClick" MaxHeight="500" Padding="0">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <!--Template here-->
