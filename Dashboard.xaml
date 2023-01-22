@@ -11,7 +11,8 @@
     mc:Ignorable="d"
     >
     <Page.Resources>
-        <CollectionViewSource x:Name="scriptCards" IsSourceGrouped="True" ItemsPath="Activities"/>
+        <CollectionViewSource x:Name="scriptCards" IsSourceGrouped="True" ItemsPath="CardData"/>
+        <CollectionViewSource x:Name="featuredCards" IsSourceGrouped="True" ItemsPath="CardData"/>
     </Page.Resources>
 
     <Grid Margin="40,40,40,0">
@@ -28,26 +29,23 @@
 
         <StackPanel Name="DashboardContent" Margin="0,275,0,0">
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Text="Featured Items" Name="FeaturedItemsTextHeader"/>
-            <!-- TODO: Add ItemClick="FeaturedGridView_ItemClick" -->
-            <GridView ItemsSource="{Binding Source={StaticResource scriptCards}}" x:Name="FeaturedGridView" SelectionMode="None" IsItemClickEnabled="True" MaxHeight="200" Padding="0">
+            <GridView ItemsSource="{Binding Source={StaticResource featuredCards}}" ItemClick="FeaturedGridView_ItemClick_1" x:Name="FeaturedGridView" SelectionMode="None" IsItemClickEnabled="True" MaxHeight="200" Padding="0">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <!--Template here-->
-                        <HyperlinkButton Height="150" Width="150" Padding="-1" NavigateUri="#" AutomationProperties.LabeledBy="{Binding ElementName=TitleText}">
+                        <HyperlinkButton Height="150" Width="150" Padding="-1" AutomationProperties.LabeledBy="{Binding ElementName=TitleText}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="102" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <!-- Source="{x:Bind Source, Mode=OneWay}" -->
                                 <Image
-                                    Source="Assets/FeaturedBg.jpg"
+                                    Source="{Binding pictureAssetName, Mode=OneWay}"
                                     Stretch="Fill"
                                     HorizontalAlignment="Center"/>
 
                                 <Grid Height="48" Opacity="1" Grid.Row="1" HorizontalAlignment="Stretch" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                                    <!-- Text="{x:Bind Title, Mode=OneWay}" -->
-                                    <TextBlock x:Name="TitleText" Text="Item 1"
+                                    <TextBlock x:Name="TitleText" Text="{Binding Title, Mode=OneWay}"
                                    Margin="16,0"
                                    Style="{StaticResource BodyStrongTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorPrimaryBrush}"
@@ -117,8 +115,8 @@
                                 <Image
                                             Width="48"
                                             VerticalAlignment="Center"
-                                            AutomationProperties.Name="Test Title"
-                                            Source="/Assets/Powershell5.png"
+                                            AutomationProperties.Name="{Binding Title, Mode=OneWay}"
+                                            Source="{Binding psVersion, Mode=OneWay}"
                                             Stretch="Uniform" />
                             </Grid>
 
@@ -127,7 +125,7 @@
                                 <TextBlock
                                             x:Name="titleText"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="Test Title"
+                                            Text="{Binding Title, Mode=OneWay}"
                                             TextLineBounds="TrimToCapHeight"
                                             TextWrapping="NoWrap" />
                                 <TextBlock
@@ -135,7 +133,7 @@
                                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                             Margin="0,2,8,0"
                                             RelativePanel.Below="titleText"
-                                            Text="This is a subtitle briefly describing what it is that this particular script does."
+                                            Text="{Binding SubTitle, Mode=OneWay}"
                                             TextTrimming="CharacterEllipsis" />
                             </RelativePanel>
 

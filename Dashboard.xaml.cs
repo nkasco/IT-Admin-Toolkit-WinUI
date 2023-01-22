@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Xml.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -30,48 +31,95 @@ public class ScriptCard
 {
     public ScriptCard()
     {
-        Activities = new ObservableCollection<Activity>();
+        CardData = new ObservableCollection<Card>();
     }
 
-    public string Title
-    {
-        get; set;
-    }
-    public ObservableCollection<Activity> Activities
-    {
-        get; private set;
-    }
+    public ObservableCollection<Card> CardData { get; private set; }
 }
 
-public class Activity
+public class Card
 {
     public string Title { get; set; }
+    public string SubTitle { get; set; }
+    public string Path { get; set; }
+    public string psVersion { get; set; }
+    public string featured { get; set; }
+    public string pictureAssetName { get; set; }
+    public DateTime dateAdded { get; set; }
+
 }
 
 public sealed partial class Dashboard : Page
 {
+    public static XDocument guiConfig;
+
     public Dashboard()
     {
         this.InitializeComponent();
 
         PopulateFeaturedTiles();
+
+        PopulateRecentlyAdded();
     }
 
     private void PopulateFeaturedTiles()
     {
         List<ScriptCard> Cards = new List<ScriptCard>();
 
-        ScriptCard c = new ScriptCard();
-        c.Title = "Test Title 123";
-        c.Activities.Add(new Activity { Title = "Activity Title 1" });
+        guiConfig = XDocument.Load(@"XML\Scripts.xml");
+        foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+        {
+            //stuff
+            if (item.Attribute("featured").Value == "true")
+            {
+                var picAssetName = "";
+                if (item.Attribute("pictureAssetName").Value == "default" || item.Attribute("pictureAssetName").Value == "Default")
+                {
+                    picAssetName = "Assets/FeaturedBg.jpg";
+                } else {
+                    picAssetName = "Assets/" + item.Attribute("pictureAssetName").Value;
+                }
 
-        Cards.Add(c);
-        Cards.Add(c);
-        Cards.Add(c);
-        Cards.Add(c);
-        Cards.Add(c);
-        Cards.Add(c);
+                ScriptCard c = new ScriptCard();
+                c.CardData.Add(new Card() { Title = item.Attribute("name").Value, SubTitle = item.Attribute("description").Value, pictureAssetName = picAssetName });
+                Cards.Add(c);
+            }
+        }
 
-        scriptCards.Source= Cards;
+        featuredCards.Source= Cards;
+    }
+
+    private void PopulateRecentlyAdded()
+    {
+        List<ScriptCard> Cards = new List<ScriptCard>();
+
+        //TODO: Get 6 most recently added scripts then create cards from them
+        guiConfig = XDocument.Load(@"XML\Scripts.xml");
+        foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+        {
+            var PSVersion = "";
+            if (item.Attribute("psVersion").Value == "PS7")
+            {
+                PSVersion = "Assets/Powershell7.ico";
+            }
+            else if(item.Attribute("psVersion").Value == "PS5")
+            {
+                PSVersion = "Assets/Powershell5.png";
+            }
+
+            ScriptCard c = new ScriptCard();
+            c.CardData.Add(new Card() { Title = item.Attribute("name").Value, SubTitle = item.Attribute("description").Value, psVersion = PSVersion });
+            Cards.Add(c);
+        }
+
+        scriptCards.Source = Cards;
+    }
+
+    public string test = "";
+
+    private void FeaturedGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+    {
+        //TODO: What happens when you click a featured item?
+        Debug.WriteLine("It ran after clicking!"); //Why isn't this working?
     }
 }
