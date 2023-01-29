@@ -74,6 +74,10 @@ namespace ITATKWinUI
                         SettingApplicationTitle.Text = item.Attribute("Setting").Value;
                         break;
 
+                    case "SettingApplicationSubTitle":
+                        SettingApplicationSubTitle.Text = item.Attribute("Setting").Value;
+                        break;
+
                     case "SettingApplicationIconImage":
                         BitmapImage bitmapImage = new BitmapImage();
                         bitmapImage.UriSource = new Uri(SettingApplicationIconImage.BaseUri, item.Attribute("Setting").Value);
@@ -119,6 +123,10 @@ namespace ITATKWinUI
                     //Branding
                     case "SettingApplicationTitle":
                         item.Attribute("Setting").Value = SettingApplicationTitle.Text;
+                        break;
+
+                    case "SettingApplicationSubTitle":
+                        item.Attribute("Setting").Value = SettingApplicationSubTitle.Text;
                         break;
 
                     case "SettingApplicationIconImage":

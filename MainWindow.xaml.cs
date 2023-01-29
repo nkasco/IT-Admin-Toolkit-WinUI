@@ -78,6 +78,10 @@ public partial class MainWindow : Window
 
     private static string SingleOrMulti = "Single";
 
+    public static string MainTitle = "";
+
+    public static string MainSubTitle = "";
+
     public Collection <Page> Pages = new();
 
     public Collection <NavigationViewItem> NavigationViews = new();
@@ -619,7 +623,14 @@ public partial class MainWindow : Window
         {
             if (item.Attribute("Name").Value == "SettingApplicationTitle")
             {
-                AppTitleTextBlock.Text = item.Attribute("Setting").Value.ToString();
+                var AppTitle = item.Attribute("Setting").Value.ToString();
+                AppTitleTextBlock.Text = AppTitle;
+                MainTitle = AppTitle;
+            }
+
+            if(item.Attribute("Name").Value == "SettingApplicationSubTitle")
+            {
+                MainSubTitle = item.Attribute("Setting").Value.ToString();
             }
 
             if (item.Attribute("Name").Value == "SettingShowExplorer")

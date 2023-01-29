@@ -58,6 +58,10 @@ public sealed partial class Dashboard : Page
     {
         this.InitializeComponent();
 
+        DashboardHeaderText.Text = MainWindow.MainTitle;
+
+        DashboardSubHeaderText.Text = MainWindow.MainSubTitle;
+
         PopulateFeaturedTiles();
 
         PopulateRecentlyAdded();

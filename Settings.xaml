@@ -141,6 +141,18 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock FontWeight="Bold">Application Sub Title</TextBlock>
+                            <TextBlock>Change the default sub title of this application to match your organization</TextBlock>
+                        </StackPanel>
+                        <TextBox Name="SettingApplicationSubTitle" HorizontalAlignment="Right" Text="A customizable and expandable destination for centralizing day-to-day job functions" Grid.Column="1" Width="175"/>
+                    </Grid>
+                    <Grid Padding="25, 25, 25, 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
