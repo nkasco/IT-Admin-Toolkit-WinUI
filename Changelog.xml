@@ -7,4 +7,5 @@
 	<Item version="1.0.6" detail="Upgraded Windows App SDK to 1.1.5, added a few basic inbox scripts" />
 	<Item version="1.0.7" detail="Upgraded Windows App SDK to 1.2.221209.1, misc UI tweaks and bug fixes" />
 	<Item version="1.1.0" detail="Added new Dashboard home page for improved UI, scripts can now be featured on this page as well" />
+	<Item version="1.1.1" detail="Added roles functionality to show/hide scripts based on detected AD Groups for the current user" />
 </Changelog>
