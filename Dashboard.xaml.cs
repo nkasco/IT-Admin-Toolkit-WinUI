@@ -67,12 +67,15 @@ public sealed partial class Dashboard : Page
     {
         List<ScriptCard> Cards = new List<ScriptCard>();
 
+        var MaxCount = 6; //TODO: FeaturedTiles MaxCount should be a configurable setting
+        var CurrentCount = 0;
+
         guiConfig = XDocument.Load(@"XML\Scripts.xml");
         foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
         {
-            //stuff
-            if (item.Attribute("featured").Value == "true")
+            if (item.Attribute("featured").Value == "true" && CurrentCount < MaxCount)
             {
+                CurrentCount++;
                 var picAssetName = "";
                 if (item.Attribute("pictureAssetName").Value == "default" || item.Attribute("pictureAssetName").Value == "Default")
                 {
@@ -94,7 +97,12 @@ public sealed partial class Dashboard : Page
     {
         List<ScriptCard> Cards = new List<ScriptCard>();
 
-        //TODO: Get 6 most recently added scripts then create cards from them
+        //Get recently added scripts then create cards from them
+        var MaxCount = 6; //TODO: RecentlyAdded MaxCount should be a configurable setting
+
+        //Create a List that we can sort later
+        List<Card> CardList = new List<Card>();
+
         guiConfig = XDocument.Load(@"XML\Scripts.xml");
         foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
         {
@@ -103,33 +111,84 @@ public sealed partial class Dashboard : Page
             {
                 PSVersion = "Assets/Powershell7.ico";
             }
-            else if(item.Attribute("psVersion").Value == "PS5")
+            else if (item.Attribute("psVersion").Value == "PS5")
             {
                 PSVersion = "Assets/Powershell5.png";
             }
 
+            Card c = new Card()
+            {
+                Title = item.Attribute("name").Value,
+                SubTitle= item.Attribute("description").Value,
+                dateAdded = DateTime.Parse(item.Attribute("dateAdded").Value),
+                psVersion = PSVersion
+            };
+
+            CardList.Add(c);
+        }
+
+        //Sort the list descending by dateAdded and get the maximum amount allowed
+        CardList = CardList.OrderByDescending(x => x.dateAdded).ToList();
+        var actualMax = 0;
+        //This prevents us from going out of the max range if there aren't that many scripts
+        if(CardList.Count < MaxCount)
+        {
+            actualMax = CardList.Count;
+        } else
+        {
+            actualMax = MaxCount;
+        }
+        CardList = CardList.GetRange(0,actualMax);
+
+        foreach (Card item in from y in CardList select y)
+        {
             ScriptCard c = new ScriptCard();
-            c.CardData.Add(new Card() { Title = item.Attribute("name").Value, SubTitle = item.Attribute("description").Value, psVersion = PSVersion });
+            c.CardData.Add(new Card() { Title = item.Title, SubTitle = item.SubTitle, psVersion = item.psVersion });
             Cards.Add(c);
         }
 
         scriptCards.Source = Cards;
     }
 
+    private void NavigateMainFrame(string Page)
+    {
+        //Main Window contentPane should navigate to either item page or category page
+        var window = (Application.Current as App)?.Window as MainWindow;
+
+        //Find the category for the provided Page
+        guiConfig = XDocument.Load(@"XML\Scripts.xml");
+        var PageName = "";
+        foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
+        {
+            if (item.Attribute("name").Value == Page)
+            {
+                PageName = item.Attribute("category").Value;
+            }
+        }
+
+        //Loop through the NavigationViewItem categories and navigate to the proper index
+        for (var i = 0; i < window.NavigationViews.Count; i++)
+        {
+            if (window.NavigationViews[i].Content.ToString() == PageName)
+            {
+                window.mNav.SelectedItem = window.mNav.MenuItems.ElementAt(i + 3); //Add 3 to skip Dashboard, separator, and Categories header
+            }
+        }
+    }
+
 
     private void FeaturedItemGridView_ItemClick(object sender, ItemClickEventArgs e)
     {
-        //TODO: What happens when you click a featured item? Main Window contentPane should navigate to either item page or category page
-        FeaturedItemsTextHeader.Text = "Featured Clicked";
-        var window = (Application.Current as App)?.Window as MainWindow;
-        Type _page = typeof(Settings);
-        window.cFrame.Navigate(_page);
+        FeaturedItemsTextHeader.Text = "test";
+        Card c = e.ClickedItem as Card;
+        
+        NavigateMainFrame(c.Title);
     }
 
     private void RecentlyAddedGridview_ItemClick(object sender, ItemClickEventArgs e)
     {
-        //TODO: What happens when you click a recently added item? Main Window contentPane should navigate to either item page or category page
-        RecentlyAddedTextHeader.Text = "Clicked";
-        var window = (Application.Current as App)?.Window as MainWindow;
+        Card c = e.ClickedItem as Card;
+
+        NavigateMainFrame(c.Title);
     }
 }

@@ -80,7 +80,19 @@ public partial class MainWindow : Window
 
     public Collection <Page> Pages = new();
 
+    public Collection <NavigationViewItem> NavigationViews = new();
+
     public Frame cFrame => contentFrame;
+
+    public StackPanel mInputs => MachineInputs;
+
+    public NavigationView mNav => MainNav;
+
+    private readonly Type DashboardPage = typeof(Dashboard);
+
+    private readonly Type ReportingPage = typeof(Reporting);
+
+    private readonly Type SettingsPage = typeof(Settings);
 
     private static void LaunchScript(object sender, EventArgs e, string scriptPath, string args, string type, string inputType, string wait, string elevate, string hide)
     {
@@ -632,7 +644,9 @@ public partial class MainWindow : Window
         foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
         {
             Pages.Add(GenerateCategoryPageFromXML(item.Attribute("category").Value)); //Add the page to a collection for later use
-            MainNav.MenuItems.Add(GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value));
+            NavigationViewItem currentNavItem = GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value);
+            NavigationViews.Add(currentNavItem);
+            MainNav.MenuItems.Add(currentNavItem);
         }
 
         //Select the first navigation item
@@ -726,19 +740,18 @@ public partial class MainWindow : Window
 
     private void MainNav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
+        //TODO: Feels like there may be a small memory leak with Navigate(), this should be addressed
         if (args.SelectedItemContainer.Content.ToString() == "Settings")
         {
-            Type _page = null;
-            _page = typeof(Settings);
-            contentFrame.Navigate(_page);
+            //Show Settings page
+            contentFrame.Navigate(SettingsPage);
             ContentSplitView.IsPaneOpen = false;
             MachineDetailsToggleButton.IsChecked = false;
             MachineInputs.Visibility = Visibility.Collapsed;
         } else if (args.SelectedItemContainer.Content.ToString() == "Reporting")
         {
-            Type _page = null;
-            _page = typeof(Reporting);
-            contentFrame.Navigate(_page);
+            //Show Reporting page
+            contentFrame.Navigate(ReportingPage);
             ContentSplitView.IsPaneOpen = false;
             MachineDetailsToggleButton.IsChecked = false;
             MachineInputs.Visibility = Visibility.Collapsed;
@@ -749,23 +762,20 @@ public partial class MainWindow : Window
         }
         else if (args.SelectedItemContainer.Content.ToString() == "Dashboard")
         {
-            //TODO: Show dashboard page
-            Type _page = null;
-            _page = typeof(Dashboard);
-            contentFrame.Navigate(_page);
+            //Show Dashboard page
+            contentFrame.Navigate(DashboardPage);
             ContentSplitView.IsPaneOpen = false;
             MachineDetailsToggleButton.IsChecked = false;
             MachineInputs.Visibility = Visibility.Collapsed;
         }
         else
         {
-            //Page _page = GenerateCategoryPageFromXML(args.SelectedItemContainer.Content.ToString());
+            //Show the selected page
             var PageName = args.SelectedItemContainer.Content.ToString();
             var _page = from Page in Pages
                         where Page.Name == PageName
                         select Page;
 
-            //MainNav.Header = args.SelectedItemContainer.Content.ToString();
             contentFrame.Content = _page.FirstOrDefault();
             MachineInputs.Visibility = Visibility.Visible;
         }
