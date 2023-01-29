@@ -18,13 +18,13 @@
     - Note: At present this feature is only supported when remote connections can be made without explicitly passing credentials (i.e. either an open network share, same account on both machines, or a domain that allows it). Therefore it may be expected that this doesn't work in all environments. Initiating connections with different credentials will come at a later time. PSRemoting also must be enabled, optionally initiating connections with DCOM instead of WSMan will also come later.
 - Automatic update support - Choose whether you want to control update cycles or take them automatically
 - Reporting - Built-in logging and reporting statistics based on usage.
+- Role Management - Manage groups of users (via AD Group Enrollment) to control script visibility
 
 **Features/In-Progress Goals:**
 - Launcher - Provide a script launcher that can be easily customized (initially with XML) to centralize and launch script files across various languages.
     - To be added: CMD, BAT, VB, WSF, PY
     - Built In XML editor UI
 - Task Scheduler - Create scheduled tasks, local or remote, quickly and easily from your script library.
-- Role Management - Manage groups of users (likely via AD Group Enrollment) to control script visibility.
 - Built-In PowerShell Console - Choose whether you want your scripts to run in an integrated console or as a standalone process.
 - PowerShell Gallery integration -  Make it easy to add PS gallery scripts to your library from within the tool.
 - Eventually, explore cross-platform support for macOS and Linux.
