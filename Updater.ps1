@@ -69,6 +69,32 @@ if(Test-Path $TempPath){
         }
     }
 
+    #Handle Settings.xml file
+    #Checks for new config item in "settings" node  of `Settings.xml` and append new settings while preserving existing settings.
+    $CurrentSettingsPath = "$InstallPath\Settings.xml"
+    $NewSettingsPath = "$Env:Temp\ITATKLatest\Settings.xml"
+
+    if (Test-Path $CurrentSettingsPath) {
+        try{
+            $CurrentXML = [xml](Get-Content $CurrentSettingsPath -ErrorAction Stop)
+            $NewSettingsXML = [xml](Get-Content $NewSettingsPath -ErrorAction Stop)
+
+            #Compare and find new settings
+            $NewSettingsNames = Compare-Object $CurrentXML.Settings.ChildNodes.Name $NewSettingsXML.Settings.ChildNodes.Name -ErrorAction Stop | Where-Object {($_.SideIndicator -eq '=>')} -ErrorAction Stop | Select-Object -ExpandProperty InputObject -ErrorAction Stop
+
+            if ($NewSettingsNames) {
+                foreach ($NewSetting in $NewSettingsNames) {
+                    $config = (Get-Content $NewSettingsPath -ErrorAction Stop | Select-String -Pattern $NewSetting ).ToString()
+                    $CurrentXML.Settings.InnerXml += $config.Trim()
+                }
+
+                $CurrentXML.Save($CurrentSettingsPath)
+            }
+        } catch {
+            #TODO: Handle errors - This will get updated when the updater itself is overhauled
+        }
+    }
+
     #Optimization
     <#
     $CurrentFiles = Get-ChildItem -Path "$InstallPath" -Recurse
