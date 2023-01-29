@@ -5,8 +5,7 @@
     xmlns:local="using:ITATKWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <NavigationView
             Name="SettingsNav"
@@ -137,6 +136,18 @@
                             <TextBlock>Change the default title of this application to match your organization</TextBlock>
                         </StackPanel>
                         <TextBox Name="SettingApplicationTitle" HorizontalAlignment="Right" Text="IT Admin Toolkit" Grid.Column="1" Width="175"/>
+                    </Grid>
+                    <Grid Padding="25, 25, 25, 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock FontWeight="Bold">Application Sub Title</TextBlock>
+                            <TextBlock>Change the default sub title of this application to match your organization</TextBlock>
+                        </StackPanel>
+                        <TextBox Name="SettingApplicationSubTitle" HorizontalAlignment="Right" Text="A customizable and expandable destination for centralizing day-to-day job functions" Grid.Column="1" Width="175"/>
                     </Grid>
                     <Grid Padding="25, 25, 25, 0" >
                         <Grid.ColumnDefinitions>

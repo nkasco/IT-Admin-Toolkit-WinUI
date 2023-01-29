@@ -27,6 +27,8 @@ namespace ITATKWinUI
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
+    ///
+
     public partial class App : Application
     {
         /// <summary>
@@ -109,7 +111,7 @@ namespace ITATKWinUI
             // The Window object doesn't have Width and Height properties in WInUI 3 Desktop yet.
             // To set the Width and Height, you can use the Win32 API SetWindowPos.
             // Note, you should apply the DPI scale factor if you are thinking of dpi instead of pixels.
-            SetWindowSize(m_windowHandle, 1250, 680);
+            SetWindowSize(m_windowHandle, 1450, 820);
         }
 
         public static string Title;
@@ -128,6 +130,7 @@ namespace ITATKWinUI
 
         private Window m_window;
         private IntPtr m_windowHandle;
+        public Window Window => m_window;
         public IntPtr WindowHandle { get { return m_windowHandle; } }
 
         [ComImport]

@@ -8,6 +8,30 @@
     mc:Ignorable="d">
 
     <Grid>
+        <!-- If Custom Title Bar isn't used, remove AppTitleBar Grid and custom RowDefinitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleBarRow" Height="44"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar">
+            <Image Source="Assets/PowerShell5.png"
+                   HorizontalAlignment="Left" 
+                   Width="16" Height="16" 
+                   Margin="8,0"/>
+            <TextBlock x:Name="AppTitleTextBlock" Text="IT Admin Toolkit"
+                       TextWrapping="NoWrap"
+                       VerticalAlignment="Center"
+                       Margin="28,0,0,0"/>
+            <AutoSuggestBox QueryIcon="Find"
+                    PlaceholderText="Search"
+                    IsTabStop="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="400" Height="32" Visibility="Collapsed"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
         <StackPanel Name="LoadingStack" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Loading..." Name="LoadingText" Width="150" TextAlignment="Center"/>
             <ProgressBar Name="LoadingProgressBar" Width="150" IsIndeterminate="True" ShowPaused="False" ShowError="False" />
@@ -19,20 +43,18 @@
             IsBackButtonVisible="Collapsed"
             IsBackEnabled="False"
             SelectionChanged="MainNav_SelectionChanged"
-            Header="IT Admin Toolkit"
             AlwaysShowHeader="False"
-            PaneTitle="IT Admin Toolkit"
-            PaneDisplayMode="Left" 
+            PaneDisplayMode="Auto" 
             SelectionFollowsFocus="Disabled"
             IsTabStop="False"
             OpenPaneLength="250"
             >
 
         <NavigationView.MenuItems>
-            <!-- TODO: Add Dashboard and All Scripts functionality 
-            <NavigationViewItem Name="DashboardNavButton" Icon="Home" Content="Dashboard" Visibility="Collapsed"/>
-            <NavigationViewItem Name="AllScripts" Icon="AllApps" Content="All Scripts" Visibility="Collapsed"/>
-            <NavigationViewItemSeparator Visibility="Collapsed"/>-->
+            <NavigationViewItem Name="DashboardNavButton" Icon="Home" Content="Dashboard"/>
+            <!-- TODO: Add All Scripts functionality 
+            <NavigationViewItem Name="AllScripts" Icon="ViewAll" Content="All Scripts" Visibility="Collapsed"/>-->
+            <NavigationViewItemSeparator />
             <NavigationViewItemHeader Content="Categories"/>
         </NavigationView.MenuItems>
 
@@ -43,11 +65,12 @@
             -->
         </NavigationView.FooterMenuItems>
 
-            <NavigationView.AutoSuggestBox>
+        <!--
+        <NavigationView.AutoSuggestBox>
             <AutoSuggestBox QueryIcon="Find" PlaceholderText="Search" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-        </NavigationView.AutoSuggestBox>
+        </NavigationView.AutoSuggestBox>-->
 
-        <SplitView IsPaneOpen="False" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
+        <SplitView IsPaneOpen="True" Name="ContentSplitView" OpenPaneLength="300" DisplayMode="Inline" PanePlacement="Right">
             <SplitView.Pane>
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto" ZoomMode="Enabled" >
                     <StackPanel Name="SplitViewStackPanel">  
@@ -178,5 +201,6 @@
         </SplitView>
 
     </NavigationView>
+        </Grid>
     </Grid>
 </Window>

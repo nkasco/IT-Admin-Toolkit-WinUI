@@ -6,8 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
     <controls:DataGrid x:Name="ReportingGrid" AutoGenerateColumns="True" Margin="5" IsReadOnly="True" AlternatingRowBackground="DodgerBlue"  ItemsSource="{x:Bind ReportData}"/>
 </Page>
