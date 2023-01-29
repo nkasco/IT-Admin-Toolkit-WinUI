@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Gui>
 	<!--<Item name="RoleName" group="domain\AD Group Name" />-->
+	<Item name="TestRole1" group="Nates-PC\nate" />
 </Gui>

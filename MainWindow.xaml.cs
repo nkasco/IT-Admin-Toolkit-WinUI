@@ -32,6 +32,8 @@ using System.Globalization;
 using Microsoft.UI.Composition.SystemBackdrops;
 using WinRT;
 using System.Runtime.InteropServices;
+using System.DirectoryServices.ActiveDirectory;
+using System.DirectoryServices.AccountManagement;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -67,6 +69,12 @@ public class ReportingRecord
     public string HostExecuting { get; set; }
     public string FileExtension { get; set; }
     public string Target { get; set; }
+}
+
+public class Role
+{
+    public string Name { get; set; }
+    public string Group { get; set; }
 }
 
 public partial class MainWindow : Window
@@ -248,6 +256,37 @@ public partial class MainWindow : Window
         LaunchExplorer(null, null, path);
     }
 
+    public List<String> ActiveRoles = new();
+
+    public static List<String> SActiveRoles = new();
+
+    public void LoadRoles()
+    {
+        //Load role "none" to ensure we load scripts that aren't assigned to a specific role
+        var noneRole = "none";
+        ActiveRoles.Add(noneRole);
+        SActiveRoles.Add(noneRole);
+
+        //Load role info from XML here
+        XDocument roleConfig = XDocument.Load(@"XML\Roles.xml");
+        foreach (XElement item in from y in roleConfig.Descendants("Item") select y)
+        {
+            //Only load roles if user is in an AD Domain
+            if(Environment.UserDomainName != Environment.MachineName)
+            {
+                UserPrincipal user = UserPrincipal.Current;
+                using var authorizationGroups = user.GetAuthorizationGroups();
+
+                //TODO: Get current user's AD Groups and only add that role to the list if they are a memberOf
+                /*if()*/
+                var RoleName = item.Attribute("name").Value;
+                var tempRole = new Role() { Name = RoleName, Group = item.Attribute("group").Value };
+                ActiveRoles.Add(RoleName);
+                SActiveRoles.Add(RoleName);
+            }
+        }
+    }
+
     public static Page GenerateCategoryPageFromXML(string name)
     {
         Page page = new Page();
@@ -271,7 +310,8 @@ public partial class MainWindow : Window
 
         foreach (XElement item in from y in MainWindow.guiConfig.Descendants("Item") select y)
         {
-            if(item.Attribute("category").Value == name)
+            //Ensure we only load scripts that contain detected role
+            if(item.Attribute("category").Value == name && SActiveRoles.Contains(item.Attribute("role").Value))
             {
                 stackPanel.Children.Add(MainWindow.GenerateExpanderFromXML(item.Attribute("name").Value, item.Attribute("description").Value, item.Attribute("path").Value, item.Attribute("psVersion").Value, item.Attribute("icon").Value, item.Attribute("category").Value, item.Attribute("inputType").Value));
             }
@@ -612,6 +652,9 @@ public partial class MainWindow : Window
         this.InitializeComponent();
 
         TrySetSystemBackdrop();
+
+        //Load Role information to filter which scripts generate UI elements
+        LoadRoles();
 
         //Title Bar customization
         ExtendsContentIntoTitleBar = true;

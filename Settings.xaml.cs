@@ -30,6 +30,10 @@ namespace ITATKWinUI
         public Settings()
         {
             this.InitializeComponent();
+
+            //Add any roles to Active Roles tab
+            LoadRoleUITextbox();
+
             //Load changelog from XML
             XDocument changelogDetail = XDocument.Load(@"Changelog.xml");
             void AppendChangeLogItem(XElement changelog)
@@ -160,6 +164,7 @@ namespace ITATKWinUI
             ReportingTab.Visibility = Visibility.Collapsed;
             KeybindsTab.Visibility = Visibility.Collapsed;
             HelpTab.Visibility = Visibility.Collapsed;
+            ActiveRolesTab.Visibility = Visibility.Collapsed;
             Changelog.Visibility = Visibility.Collapsed;
 
             switch (settingTab)
@@ -197,12 +202,30 @@ namespace ITATKWinUI
                     HelpTab.Visibility = Visibility.Visible;
                     break;
 
+                case "Active Roles":
+                    ActiveRolesTab.Visibility = Visibility.Visible;
+                    break;
+
                 case "Changelog":
                     Changelog.Visibility = Visibility.Visible;
                     break;
 
                 default:
                     break;
+            }
+        }
+
+        private void LoadRoleUITextbox()
+        {
+            for (var i = 0; i < MainWindow.SActiveRoles.Count; i++)
+            {
+                if (MainWindow.SActiveRoles.ElementAt(i).ToString() != "none")
+                {
+                    TextBlock tempTextbox = new TextBlock();
+                    tempTextbox.Text = "-" + MainWindow.SActiveRoles.ElementAt(i).ToString();
+
+                    ActiveRolesStackPanel.Children.Add(tempTextbox);
+                }
             }
         }
 

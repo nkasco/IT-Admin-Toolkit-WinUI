@@ -77,7 +77,7 @@ public sealed partial class Dashboard : Page
         guiConfig = XDocument.Load(@"XML\Scripts.xml");
         foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
         {
-            if (item.Attribute("featured").Value == "true" && CurrentCount < MaxCount)
+            if (item.Attribute("featured").Value == "true" && CurrentCount < MaxCount && MainWindow.SActiveRoles.Contains(item.Attribute("role").Value))
             {
                 CurrentCount++;
                 var picAssetName = "";
@@ -110,25 +110,28 @@ public sealed partial class Dashboard : Page
         guiConfig = XDocument.Load(@"XML\Scripts.xml");
         foreach (XElement item in from y in guiConfig.Descendants("Item") select y)
         {
-            var PSVersion = "";
-            if (item.Attribute("psVersion").Value == "PS7")
+            if (MainWindow.SActiveRoles.Contains(item.Attribute("role").Value))
             {
-                PSVersion = "Assets/Powershell7.ico";
-            }
-            else if (item.Attribute("psVersion").Value == "PS5")
-            {
-                PSVersion = "Assets/Powershell5.png";
-            }
+                var PSVersion = "";
+                if (item.Attribute("psVersion").Value == "PS7")
+                {
+                    PSVersion = "Assets/Powershell7.ico";
+                }
+                else if (item.Attribute("psVersion").Value == "PS5")
+                {
+                    PSVersion = "Assets/Powershell5.png";
+                }
 
-            Card c = new Card()
-            {
-                Title = item.Attribute("name").Value,
-                SubTitle= item.Attribute("description").Value,
-                dateAdded = DateTime.Parse(item.Attribute("dateAdded").Value),
-                psVersion = PSVersion
-            };
+                Card c = new Card()
+                {
+                    Title = item.Attribute("name").Value,
+                    SubTitle = item.Attribute("description").Value,
+                    dateAdded = DateTime.Parse(item.Attribute("dateAdded").Value),
+                    psVersion = PSVersion
+                };
 
-            CardList.Add(c);
+                CardList.Add(c);
+            }
         }
 
         //Sort the list descending by dateAdded and get the maximum amount allowed

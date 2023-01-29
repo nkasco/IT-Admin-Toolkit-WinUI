@@ -81,6 +81,9 @@
     <None Update="Changelog.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="XML\Roles.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Update="Dashboard.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
