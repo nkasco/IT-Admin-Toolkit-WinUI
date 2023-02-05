@@ -14,21 +14,23 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="AppTitleBar">
+        <Grid x:Name="AppTitleBar" Margin="15,10">
+            <StackPanel Orientation="Horizontal">
             <Image Source="Assets/PowerShell5.png"
-                   HorizontalAlignment="Left" 
-                   Width="16" Height="16" 
-                   Margin="8,0"/>
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Width="16" Height="16" />
             <TextBlock x:Name="AppTitleTextBlock" Text="IT Admin Toolkit"
                        TextWrapping="NoWrap"
-                       VerticalAlignment="Center"
-                       Margin="28,0,0,0"/>
+                       VerticalAlignment="Top"
+                       Margin="13,0,0,0" Padding="0,2,0,0"/>
             <AutoSuggestBox QueryIcon="Find"
                     PlaceholderText="Search"
                     IsTabStop="False"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="400" Height="32" Visibility="Collapsed"/>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1">
