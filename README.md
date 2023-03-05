@@ -2,6 +2,11 @@
 ## A customizable and expandable destination for centralizing day-to-day job functions.
 **Created by: [Nathan Kasco](https://nkasco.com)**
 
+[![GitHub all releases](https://img.shields.io/github/downloads/nkasco/IT-Admin-Toolkit-WinUI/total?style=for-the-badge)](https://github.com/nkasco/IT-Admin-Toolkit-WinUI/releases/latest/)
+[![Issues Badge](https://img.shields.io/github/issues/nkasco/IT-Admin-Toolkit-WinUI?style=for-the-badge)](https://github.com/nkasco/IT-Admin-Toolkit-WinUI/issues)
+[![Closed Issues Badge](https://img.shields.io/github/issues-closed/nkasco/IT-Admin-Toolkit-WinUI?color=%238256d0&style=for-the-badge)](https://github.com/nkasco/IT-Admin-Toolkit-WinUI/issues?q=is%3Aissue+is%3Aclosed)
+![GitHub last commit](https://img.shields.io/github/last-commit/nkasco/IT-Admin-Toolkit-WinUI?style=for-the-badge)
+
 ![Sample Pic](Assets/ITATKWinUIPromoLightSmall.png)
 ![Sample Pic](Assets/ITATKWinUIPromoDarkSmall.png)
 
