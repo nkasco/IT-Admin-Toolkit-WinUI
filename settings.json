@@ -1,0 +1,12 @@
+{
+  "Settings": [
+    { "Name": "SettingStartupBehavior", "Setting": "false" },
+    { "Name": "SettingAutomaticUpdates", "Setting": "false" },
+    { "Name": "SettingShowExplorer", "Setting": "true" },
+    { "Name": "SettingTheme", "Setting": "System Theme" },
+    { "Name": "SettingApplicationTitle", "Setting": "IT Admin Toolkit" },
+    { "Name": "SettingApplicationSubTitle", "Setting": "A customizable and expandable destination for centralizing day-to-day job functions" },
+    { "Name": "SettingApplicationIconImage", "Setting": "ms-appx:///Assets/Powershell7.ico" },
+    { "Name": "SettingReportingLogLocation", "Setting": "@AppPath/Usage.csv" }
+  ]
+}

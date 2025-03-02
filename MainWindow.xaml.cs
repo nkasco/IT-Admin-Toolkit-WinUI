@@ -32,6 +32,7 @@ using System.Globalization;
 using Microsoft.UI.Composition.SystemBackdrops;
 using WinRT;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -607,6 +608,30 @@ public partial class MainWindow : Window
         }
     }
 
+    // Define helper classes for deserialization
+    public class SettingsItem { public string Name { get; set; } public string Setting { get; set; } }
+    public class SettingsRoot { public List<SettingsItem> Settings { get; set; } }
+
+    public class CategoryItem { public string category { get; set; } public string icon { get; set; } public string foreground { get; set; } }
+    public class CategoryRoot { public List<CategoryItem> Gui { get; set; } }
+
+    public class ScriptItem {
+        public string name { get; set; }
+        public string description { get; set; }
+        public string path { get; set; }
+        public string psVersion { get; set; }
+        public string icon { get; set; }
+        public string category { get; set; }
+        public string inputType { get; set; }
+        public string dateAdded { get; set; }
+        public bool featured { get; set; }
+        public string pictureAssetName { get; set; }
+    }
+    public class ScriptRoot { public List<ScriptItem> Gui { get; set; } }
+
+    public class ChangelogItem { public string version { get; set; } public string detail { get; set; } }
+    public class ChangelogRoot { public List<ChangelogItem> Changelog { get; set; } }
+
     public MainWindow()
     {
         this.InitializeComponent();
@@ -617,31 +642,27 @@ public partial class MainWindow : Window
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
 
-        //Set the Navigation Properties
-        XDocument settingsXML = XDocument.Load(@"Settings.xml");
-        foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
+        // Load settings from json instead of XML
+        string settingsJson = File.ReadAllText("settings.json");
+        var settingsRoot = JsonSerializer.Deserialize<SettingsRoot>(settingsJson);
+        foreach (var item in settingsRoot.Settings)
         {
-            if (item.Attribute("Name").Value == "SettingApplicationTitle")
+            if (item.Name == "SettingApplicationTitle")
             {
-                var AppTitle = item.Attribute("Setting").Value.ToString();
-                AppTitleTextBlock.Text = AppTitle;
-                MainTitle = AppTitle;
+                AppTitleTextBlock.Text = item.Setting;
+                MainTitle = item.Setting;
             }
-
-            if(item.Attribute("Name").Value == "SettingApplicationSubTitle")
+            else if(item.Name == "SettingApplicationSubTitle")
             {
-                MainSubTitle = item.Attribute("Setting").Value.ToString();
+                MainSubTitle = item.Setting;
             }
-
-            if (item.Attribute("Name").Value == "SettingShowExplorer")
+            else if(item.Name == "SettingShowExplorer")
             {
-                SettingExplorer = item.Attribute("Setting").Value.ToString();
+                SettingExplorer = item.Setting;
             }
-
-            if (item.Attribute("Name").Value == "SettingReportingLogLocation")
+            else if(item.Name == "SettingReportingLogLocation")
             {
-                SettingReportingLogLocation = item.Attribute("Setting").Value.ToString();
-
+                SettingReportingLogLocation = item.Setting;
                 if (SettingReportingLogLocation.Contains("@AppPath"))
                 {
                     SettingReportingLogLocation = SettingReportingLogLocation.Replace("@AppPath", Environment.CurrentDirectory);
@@ -649,18 +670,24 @@ public partial class MainWindow : Window
             }
         }
 
-        //Load categories into the UI
-        XDocument categoryConfig = XDocument.Load(@"XML\Categories.xml");
-        guiConfig = XDocument.Load(@"XML\Scripts.xml");
-        foreach (XElement item in from y in categoryConfig.Descendants("Item") select y)
+        // Load categories into the UI
+        string categoriesJson = File.ReadAllText(@"JSON/Categories.json");
+        var categoriesRoot = JsonSerializer.Deserialize<CategoryRoot>(categoriesJson);
+        foreach (var cat in categoriesRoot.Gui)
         {
-            Pages.Add(GenerateCategoryPageFromXML(item.Attribute("category").Value)); //Add the page to a collection for later use
-            NavigationViewItem currentNavItem = GenerateCategoryNavigationViewItemFromXML(item.Attribute("category").Value, item.Attribute("icon").Value, item.Attribute("foreground").Value);
+            Pages.Add(GenerateCategoryPageFromJSON(cat)); // New method to generate page from JSON
+            NavigationViewItem currentNavItem = GenerateCategoryNavigationViewItemFromXML(cat.category, cat.icon, cat.foreground);
             NavigationViews.Add(currentNavItem);
             MainNav.MenuItems.Add(currentNavItem);
         }
 
-        //Select the first navigation item
+        // Load scripts from JSON
+        string scriptsJson = File.ReadAllText(@"JSON/Scripts.json");
+        var scriptsRoot = JsonSerializer.Deserialize<ScriptRoot>(scriptsJson);
+        // Store scripts in a global or static variable if needed
+        guiScripts = scriptsRoot; // Change type of guiConfig accordingly
+
+        // Select the first navigation item
         //TODO: Should this be a setting?
         MainNav.SelectedItem = MainNav.MenuItems[0]; //Index 0 is dashboard
 
@@ -671,12 +698,13 @@ public partial class MainWindow : Window
     private async void CheckForUpdates()
     {
         //Check for updates if enabled
-        XDocument settingsXML = XDocument.Load(@"Settings.xml");
-        foreach (XElement item in from y in settingsXML.Descendants("Item") select y)
+        string settingsJson = File.ReadAllText("settings.json");
+        var settingsRoot = JsonSerializer.Deserialize<SettingsRoot>(settingsJson);
+        foreach (var item in settingsRoot.Settings)
         {
-            if (item.Attribute("Name").Value == "SettingAutomaticUpdates")
+            if (item.Name == "SettingAutomaticUpdates")
             {
-                if (item.Attribute("Setting").Value == "true" || item.Attribute("Setting").Value == "True")
+                if (item.Setting == "true" || item.Setting == "True")
                 {
                     var updateRequired = false;
                     LoadingText.Text = "Checking for updates...";
@@ -709,11 +737,45 @@ public partial class MainWindow : Window
         MainNav.Visibility = Visibility.Visible;
     }
 
+    // New helper to generate page using a CategoryItem deserialized from JSON
+    public Page GenerateCategoryPageFromJSON(CategoryItem cat)
+    {
+        Page page = new Page();
+        page.Name = cat.category;
+
+        // ...existing code to build page UI...
+        StackPanel stackPanel = new StackPanel { Width = double.NaN, Name = cat.category };
+        TextBlock txtBlock = new TextBlock { Text = cat.category, Padding = new Thickness(5), FontSize = 24, Margin = new Thickness(5) };
+        stackPanel.Children.Add(txtBlock);
+
+        // Assuming guiScripts is converted to a suitable in-memory object
+        if (guiScripts != null)
+        {
+            foreach (var script in guiScripts.Gui.Where(s => s.category == cat.category))
+            {
+                // Use your existing GenerateExpanderFromXML method (or create a new one for JSON)
+                stackPanel.Children.Add(GenerateExpanderFromJSON(script));
+            }
+        }
+        page.Content = stackPanel;
+        return page;
+    }
+
+    // New helper to generate an Expander from a ScriptItem
+    public Expander GenerateExpanderFromJSON(ScriptItem script)
+    {
+        // Reuse similar structure as GenerateExpanderFromXML
+        // ...existing code pattern with script.xxx in place of XML attribute values...
+        Expander exp = GenerateExpanderFromXML(script.name, script.description, script.path, script.psVersion, script.icon, script.category, script.inputType);
+        return exp;
+    }
+
     private string CurrentVersion()
     {
-        XDocument changelogDetail = XDocument.Load(@"Changelog.xml");
-        var version = changelogDetail.Descendants("Item").Last().Attribute("version").Value;
-        return version;
+        string changelogJson = File.ReadAllText("JSON/Changelog.json");
+        var changelogRoot = JsonSerializer.Deserialize<ChangelogRoot>(changelogJson);
+        // Return the version of the last changelog item
+        return changelogRoot.Changelog.Last().version;
     }
 
     private string LoadingPhrase()

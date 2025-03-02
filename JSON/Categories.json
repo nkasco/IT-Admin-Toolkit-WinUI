@@ -1,0 +1,14 @@
+{
+  "Gui": [
+    { "category": "General", "icon": "PreviewLink", "foreground": "Default" },
+    { "category": "User Management", "icon": "Contact", "foreground": "Default" },
+    { "category": "Software", "icon": "OpenWith", "foreground": "Default" },
+    { "category": "Log Files", "icon": "TwoBars", "foreground": "Default" },
+    { "category": "Remediate", "icon": "Repair", "foreground": "Default" },
+    { "category": "Security", "icon": "Admin", "foreground": "Default" },
+    { "category": "Database", "icon": "Page2", "foreground": "Default" },
+    { "category": "Virtualization", "icon": "SwitchApps", "foreground": "Default" },
+    { "category": "Azure", "icon": "Globe", "foreground": "Default" },
+    { "category": "Active Directory", "icon": "Admin", "foreground": "Default" }
+  ]
+}
