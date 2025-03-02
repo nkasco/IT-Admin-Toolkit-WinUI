@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Define the runtime version here so it can be easily changed -->
+    <WindowsAppSDKVersion>1.3.230117001</WindowsAppSDKVersion>
+  </PropertyGroup>
+</Project>
